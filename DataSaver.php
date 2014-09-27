@@ -60,7 +60,7 @@
 			foreach($comments as $c){
 				if(isset($c['message'])){
 					$keysAndId['comment_id'] = $c['id'];
-					$keysAndId['keywords'] = this->ner->parse($c['message']);
+					$keysAndId['keywords'] = $this->ner->parse($c['message']);
 					$this->keywords[] = $keysAndId;
 
 					$this->saveComment($c, $postId);
