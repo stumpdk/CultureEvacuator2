@@ -2,10 +2,10 @@
 	/*
 	*	Wrappin' it all up
 	*/
-	include_once('./JSONIterator');
 	include_once('./Config.php');
 	include_once('./DataSaver.php');
 	include_once('./Database.php');
+	include_once('./JSONIterator');
 
 	//What to do here?
 ?>
