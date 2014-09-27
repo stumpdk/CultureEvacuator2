@@ -123,18 +123,29 @@
                     $joins = '`ce_comments`';
                     break;
 
-                case 'likes':
+                case 'posts':
 
                     $conditions = array();
 
-                    $conditions[] = new FieldCondition('post_id', 'post_id', $this->getParameter('post_id', 'int'), '=', true);
-                    $conditions[] = new FieldCondition('fb_id', 'facebook_id');
+                    $conditions[] = new FieldCondition('id', 'id', $this->getParameter('id', 'int'), '=', true);
+                    $conditions[] = new FieldCondition('picture', 'picture');
+                    $conditions[] = new FieldCondition('link', 'link');
                     $conditions[] = new FieldCondition('created_time', 'created_time');
-                    $conditions[] = new FieldCondition('user_id', 'user_id');
-                    $conditions[] = new FieldCondition('user_name', 'user_name');
+                    $conditions[] = new FieldCondition('message', 'message');
 
                     //$joins = 'av_stam_eksemplar LEFT JOIN av_stam on av_stam_eksemplar.av_stam_id = av_stam.id LEFT JOIN metadata_version LEFT JOIN av_stam.a_id = metadata_version.id';
-                    $joins = '`ce_comments`';
+                    $joins = '`ce_posts`';
+                    break;
+
+                case 'comment_keywords':
+
+                    $conditions = array();
+
+                    $conditions[] = new FieldCondition('comments.id', 'comment_id', $this->getParameter('id', 'int'), '=', true);
+                    $conditions[] = new FieldCondition('keyword', 'keyword', $this->getParameter('keyword', 'string'), 'LIKE', true);
+
+                    //$joins = 'av_stam_eksemplar LEFT JOIN av_stam on av_stam_eksemplar.av_stam_id = av_stam.id LEFT JOIN metadata_version LEFT JOIN av_stam.a_id = metadata_version.id';
+                    $joins = '`keywords left join keywords_comments on keywords.id = keywords_comments.keyword_id LEFT JOIN comments on keywords_comments.comment_id = comments.id`';
                     break;
 
                 default:
