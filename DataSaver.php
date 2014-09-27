@@ -1,25 +1,19 @@
 <?php
 
-	include_once('./config.php');
-
-	public class DataSaver{ 
+	class DataSaver{ 
 
 		public function loadAndParse(){
-			$myfile = fopen("testdata.json", "r") or die("Unable to open file!");
-			$jsonArray = fread($myfile,filesize("testdata.json"));
+			$myfile = fopen("./testdata.json", "r") or die("Unable to open file!");
+			$jsonArray = fread($myfile,filesize("./testdata.json"));
 			fclose($myfile);
 
 			$jsonIterator = JSONIterator::getIterator($jsonArray);
 
 			//Get ready to put the data in the base!
-			foreach ($jsonIterator['data'] as $key => $val) {
-			    $this->savePosts($val);
-			    /*if(is_array($val)) {
-			        echo "$key:\n";
-			    } else {
-			        echo "$key => $val\n";
-			    }*/
-
+			foreach ($jsonIterator as $key => $val) {
+			    foreach($val as $curPost){
+                    $this->savePosts($curPost);
+                }
 			}
 		}
 
@@ -32,8 +26,11 @@
 		}
 
 		function savePost($post){
-			$sql = "INSERT INTO posts ('picture','link','created_time', 'message') 
-					VALUES ($d['message'], $d['picture'],$d['link'],$d['created_time'])";
+			$sql = 'INSERT INTO posts (\'picture\',\'link\',\'created_time\', \'message\') VALUES (' 
+                    . $d['message'] . ', ' 
+                    . $d['picture'] . ', '
+                    . $d['link'] . ', ' 
+                    . $d['created_time'] . ')';
 			$db->query($sql);
 		}
 
@@ -44,9 +41,17 @@
 		}
 
 		function saveComment($comment, $postId){
-			$sql = "INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') 
-					VALUES ($comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name'])";
-			$db->query($sql);		
+			//$sql = "INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') VALUES ($comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name'])";
+			
+          //  $db->query($sql);	
+        /* Create the prepared statement */
+        $stmt = $mysqli->prepare("INSERT INTæO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') "
+        . "VALUES (?,?,?,?,?,?,?)");
+
+            /* Bind our params */
+            $stmt->bind_param('isssds', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
+
+            $stmt->execute();
 		}
 
 		function saveLikes($likes, $postId){
@@ -56,9 +61,9 @@
 		}
 
 		function saveLike($like, $postId){
-			$sql = "INSERT INTO likes ('id', 'post_id', 'user_id') 
-					VALUES ($like['id'], $postId, $like['id'])";
-			$db->query($sql);	
+			$stmt = $mysqli->prepare("INSERT INTO likes ('fb_id', 'post_id', 'user_id') VALUES (?,?,?)");
+			$stmt->bind_param('iii', $like['id'], $postId, $like['id']);
+            $db->query($sql);	
 		}
 
 		//TODO: Count number of likes and comments pr. user
