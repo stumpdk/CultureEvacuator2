@@ -16,7 +16,7 @@
                 //}
 			}
             
-            echo '<h1>Data saved. Maybe...</h1>'
+            echo '<h1>Data saved. Maybe...</h1>';
 		}
 
 		function savePosts($data){
@@ -34,12 +34,20 @@
 		}
 
 		function savePost($d){
-			$sql = 'INSERT INTO ce_posts (\'picture\',\'link\',\'created_time\', \'message\') VALUES (' 
-                    . $d['message'] . ', ' 
-                    . $d['picture'] . ', '
-                    . $d['link'] . ', ' 
-                    . $d['created_time'] . ')';
-			Database::getInstance()->executeQuery($sql);
+	        if(isset($d['message'])){
+                $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_posts (picture,link,created_time, message) VALUES (?,?,?,?)");
+
+                if($stmt){
+                    /* Bind our params */
+
+                    $stmt->bind_param('ssss', $d['message'] , $d['picture'], $d['link'] , $d['created_time']);
+
+                    $stmt->execute();
+                }
+                else{
+                    die( 'Statement could not be prepared when saving posts: ' . Database::getInstance()->getError() ); 
+                }
+            }
 		}
 
 		function saveComments($comments, $postId){
