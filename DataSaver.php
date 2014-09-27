@@ -20,8 +20,8 @@
                     $this->savePosts($val);
                 //}
 			}
-            var_dump($this->keywords);
-            echo '<h1>Data saved. Maybe...</h1>';
+            echo json_encode($this->keywords);
+            //echo '<h1>Data saved. Maybe...</h1>';
 		}
 
 		function savePosts($data){
