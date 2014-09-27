@@ -3,7 +3,7 @@
  * The configuration class.
  * All members are statics, and is used throughout the API
  * for various settings.
- * 
+ *
  * SQL for creating the api statistics table (replace api_statistics with
  * any name and change the APIConfig::statisticsTableName correspondingly   ):
 
@@ -34,32 +34,32 @@
     class APIConfig{
         //Database informations
         public static $dbhost = 'localhost';
-        public static $dbuser = 'ksareg_dk';
-        public static $dbpass = 'mzNzZZNZ';
-        public static $dbname = 'ksareg_dk';
+        public static $dbuser = 'kbharkiv';
+        public static $dbpass = '6nXSaEJBH7';
+        public static $dbname = 'kbharkiv';
         public static $dbCharSet = 'utf8';
-        
+
         //Whether or not the statistics should be enabled
         public static $enableStatistics = false;
-        
+
         //Wheter or not debugging should be enabled
         public static $debug = false;
-        
+
         //Name for the table holding the statistics
         public static $statisticsTableName = 'api_statistics';
-        
+
         //Overall limit for queries. Overrides any user given input
         public static $generalQueryLimit = 1000;
-        
+
         //Maximum number of requests of a given type in the counter time range
         public static $maxNumberOfRequests = 1000;
-        
+
         //Default request policy. Is overridden if given by the constructor
         public static $internalRequestsOnly = false;
-        
+
         //When the number of requests is counted, this time range is used as a limit
         public static $requestCounterTimeRange = 86400;
-        
+
         //Error reporting level
         public static $errorReportLevel = 0;
     }
