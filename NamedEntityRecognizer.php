@@ -9,11 +9,12 @@ class NamedEntityRecognizer {
    *
    * @return string
    *   Returns a JSON blob with the following possible keys:
-   *   - years
-   *   - names
    *   - addresses
    *   - bylines
+   *   - institutions
+   *   - names
    *   - tags
+   *   - years
    */
   public function parse($text) {
     $stopwords = $this->get_stopwords();
