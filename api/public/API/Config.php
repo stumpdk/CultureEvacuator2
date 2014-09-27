@@ -34,9 +34,9 @@
     class APIConfig{
         //Database informations
         public static $dbhost = 'localhost';
-        public static $dbuser = 'kbharkiv';
-        public static $dbpass = '6nXSaEJBH7';
-        public static $dbname = 'kbharkiv';
+        public static $dbuser = 'root';
+        public static $dbpass = 'd3v0p5';
+        public static $dbname = 'mysql';
         public static $dbCharSet = 'utf8';
 
         //Whether or not the statistics should be enabled
@@ -61,7 +61,7 @@
         public static $requestCounterTimeRange = 86400;
 
         //Error reporting level
-        public static $errorReportLevel = 0;
+        public static $errorReportLevel = E_ALL;
     }
 
 ?>

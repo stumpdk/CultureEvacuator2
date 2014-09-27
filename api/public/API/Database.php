@@ -23,7 +23,7 @@ class Database {
             die('Connect Error (' . $this->mysqli->connect_errno . ') '
                     . $this->mysqli->connect_error);
         }
-        $this->mysqli->set_charset(Config::$dbCharSet);
+        $this->mysqli->set_charset(APIConfig::$dbCharSet);
     }
     
     /**
