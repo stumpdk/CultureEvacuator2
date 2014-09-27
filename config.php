@@ -1,9 +1,9 @@
 <?php
 	class Config{
-		public static $dbHost = 'localhost';
-		public static $dbUser = 'user';
-		public static $dbPassword = 'pass';
-		public static $dbName = 'dbName';
-		public static $dbCharset = 'utf8';
+		public static $dbhost = 'localhost';
+		public static $dbuser = 'user';
+		public static $dbpass = 'pass';
+		public static $dbname = 'dbName';
+		public static $dbcharset = 'utf8';
 	}
 ?>
