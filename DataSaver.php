@@ -9,11 +9,11 @@
 			$jsonArray = fread($myfile,filesize("1000.1.json"));
 			fclose($myfile);
 
-			$jsonIterator = new RecursiveIteratorIterator(
-		    new RecursiveArrayIterator(json_decode($jsonArray, TRUE)),
-		    RecursiveIteratorIterator::SELF_FIRST);
+			$jsonIterator = JSONIterator::getIterator($jsonArray);
 
-			foreach ($jsonIterator as $key => $val) {
+			//Get ready to put the data in the base!
+			foreach ($jsonIterator['data'] as $key => $val) {
+			    $this->savePosts($val);
 			    /*if(is_array($val)) {
 			        echo "$key:\n";
 			    } else {
@@ -21,15 +21,13 @@
 			    }*/
 
 			}
-
-			//Get ready to put the data in the base!
-			
 		}
 
 		function savePosts($data){
 			foreach($data as $d){
-				savePost($d);
-				saveComments($d['comments']['data'], $d['id']);
+				$this->savePost($d);
+				$this->saveComments($d['comments']['data'], $d['id']);
+				$this->saveLikes($d['likes']['data'], $d['id']);
 			}
 		}
 
@@ -41,7 +39,7 @@
 
 		function saveComments($comments, $postId){
 			foreach($comments as $c){
-				saveComment($c, $postId);
+				$this->saveComment($c, $postId);
 			}
 		}
 
@@ -53,7 +51,7 @@
 
 		function saveLikes($likes, $postId){
 			foreach($likes as $l){
-				saveLike($l, $postId);
+				$this->saveLike($l, $postId);
 			}
 		}
 
