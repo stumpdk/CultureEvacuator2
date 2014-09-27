@@ -19,9 +19,11 @@
 
 		function savePosts($data){
 			foreach($data as $d){
-				$this->savePost($d);
-				$this->saveComments($d['comments']['data'], $d['id']);
-				$this->saveLikes($d['likes']['data'], $d['id']);
+                if(!isset($d['paging'])){
+                    $this->savePost($d);
+                    $this->saveComments($d['comments']['data'], $d['id']);
+                    $this->saveLikes($d['likes']['data'], $d['id']);
+                }
 			}
 		}
 
