@@ -1,5 +1,5 @@
 <?php
-	public static class JSONIterator{
+	class JSONIterator{
 		/**
 		* Returns a JSON iterator based on an array of JSON data
 		*/
@@ -7,6 +7,7 @@
 			$jsonIterator = new RecursiveIteratorIterator(
 		    new RecursiveArrayIterator(json_decode($jsonArray, TRUE)),
 		    RecursiveIteratorIterator::SELF_FIRST);
+            return $jsonIterator;
 		}
 	}
 ?>
