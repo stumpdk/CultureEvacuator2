@@ -47,14 +47,18 @@
 			//$sql = "INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') VALUES ($comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name'])";
 			
           //  $db->query($sql);	
-        /* Create the prepared statement */
-        $stmt = Database::getInstance()->prepare("INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') "
-        . "VALUES (?,?,?,?,?,?,?)");
+	        /* Create the prepared statement */
+	        $stmt = Database::getInstance()->prepareStatement("INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') "
+	        . "VALUES (?,?,?,?,?,?,?)");
+	        if($stmt){
+	            /* Bind our params */
+	            $stmt->bind_param('ssssss', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
 
-            /* Bind our params */
-            $stmt->bind_param('isssds', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
-
-            $stmt->execute();
+	            $stmt->execute();
+	        }
+	        else{
+	        	die( 'Statement could not be prepared when saving comments' );
+	        }
 		}
 
 		function saveLikes($likes, $postId){
@@ -64,9 +68,14 @@
 		}
 
 		function saveLike($like, $postId){
-			$stmt = Database::getInstance()->prepare("INSERT INTO likes ('fb_id', 'post_id', 'user_id') VALUES (?,?,?)");
-			$stmt->bind_param('iii', $like['id'], $postId, $like['id']);
-            $stmt->execute();	
+			$stmt = Database::getInstance()->prepareStatement("INSERT INTO likes ('fb_id', 'post_id', 'user_id') VALUES (?,?,?)");
+			if($stmt){
+				$stmt->bind_param('sss', $like['id'], $postId, $like['user_id']);
+	            $stmt->execute();
+            }
+            else{
+            	die( 'Statement could not be prepared when saving likes: ' . Database::getInstance()->getError() ); 
+            }	
 		}
 
 		//TODO: Count number of likes and comments pr. user

@@ -79,6 +79,10 @@ class Database {
     public function prepareStatement($statement){
         return $this->mysqli->prepare($statement);
     }
+
+    public function getError(){
+        return $this->mysqli->error;
+    }
     
     /**
      * Runs query or queries in situations where the result is not used
