@@ -8,4 +8,7 @@
 	include_once('./JSONIterator');
 
 	//What to do here?
+	//Test:
+	$saver = new DataSaver();
+	$saver->loadAndParse()
 ?>

@@ -5,8 +5,8 @@
 	public class DataSaver{ 
 
 		public function loadAndParse(){
-			$myfile = fopen("1000.1.json", "r") or die("Unable to open file!");
-			$jsonArray = fread($myfile,filesize("1000.1.json"));
+			$myfile = fopen("testdata.json", "r") or die("Unable to open file!");
+			$jsonArray = fread($myfile,filesize("testdata.json"));
 			fclose($myfile);
 
 			$jsonIterator = JSONIterator::getIterator($jsonArray);
