@@ -8,12 +8,12 @@
 			fclose($myfile);
 
 			$jsonIterator = JSONIterator::getIterator($jsonArray);
-
+            $arrayNow = json_decode($jsonArray, true);
 			//Get ready to put the data in the base!
-			foreach ($jsonIterator as $key => $val) {
-			    foreach($val as $curPost){
-                    $this->savePosts($curPost);
-                }
+			foreach ($arrayNow as $key => $val) {
+			    //foreach($val as $curPost){
+                    $this->savePosts($val);
+                //}
 			}
 		}
 
