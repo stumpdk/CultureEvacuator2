@@ -1,0 +1,47 @@
+use strict;
+use warnings;
+use LWP::UserAgent;
+use HTTP::Request::Common;
+use JSON;
+use Data::Dumper;
+
+sub georef{
+	my ($streetname, $streetno) = @_;
+	if(! defined $streetno) {
+		$streetno = 10;
+	}
+
+	my $agent = LWP::UserAgent->new;
+	my $response = $agent->post(
+	  'http://kortforsyningen.kms.dk/',
+	[
+		'servicename'  => 'RestGeokeys_v2',
+		'method' => 'adresse',
+		'vejnavn' => $streetname,
+		'husnr' => $streetno,
+		'komkode' => '0101;0147',
+		# komkde -refs DST definition: Se DST definition: http://www.dst.dk/da/Statistik/dokumentation/metode/NUTS.aspx
+		'geometry' => 'true',
+		'georef' => 'EPSG:4326',
+		# georef -refs: EPSG:25832 (default), EPSG:28533, EPSG:32632, EPSG:32633, EPSG:4326 (google maps), EPSG:3857, EPSG:3395
+		'login' => 'jvjensen',
+		'password' => ''
+	  ],
+	);
+
+	#print "\n";
+	#print $response->content;
+	#print "\n";
+
+	my 	$hash = decode_json($response->content);
+	#print  Dumper($hash);
+
+	my $east = $hash->{'features'}->[0]->{'geometry'}->{'coordinates'}[0];
+	my $west = $hash->{'features'}->[0]->{'geometry'}->{'coordinates'}[1];
+
+	return '{"east":"'.$east.'", "west":"'.$west.'"}'
+}
+
+my $result = georef('nørregade', '10');
+print $result."\n";
+
