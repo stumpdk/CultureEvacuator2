@@ -21,15 +21,16 @@
 			foreach($data as $d){
                 if(!isset($d['paging'])){
                     $this->savePost($d);
-                    if(isset($d['comments']))
+                    if(isset($d['comments'])){
                     	$this->saveComments($d['comments']['data'], $d['id']);
-                    $this->saveLikes($d['likes']['data'], $d['id']);
+                    	$this->saveLikes($d['likes']['data'], $d['id']);
+                    }
                 }
 			}
 		}
 
 		function savePost($d){
-			$sql = 'INSERT INTO posts (\'picture\',\'link\',\'created_time\', \'message\') VALUES (' 
+			$sql = 'INSERT INTO ce_posts (\'picture\',\'link\',\'created_time\', \'message\') VALUES (' 
                     . $d['message'] . ', ' 
                     . $d['picture'] . ', '
                     . $d['link'] . ', ' 
@@ -48,16 +49,16 @@
 			
           //  $db->query($sql);	
 	        /* Create the prepared statement */
-	        $stmt = Database::getInstance()->prepareStatement("INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') "
+	        $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_comments (fb_id, post_id, message,created_time, like_count, user_id, user_name) "
 	        . "VALUES (?,?,?,?,?,?,?)");
 	        if($stmt){
 	            /* Bind our params */
-	            $stmt->bind_param('ssssss', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
+	            $stmt->bind_param('sssssss', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
 
 	            $stmt->execute();
 	        }
 	        else{
-	        	die( 'Statement could not be prepared when saving comments' );
+	        	die( 'Statement could not be prepared when saving comments: ' . Database::getInstance()->getError() ); 
 	        }
 		}
 
@@ -68,7 +69,7 @@
 		}
 
 		function saveLike($like, $postId){
-			$stmt = Database::getInstance()->prepareStatement("INSERT INTO likes (fb_id, post_id, user_id) VALUES (?,?,?)");
+			$stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_likes (fb_id, post_id, user_id) VALUES (?,?,?)");
 			if($stmt){
 				$stmt->bind_param('sss', $like['id'], $postId, $like['user_id']);
 	            $stmt->execute();
