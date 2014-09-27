@@ -21,7 +21,8 @@
 			foreach($data as $d){
                 if(!isset($d['paging'])){
                     $this->savePost($d);
-                    $this->saveComments($d['comments']['data'], $d['id']);
+                    if(isset($d['comments']))
+                    	$this->saveComments($d['comments']['data'], $d['id']);
                     $this->saveLikes($d['likes']['data'], $d['id']);
                 }
 			}
@@ -63,9 +64,9 @@
 		}
 
 		function saveLike($like, $postId){
-			$stmt = $mysqli->prepare("INSERT INTO likes ('fb_id', 'post_id', 'user_id') VALUES (?,?,?)");
+			$stmt = Database::getInstance()->prepare("INSERT INTO likes ('fb_id', 'post_id', 'user_id') VALUES (?,?,?)");
 			$stmt->bind_param('iii', $like['id'], $postId, $like['id']);
-            $db->query($sql);	
+            $stmt->execute();	
 		}
 
 		//TODO: Count number of likes and comments pr. user
