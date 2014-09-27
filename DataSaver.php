@@ -68,7 +68,7 @@
 		}
 
 		function saveLike($like, $postId){
-			$stmt = Database::getInstance()->prepareStatement("INSERT INTO likes ('fb_id', 'post_id', 'user_id') VALUES (?,?,?)");
+			$stmt = Database::getInstance()->prepareStatement("INSERT INTO likes (fb_id, post_id, user_id) VALUES (?,?,?)");
 			if($stmt){
 				$stmt->bind_param('sss', $like['id'], $postId, $like['user_id']);
 	            $stmt->execute();
