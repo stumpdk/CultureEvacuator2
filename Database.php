@@ -18,12 +18,12 @@ class Database {
     
     private function __construct()
     {
-        $this->mysqli = new mysqli(APIConfig::$dbhost, APIConfig::$dbuser, APIConfig::$dbpass, APIConfig::$dbname);
+        $this->mysqli = new mysqli(Config::$dbhost, Config::$dbuser, Config::$dbpass, Config::$dbname);
         if ($this->mysqli->connect_error) {
             die('Connect Error (' . $this->mysqli->connect_errno . ') '
                     . $this->mysqli->connect_error);
         }
-        $this->mysqli->set_charset(APIConfig::$dbCharSet);
+        $this->mysqli->set_charset(Config::$dbcharset);
     }
     
     /**
@@ -70,6 +70,14 @@ class Database {
     public function runQueryGetResult($query){
         $result = $this->mysqli->query($query) or die('Error: ' . $query . ' ' . $this->mysqli->error);
         return $result;
+    }
+    
+    public function executeQuery($query){
+        $this->mysqli->query($query);
+    }
+    
+    public function prepareStatement($statement){
+        return $this->mysqli->prepare($statement);
     }
     
     /**

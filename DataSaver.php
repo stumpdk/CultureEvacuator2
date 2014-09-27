@@ -25,13 +25,13 @@
 			}
 		}
 
-		function savePost($post){
+		function savePost($d){
 			$sql = 'INSERT INTO posts (\'picture\',\'link\',\'created_time\', \'message\') VALUES (' 
                     . $d['message'] . ', ' 
                     . $d['picture'] . ', '
                     . $d['link'] . ', ' 
                     . $d['created_time'] . ')';
-			$db->query($sql);
+			Database::getInstance()->executeQuery($sql);
 		}
 
 		function saveComments($comments, $postId){
@@ -45,7 +45,7 @@
 			
           //  $db->query($sql);	
         /* Create the prepared statement */
-        $stmt = $mysqli->prepare("INSERT INTæO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') "
+        $stmt = Database::getInstance()->prepare("INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') "
         . "VALUES (?,?,?,?,?,?,?)");
 
             /* Bind our params */
