@@ -18,6 +18,7 @@ class NamedEntityRecognizer {
   public function parse($text) {
     $stopwords = $this->get_stopwords();
     $initwords = $this->get_initwords();
+    $institutions = $this->get_institutions();
     $names = $this->get_names();
 
     // tokenize input and remove empty tokens
@@ -27,6 +28,7 @@ class NamedEntityRecognizer {
     $result = array(
       'addresses' => array(),
       'bylines' => array(),
+      'institutions' => array(),
       'names' => array(),
       'tags' => array(),
       'years' => array(),
@@ -70,6 +72,10 @@ class NamedEntityRecognizer {
           // the first part of the entity is a legal name
           array_push($result['names'], implode(' ', $entity));
         }
+        elseif (in_array(mb_strtolower(implode(' ', $entity), 'UTF-8'), $institutions)) {
+          // the entity matches the name of an institution
+          array_push($result['institutions'], implode(' ', $entity));
+        }
         else {
           array_push($result['tags'], implode(' ', $entity));
         }
@@ -85,6 +91,19 @@ class NamedEntityRecognizer {
     }
 
     return $result;
+  }
+
+  function get_institutions() {
+    return array(
+      'nationalmuseet',
+      'kgl bibliotek',
+      'kongelige bibliotek',
+      'statens museum for kunst',
+      'smk',
+      'den hirschsprungske samling',
+      'hirschsprungske samling',
+      'ordrupgaard',
+    );
   }
 
   function get_stopwords() {
@@ -118,7 +137,6 @@ class NamedEntityRecognizer {
       'end',
       'er',
       'et',
-      'for',
       'fra',
       'ham',
       'han',
