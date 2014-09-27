@@ -1,13 +1,18 @@
 <?php
 
 	class DataSaver{ 
+		private $ner;  
+		private $keywords;
 
 		public function loadAndParse(){
 			$myfile = fopen("./testdata.json", "r") or die("Unable to open file!");
 			$jsonArray = fread($myfile,filesize("./testdata.json"));
 			fclose($myfile);
 
-			$jsonIterator = JSONIterator::getIterator($jsonArray);
+			$this->ner = new NamedEntityRecognizer();
+			$this->keywords = array();
+
+			//$jsonIterator = JSONIterator::getIterator($jsonArray);
             $arrayNow = json_decode($jsonArray, true);
 			//Get ready to put the data in the base!
 			foreach ($arrayNow as $key => $val) {
@@ -15,7 +20,7 @@
                     $this->savePosts($val);
                 //}
 			}
-            
+            var_dump($this->keywords);
             echo '<h1>Data saved. Maybe...</h1>';
 		}
 
@@ -24,6 +29,7 @@
                 if(!isset($d['paging'])){
                     $this->savePost($d);
                     if(isset($d['comments'])){
+
                     	$this->saveComments($d['comments']['data'], $d['id']);
                     }
                     if(isset($d['likes'])){
@@ -52,7 +58,13 @@
 
 		function saveComments($comments, $postId){
 			foreach($comments as $c){
-				$this->saveComment($c, $postId);
+				if(isset($c['message'])){
+					$keysAndId['comment_id'] = $c['id'];
+					$keysAndId['keywords'] = this->ner->parse($c['message']);
+					$this->keywords[] = $keysAndId;
+
+					$this->saveComment($c, $postId);
+				}
 			}
 		}
 
