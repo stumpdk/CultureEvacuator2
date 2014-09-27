@@ -1,0 +1,44 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Starbas.net API 0.1</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Latest compiled and minified CSS, Twitter Bootstrap -->
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span9">
+                    <h2>Starbas, API v. 0.1</h2>
+                    <p>Et simpelt API til forespørgsler i Starbas.net</p>
+                    <p>Informationerne i Starbas.net er struktureret i tre hovedgrupper: Papirarkivalier, digitale arkivalier og AV-materiale. Pt. er det kun muligt at forespørge i AV-materiale.</p>
+                </div>
+                <div class="span9">
+                    <h4>AV-materiale</h4>
+                    <p>
+                        <span class="label label-success">Service</span> <strong>http://www.starbas.net/api/1?type=av</strong>
+                    </p>
+                    <p>Returnerer en liste med AV-materiale, herunder beskrivelse og arkivnavn.</p>
+                    <p>
+                        Parametre:
+                    </p>
+                    <ul>
+                        <li><strong>id:</strong> Materialets unikke id</li>
+                        <li><strong>nummer:</strong> Materialets nummer</li>
+                        <li><strong>arkiv:</strong> Navn på arkivet der ejer materialet.</li>
+                        <li><strong>fritekst:</strong> Fritekstsøgning i beskrivelse af materialet. Ved søgning på flere udtryk benyttes ";"</li>
+                        <li><strong>aar:</strong> Materialets år.</li>
+                    </ul>
+                    <span class="label label-info">Eksempel</span>
+                    <a target="_blank" href="http://www.starbas.net/api/1/?type=av&fritekst=kildevæld&id=53349">http://www.starbas.net/api/1/?type=av&fritekst=kildevæld&id=53349</a>
+                </div>
+                <div class="span9">&nbsp;</div>              
+            </div>
+        </div>
+    </body>
+</html>
