@@ -15,6 +15,8 @@
                     $this->savePosts($val);
                 //}
 			}
+            
+            echo '<h1>Data saved. Maybe...</h1>'
 		}
 
 		function savePosts($data){
@@ -54,7 +56,7 @@
 	            /* Bind our params */
 	            $stmt->bind_param('sssssss', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
 
-	           // $stmt->execute();
+	            $stmt->execute();
 	        }
 	        else{
 	        	die( 'Statement could not be prepared when saving comments: ' . Database::getInstance()->getError() ); 
@@ -71,7 +73,7 @@
 			$stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_likes (fb_id, post_id, user_id) VALUES (?,?,?)");
 			if($stmt){
 				$stmt->bind_param('sss', $like['id'], $postId, $like['user_id']);
-	           // $stmt->execute();
+	            $stmt->execute();
             }
             else{
             	die( 'Statement could not be prepared when saving likes: ' . Database::getInstance()->getError() ); 
