@@ -7,39 +7,45 @@ use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 
 
-#294028730792515
-#ea0876ce78b6f88d33d3cc6976882989
+// Gamle København 
+// Skal parametiseres vha
+$groupid = "109602915873899";
 
+// En app som Jacob Andresen har lavet og hentet id / secret til 
 FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3cc6976882989');
 
-//$access_token = 'CAACEdEose0cBAHnblj3iITmm8RepjJBuxlNEh3SW5ySteByCIkgoOisqhflGwZBGEHSWZAhgBnWUzZBjJHYeymkCrXFhXFZB9RTG4gjdqZBaITj2OFfbMiGLBAVQXS5871ZAOMYnZCe9CeNZC3GKZB0pLnZCUueNDCsoAZA1qYdVgpjzMZCld4RvA5ZAhoUqQ5TDtMQIL3IJKwNGqZCgZDZD';
-
-// If you already have a valid access token:
-// $session = new FacebookSession($access_token);
-// If you're making app-level requests:
-
-
-	$obj = harvestFirst();
+	// Lav den initielle høstning
+	$obj = harvestFirst(10, $groupid);
 	
+	// Lab array for at kunne måle størrelsen
 	$dataArr = $obj->getProperty("data")->asArray();
+	
+	// "data er ...... data :-)"
 	$data = $obj->getProperty("data");
 
+	// Skriv til skærm 
+	echo print_r($data);
+	// TODO: Kald insert_into_mysql_database()
+
 	$arrSize = sizeof( $dataArr, 1);
+
+  	// Iterer over posts, for at kunne finde kommentarer
   	for ($i = 0; $i < $arrSize; $i++){
 
+  			// Hent "paging next" URL step-by-step
 			$content = 	$data->getProperty($i);
 			$comments = $content->getProperty("comments");
-			echo print_r($comments);
+			
 			$paging = $comments->getProperty("paging");
 			$next = $paging->getProperty("next");
+			
+			// Dette kan vi bruge til at hente flere kommentarer
 			if($next){
 				
-				$moremessages = harvestOneMore( $next );	
+				$morecomments = harvestOneMore( $next );	
+				// Kald "flere kommentarer service"
 				
 			}
-
-			
-
   	 	$i++;
   	}
 
@@ -48,14 +54,20 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 
 
 
-
-function harvestFirst() {
+/**
+*	Høster fra facebook og returnerer et FB.graphObject
+*	@param $limit antallet af poster der skal hentes fra FB 
+*	@param $groupid id (ikke navn), der skal hentes et eller andet sted fra
+*
+*
+*/
+function harvestFirst( $limit , $groupid) {
 $session = FacebookSession::newAppSession();
 
 	try {
   		$session->validate();
 
-  		$request = new FacebookRequest($session, 'GET', '/109602915873899/feed');
+  		$request = new FacebookRequest($session, 'GET', '/'.$groupid.'/feed?limit='.$limit);
   		$response = $request->execute();
   		$graphObject = $response->getGraphObject();
   		return $graphObject;
@@ -63,44 +75,41 @@ $session = FacebookSession::newAppSession();
 
 	} catch (FacebookRequestException $ex) {
   		// Session not valid, Graph API returned an exception with the reason.
-  		echo "123";
   		echo $ex->getMessage();
 	} catch (\Exception $ex) {
   		// Graph API returned info, but it may mismatch the current app or have expired.
-  		echo "12345";
   		echo $ex->getMessage();
 	}
 
 }
 
 
+/**
+* Høst kommentarer
+* @param $url den url der hentes ud fra FB's paging parameter
+*
+*/
 function harvestOneMore( $url ) {
-	echo "\nONE MORE\n";
 	$session = FacebookSession::newAppSession();
+
+	// Arghhh  - der skal skærlles de første 31 tegn af 
+	// Før det bliver brugbart for FacebookRequest
+	// http://.... v2.1/ (skrælles væk)
 	$nexturl = substr($url, 31);
-	echo $nexturl;
 	try {
   		$session->validate();
 
   		$request = new FacebookRequest($session, 'GET', $nexturl);
   		$response = $request->execute();
   		$graphObject = $response->getGraphObject();
-
-  		echo "\nxxxxxx\n";
-		echo print_r( $graphObject->getProperty("data") );
-		echo "\nxxxxxx\n";
-
-
   		return $graphObject;
 
 	} catch (FacebookRequestException $ex) {
-  	// Session not valid, Graph API returned an exception with the reason.
-  	echo "123";
-  	echo $ex->getMessage();
+  		// Session not valid, Graph API returned an exception with the reason.
+  		echo $ex->getMessage();
 	} catch (\Exception $ex) {
-  	// Graph API returned info, but it may mismatch the current app or have expired.
-  	echo "12345";
-  	echo $ex->getMessage();
+  		// Graph API returned info, but it may mismatch the current app or have expired.
+  		echo $ex->getMessage();
 	}
 
 }
