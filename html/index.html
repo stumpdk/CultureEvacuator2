@@ -30,6 +30,19 @@
       .comment {
         padding: 1em;
         background-color: #f0f0f0;
+        border-radius: 12px;
+      }
+
+      .good {
+        margin-right: 25px;
+        border: 1px solid green;
+      }
+
+      .bad {
+        margin-left: 25px;
+        opacity: 0.4;
+        border: 1px solid red;
+
       }
       .description {
         margin-top: 20px;
@@ -140,16 +153,29 @@
 
             <div class="tab-content">
               <div class="tab-pane active" id="comments">
-                <p class="comment">
-                  Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />
-                  <button type="button" class="btn btn-success">&#x2713;</button>
-                  <button type="button" class="btn btn-danger">&#x2717;</button>
+                <p></p>
+                <p class="comment good">
+                  Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />  
+                  <button type="button" class="btn btn-default">==&gt;</button>
                 </p>
-                <p class="comment">
+                <p class="comment bad">
                   Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />
-                  <button type="button" class="btn btn-success">&#x2713;</button>
-                  <button type="button" class="btn btn-danger">&#x2717;</button>
+                  <button type="button" class="btn btn-default">&lt;==</button>
                 </p>
+                <p class="comment bad">
+                  Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />
+                  <button type="button" class="btn btn-default">&lt;==</button>
+                </p>
+                
+                <p class="comment good">
+                  Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />  
+                  <button type="button" class="btn btn-default">==&gt;</button>
+                </p>
+                <p class="comment bad">
+                  Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />
+                  <button type="button" class="btn btn-default">&lt;==</button>
+                </p>
+
               </div>
               <div class="tab-pane" id="images">
                 <p>
