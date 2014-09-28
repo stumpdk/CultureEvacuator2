@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 28, 2014 at 12:04 AM
+-- Generation Time: Sep 28, 2014 at 12:55 PM
 -- Server version: 5.6.17-65.0-587.wheezy
 -- PHP Version: 5.4.4-14+deb7u10
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `ce_comments` (
   `like_count` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `user_name` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds comments to posts' AUTO_INCREMENT=9627 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds comments to posts' AUTO_INCREMENT=65 ;
 
 -- --------------------------------------------------------
 
@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `ce_comments` (
 
 CREATE TABLE IF NOT EXISTS `ce_keywords` (
 `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
   `keyword` varchar(100) DEFAULT NULL,
   `total_count` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds keywords for comments.' AUTO_INCREMENT=1 ;
@@ -57,9 +58,10 @@ CREATE TABLE IF NOT EXISTS `ce_keywords` (
 
 CREATE TABLE IF NOT EXISTS `ce_keywords_comments` (
 `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
   `keyword_id` int(11) DEFAULT NULL,
   `comment_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds informations about keywords in comments.' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds informations about keywords in comments.' AUTO_INCREMENT=77 ;
 
 -- --------------------------------------------------------
 
@@ -73,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `ce_likes` (
   `user_id` int(11) DEFAULT NULL,
   `fb_id` int(11) DEFAULT NULL,
   `post_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds data about likes.' AUTO_INCREMENT=20069 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds data about likes.' AUTO_INCREMENT=69 ;
 
 -- --------------------------------------------------------
 
@@ -83,11 +85,11 @@ CREATE TABLE IF NOT EXISTS `ce_likes` (
 
 CREATE TABLE IF NOT EXISTS `ce_posts` (
 `id` int(11) NOT NULL,
-  `picture` varchar(100) DEFAULT NULL,
-  `link` varchar(100) DEFAULT NULL,
+  `picture` char(250) DEFAULT NULL,
+  `link` char(250) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   `message` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds posts from Facebook' AUTO_INCREMENT=858 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds posts from Facebook' AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -149,7 +151,7 @@ ALTER TABLE `ce_users`
 -- AUTO_INCREMENT for table `ce_comments`
 --
 ALTER TABLE `ce_comments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9627;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `ce_keywords`
 --
@@ -159,17 +161,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `ce_keywords_comments`
 --
 ALTER TABLE `ce_keywords_comments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT for table `ce_likes`
 --
 ALTER TABLE `ce_likes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20069;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT for table `ce_posts`
 --
 ALTER TABLE `ce_posts`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=858;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `ce_users`
 --

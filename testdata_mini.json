@@ -1,0 +1,725 @@
+{
+  "data": [
+    {
+      "id": "109602915873899_169788773188646",
+      "from": {
+        "id": "10204001041721659",
+        "name": "Jan Dresler"
+      },
+      "to": {
+        "data": [
+          {
+            "id": "10152819717557448",
+            "name": "Freddy Hagen"
+          },
+          {
+            "name": "Gamle K\\u00f8benhavn",
+            "id": "109602915873899"
+          }
+        ]
+      },
+      "message": "Freddy Hagen har tidligere lagt et billede op af Hovedbygningen ved den Nordiske....Udstilling i 1888 ligesom jeg har smidt et op af bygningen under konstruktionen. Her er et indefra bygningen.",
+      "message_tags": {
+        "0": [
+          {
+            "id": "10152819717557448",
+            "name": "Freddy Hagen",
+            "type": "user",
+            "offset": 0,
+            "length": 12
+          }
+        ]
+      },
+      "picture": "https:\\/\\/scontent-b.xx.fbcdn.net\\/hphotos-xfa1\\/v\\/t1.0-9\\/s130x130\\/378117_10200782374016978_1714267879_n.jpg?oh=09d089da6ea892364631a3aea7c3c44f&oe=548F7BDD",
+      "link": "https:\\/\\/www.facebook.com\\/photo.php?fbid=10200782374016978&set=gm.169788773188646&type=1&relevant_count=1",
+      "icon": "https:\\/\\/fbstatic-a.akamaihd.net\\/rsrc.php\\/v2\\/yz\\/r\\/StEh3RhPvjk.gif",
+      "actions": [
+        {
+          "name": "Like",
+          "link": "https:\\/\\/www.facebook.com\\/109602915873899\\/posts\\/169788773188646"
+        }
+      ],
+      "privacy": {
+        "value": ""
+      },
+      "type": "photo",
+      "object_id": "10200782374016978",
+      "created_time": "2013-05-29T09:49:32+0000",
+      "updated_time": "2013-05-29T09:49:32+0000",
+      "likes": {
+        "data": [
+          {
+            "id": "581636518607598",
+            "name": "Bent Holm Madsen"
+          }
+        ],
+        "paging": {
+          "cursors": {
+            "after": "NTgxNjM2NTE4NjA3NTk4",
+            "before": "NTgxNjM2NTE4NjA3NTk4"
+          }
+        }
+      }
+    },
+    {
+      "id": "109602915873899_169470446553812",
+      "from": {
+        "id": "10203843381559165",
+        "name": "Marianne Tejls Kabakci"
+      },
+      "to": {
+        "data": [
+          {
+            "name": "Gamle K\\u00f8benhavn",
+            "id": "109602915873899"
+          }
+        ]
+      },
+      "message": "Meget apropos Frihedsmuseets fremtid, er det her foto s\\u00e5 ikke fra Danmarks befrielse?",
+      "picture": "https:\\/\\/fbcdn-sphotos-g-a.akamaihd.net\\/hphotos-ak-xap1\\/v\\/t1.0-9\\/p118x90\\/179747_10200794837507469_1248012111_n.jpg?oh=aeb1d06bc5fca9d03a6fba2001bd8997&oe=54B9F11D&__gda__=1418309204_05f3acb2ad551d39a3c0c9fb2b55af35",
+      "link": "https:\\/\\/www.facebook.com\\/photo.php?fbid=10200794837507469&set=gm.169470446553812&type=1&relevant_count=1",
+      "icon": "https:\\/\\/fbstatic-a.akamaihd.net\\/rsrc.php\\/v2\\/yz\\/r\\/StEh3RhPvjk.gif",
+      "actions": [
+        {
+          "name": "Like",
+          "link": "https:\\/\\/www.facebook.com\\/109602915873899\\/posts\\/169470446553812"
+        }
+      ],
+      "privacy": {
+        "value": ""
+      },
+      "type": "photo",
+      "object_id": "10200794837507469",
+      "created_time": "2013-05-28T11:06:04+0000",
+      "updated_time": "2013-05-29T09:43:50+0000",
+      "likes": {
+        "data": [
+          {
+            "id": "10204924949109133",
+            "name": "Nicolas Michel Ren\\u00e9 Nielsen"
+          },
+          {
+            "id": "536902303093003",
+            "name": "Jeanne Rothe Vejl\\u00f8"
+          },
+          {
+            "id": "955233587824115",
+            "name": "Nina Devald Beer"
+          },
+          {
+            "id": "386411074840417",
+            "name": "Troels M. Krogh"
+          },
+          {
+            "id": "10203336467754532",
+            "name": "Jette Lillian Ernst"
+          },
+          {
+            "id": "10203620953619167",
+            "name": "Tabita Kronhoff"
+          },
+          {
+            "id": "10203930650261042",
+            "name": "Kurt-Emil Ravn"
+          },
+          {
+            "id": "10204081307024260",
+            "name": "Inger Friis Lindboe"
+          },
+          {
+            "id": "10203817960598357",
+            "name": "Caspar Krause"
+          },
+          {
+            "id": "763745343681683",
+            "name": "S\\u00f8ren Villefrance"
+          },
+          {
+            "id": "10204742202256036",
+            "name": "Kristina Leonhardt Musso"
+          },
+          {
+            "id": "501746519948086",
+            "name": "Kim Sahner"
+          },
+          {
+            "id": "695235470537791",
+            "name": "Kaare Gjerl\\u00f8v Hansen"
+          },
+          {
+            "id": "543079179155936",
+            "name": "Gitte Lindgaard"
+          },
+          {
+            "id": "774193789266333",
+            "name": "Teddy Olsen"
+          },
+          {
+            "id": "10203311200247959",
+            "name": "Bente Hassing"
+          }
+        ],
+        "paging": {
+          "cursors": {
+            "after": "MTAyMDMzMTEyMDAyNDc5NTk=",
+            "before": "MTAyMDQ5MjQ5NDkxMDkxMzM="
+          }
+        }
+      },
+      "comments": {
+        "data": [
+          {
+            "id": "169471259887064",
+            "from": {
+              "id": "10203568078743386",
+              "name": "Peter Ravn Rasmussen"
+            },
+            "message": "Jeg synes de bannere ser for velforberedte ud til at det kan v\\u00e6re Befrielsen. P\\u00e5 selve dagen var det mere spontant.",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:09:28+0000",
+            "like_count": 3,
+            "user_likes": false
+          },
+          {
+            "id": "169471383220385",
+            "from": {
+              "id": "10152341696027649",
+              "name": "Brita Lund"
+            },
+            "message": "Befrielsesdagen var vel en spontan fest, dette ligner mere noget planlagt, men ...",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:09:47+0000",
+            "like_count": 2,
+            "user_likes": false
+          },
+          {
+            "id": "169471893220334",
+            "from": {
+              "id": "10152341696027649",
+              "name": "Brita Lund"
+            },
+            "message": "Det er foran Wivex",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:11:36+0000",
+            "like_count": 0,
+            "user_likes": false
+          },
+          {
+            "id": "169471953220328",
+            "from": {
+              "id": "10203568078743386",
+              "name": "Peter Ravn Rasmussen"
+            },
+            "message": "Hold da op, der var vi da vist fuldkommen p\\u00e5 b\\u00f8lgel\\u00e6ngde, hvad Brita?",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:11:51+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169472493220274",
+            "from": {
+              "id": "10203843381559165",
+              "name": "Marianne Tejls Kabakci"
+            },
+            "message": "Da mine for\\u00e6ldre og alle i familien der var \\u00e6ldre end mig er d\\u00f8de, har jeg desv\\u00e6rre ingen jeg kan sp\\u00f8rge og min far har ikke sat \\u00e5rstal eller tekst p\\u00e5. Kunne det v\\u00e6re den 5. maj - det spontane var vist 4. maj om aftenen, ik?",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:13:24+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169472933220230",
+            "from": {
+              "id": "10203568078743386",
+              "name": "Peter Ravn Rasmussen"
+            },
+            "message": "Det er bannerne, der er problemet -- jeg tror simpelthen ikke p\\u00e5 at det kan v\\u00e6re 5. maj, heller.",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:15:00+0000",
+            "like_count": 2,
+            "user_likes": false
+          },
+          {
+            "id": "169473566553500",
+            "from": {
+              "id": "10152341696027649",
+              "name": "Brita Lund"
+            },
+            "message": "Faktisk synes jeg ikke det ser s\\u00e6rligt \"krigstidsagtigt\" ud, men som regel kommer der nogen, som lige ved hvad det er, det er noget af det sjove her :)",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:17:26+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169473979886792",
+            "from": {
+              "id": "10152197863494217",
+              "name": "Jan Olsen"
+            },
+            "message": "Har det noget med sporvognene at g\\u00f8re? Det ser ud som om folk stimler omkring dem...",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:18:11+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169474039886786",
+            "from": {
+              "id": "774193789266333",
+              "name": "Teddy Olsen"
+            },
+            "message": "> Marianne : jo 4 maj var det spontant man brandte bl. a m\\u00f8rkl\\u00e6gningsgardiner og t\\u00e6ndte lys i vinduet",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:18:25+0000",
+            "like_count": 0,
+            "user_likes": false
+          },
+          {
+            "id": "169474376553419",
+            "from": {
+              "id": "774193789266333",
+              "name": "Teddy Olsen"
+            },
+            "message": "Kan det v\\u00e6re modtagelsen af monty",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:19:45+0000",
+            "like_count": 3,
+            "user_likes": false
+          },
+          {
+            "id": "169474799886710",
+            "from": {
+              "id": "10203568078743386",
+              "name": "Peter Ravn Rasmussen"
+            },
+            "message": "Det er i hvert fald et godt bud, Teddy. Jeg vil dog sige, med Brita, at det ser ud til at v\\u00e6re lidt efter krigen, det her. M\\u00e5ske 1947-48? Hvad skete der i de \\u00e5r, udover tronskiftet?",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:21:45+0000",
+            "like_count": 2,
+            "user_likes": false
+          },
+          {
+            "id": "169475403219983",
+            "from": {
+              "id": "10152375553982020",
+              "name": "Mads Larsen"
+            },
+            "message": "Kroning eller montgomery",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:24:17+0000",
+            "like_count": 2,
+            "user_likes": false
+          },
+          {
+            "id": "169475783219945",
+            "from": {
+              "id": "10152375553982020",
+              "name": "Mads Larsen"
+            },
+            "message": "Eller muligvis premieredag p\\u00e5 \"Kampen om den r\\u00f8de ko\"",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:25:56+0000",
+            "like_count": 6,
+            "user_likes": false
+          },
+          {
+            "id": "169476416553215",
+            "from": {
+              "id": "10203843381559165",
+              "name": "Marianne Tejls Kabakci"
+            },
+            "message": "Har lige sendt billedet til Frihedsmuseet, m\\u00e5ske ved de det :-)",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:28:06+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169476419886548",
+            "from": {
+              "id": "10152076338247887",
+              "name": "P\\u00e9tur Rasmussen"
+            },
+            "message": "Jeg stemmer p\\u00e5 Monty. Der er faner oppe. Hvis man kunne se farverne, skulle der v\\u00e6re bl\\u00e5 med for Monty.",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:28:06+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169476526553204",
+            "from": {
+              "id": "10203568078743386",
+              "name": "Peter Ravn Rasmussen"
+            },
+            "message": "Har de ikke lidt... travlt... for tiden?",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:28:37+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169476619886528",
+            "from": {
+              "id": "10203843381559165",
+              "name": "Marianne Tejls Kabakci"
+            },
+            "message": "Pga af branden, f\\u00e5r jeg nok ikke svar forel\\u00f8big - har en automatisk mailsvarer lige svaret mig ;-)",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:29:02+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169479339886256",
+            "from": {
+              "id": "10203843381559165",
+              "name": "Marianne Tejls Kabakci"
+            },
+            "message": "Har nu sendt billedet til Bymuseet :-)",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:32:23+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169479393219584",
+            "from": {
+              "id": "10152341696027649",
+              "name": "Brita Lund"
+            },
+            "message": "http:\\/\\/www.befrielsen1945.dk\\/temaer\\/befrielsen\\/jubel\\/kilder\\/montytriumf35B6024011.jpg",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:32:42+0000",
+            "like_count": 2,
+            "user_likes": false
+          },
+          {
+            "id": "169479586552898",
+            "from": {
+              "id": "10152742561435419",
+              "name": "L.P. Simonsen"
+            },
+            "message": "Bronzeholdet fra OL '48?",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:33:33+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169480189886171",
+            "from": {
+              "id": "10204247638006672",
+              "name": "Troels Riis J\\u00f8rgensen"
+            },
+            "message": "- Vi er p\\u00e5 Axeltorv overfor Tivolis hovedindgang, som skjules bag de h\\u00e6ngende b\\u00e5nd til venstre. P\\u00e5 hj\\u00f8rnet ved siden af er det den gamle restaurant Wivex, og overfor den m\\u00e5 det v\\u00e6re panoptikonhj\\u00f8rnet (Arbejdernes Landsbank) som det s\\u00e5 ud f\\u00f8r. I h\\u00f8jre side af billedet ses Frihedsst\\u00f8tten\n- http:\\/\\/www.gamle-dage.dk\\/blog\\/2012\\/09\\/24\\/vesterbros-passage\\/",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:35:53+0000",
+            "like_count": 3,
+            "user_likes": false
+          },
+          {
+            "id": "169480639886126",
+            "from": {
+              "id": "10152742561435419",
+              "name": "L.P. Simonsen"
+            },
+            "message": "Ok, men h v o r f o r er vi der...;-)",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:37:12+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169481703219353",
+            "from": {
+              "id": "10152742561435419",
+              "name": "L.P. Simonsen"
+            },
+            "message": "Tak! :)",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:40:36+0000",
+            "like_count": 2,
+            "user_likes": false
+          },
+          {
+            "id": "169481746552682",
+            "from": {
+              "id": "10204247638006672",
+              "name": "Troels Riis J\\u00f8rgensen"
+            },
+            "message": "- Ja, her er det den anden side af gaden, i farver .. - http:\\/\\/www.ukendtebilleder.dk\\/foto1700\\/01790\\/01790.htm",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:40:48+0000",
+            "like_count": 6,
+            "user_likes": false
+          },
+          {
+            "id": "169482419885948",
+            "from": {
+              "id": "10204247638006672",
+              "name": "Troels Riis J\\u00f8rgensen"
+            },
+            "message": "- Og i levende billeder - http:\\/\\/www.youtube.com\\/watch?v=eYvMJ0u4WE0&feature=youtu.be",
+            "can_remove": false,
+            "created_time": "2013-05-28T11:43:32+0000",
+            "like_count": 5,
+            "user_likes": false
+          }
+        ],
+        "paging": {
+          "cursors": {
+            "after": "WTI5dGJXVnVkRjlqZFhKemIzSTZNVFk1TkRneU5ERTVPRGcxT1RRNE9qRXpOamszTkRFME1UST0=",
+            "before": "WTI5dGJXVnVkRjlqZFhKemIzSTZNVFk1TkRjeE1qVTVPRGczTURZME9qRXpOamszTXprek5qZz0="
+          },
+          "next": "https:\\/\\/graph.facebook.com\\/v2.1\\/109602915873899_169470446553812\\/comments?access_token=CAACEdEose0cBAL9ATChVWB8gY0H7ZBDa7IrCtbBNTWx5dntukDqYyB3WWZBGl5pia1uI1ZBtM4ZAj9Wi0Hva94rImBwdy9rPrSLNM4TIIK2NdErG8fGpCK5ZAiARUcXfUVhrBaZCZAw8ktZAOnreDSlJJa0S7eEvLvAa6K3aeNi4ekV19i0Vs6J9wA7hy2T8c2WADxmmjIV7hQZDZD&limit=25&after=WTI5dGJXVnVkRjlqZFhKemIzSTZNVFk1TkRneU5ERTVPRGcxT1RRNE9qRXpOamszTkRFME1UST0\\u00253D"
+        }
+      }
+    },
+    {
+      "id": "109602915873899_169785729855617",
+      "from": {
+        "id": "10202471270133931",
+        "name": "Bent Hansen"
+      },
+      "to": {
+        "data": [
+          {
+            "name": "Gamle K\\u00f8benhavn",
+            "id": "109602915873899"
+          }
+        ]
+      },
+      "caption": "Attachment UnavailableThis attachment may have been removed or the person who shared it may not have permission to share it with you.",
+      "actions": [
+        {
+          "name": "Like",
+          "link": "https:\\/\\/www.facebook.com\\/109602915873899\\/posts\\/169785729855617"
+        }
+      ],
+      "privacy": {
+        "value": ""
+      },
+      "type": "status",
+      "created_time": "2013-05-29T09:31:54+0000",
+      "updated_time": "2013-05-29T09:31:54+0000",
+      "likes": {
+        "data": [
+          {
+            "id": "10203931441872739",
+            "name": "Mogens Jensen"
+          }
+        ],
+        "paging": {
+          "cursors": {
+            "after": "MTAyMDM5MzE0NDE4NzI3Mzk=",
+            "before": "MTAyMDM5MzE0NDE4NzI3Mzk="
+          }
+        }
+      }
+    },
+    {
+      "id": "109602915873899_169772956523561",
+      "from": {
+        "id": "10152354740787546",
+        "name": "Mette S\\u00f8"
+      },
+      "to": {
+        "data": [
+          {
+            "name": "Gamle K\\u00f8benhavn",
+            "id": "109602915873899"
+          }
+        ]
+      },
+      "message": "Min n\\u00e6ste roman foreg\\u00e5r i K\\u00f8benhavn, efter\\u00e5ret 1944 og handler om tre kvindelige sabot\\u00f8rer. Jeg blogger om stort og sm\\u00e5t og interessante ting, jeg falder over i researchen. Her er indl\\u00e6g om hesteprust og fodtrin i K\\u00f8benhavns gader. \n\nhttp:\\/\\/moskvajensen.blogspot.dk\\/2013\\/04\\/stille-by.html",
+      "caption": "Attachment UnavailableThis attachment may have been removed or the person who shared it may not have permission to share it with you.",
+      "actions": [
+        {
+          "name": "Like",
+          "link": "https:\\/\\/www.facebook.com\\/109602915873899\\/posts\\/169772956523561"
+        }
+      ],
+      "privacy": {
+        "value": ""
+      },
+      "type": "status",
+      "created_time": "2013-05-29T08:26:32+0000",
+      "updated_time": "2013-05-29T09:31:18+0000",
+      "likes": {
+        "data": [
+          {
+            "id": "10202625636395087",
+            "name": "Ninse Ninno"
+          },
+          {
+            "id": "10204839607331182",
+            "name": "Rikke Sonne"
+          },
+          {
+            "id": "10202583974852981",
+            "name": "Lene Rosenkilde Morera"
+          },
+          {
+            "id": "10152522197769442",
+            "name": "Sara Hammer J\\u00f8rgensen"
+          },
+          {
+            "id": "10204779374835022",
+            "name": "Johnny Rathlau"
+          },
+          {
+            "id": "10203336467754532",
+            "name": "Jette Lillian Ernst"
+          },
+          {
+            "id": "10152770164283643",
+            "name": "Per Lau Jensen"
+          },
+          {
+            "id": "10204924949109133",
+            "name": "Nicolas Michel Ren\\u00e9 Nielsen"
+          },
+          {
+            "id": "955233587824115",
+            "name": "Nina Devald Beer"
+          },
+          {
+            "id": "10153199476902589",
+            "name": "Katinka Agger"
+          },
+          {
+            "id": "10203289512699652",
+            "name": "Jan \\u00d8stergaard"
+          },
+          {
+            "id": "707369197",
+            "name": "Jan Wildau"
+          },
+          {
+            "id": "838397776175435",
+            "name": "Steffen Mandrup-Christensen"
+          },
+          {
+            "id": "10152488543311474",
+            "name": "Katrine Granholm"
+          },
+          {
+            "id": "10204742202256036",
+            "name": "Kristina Leonhardt Musso"
+          },
+          {
+            "id": "10204462551461022",
+            "name": "Melissa Emmelie Thomsen"
+          }
+        ],
+        "paging": {
+          "cursors": {
+            "after": "MTAyMDQ0NjI1NTE0NjEwMjI=",
+            "before": "MTAyMDI2MjU2MzYzOTUwODc="
+          }
+        }
+      },
+      "comments": {
+        "data": [
+          {
+            "id": "169773989856791",
+            "from": {
+              "id": "10204742202256036",
+              "name": "Kristina Leonhardt Musso"
+            },
+            "message": "Interessant blog du har.",
+            "can_remove": false,
+            "created_time": "2013-05-29T08:31:40+0000",
+            "like_count": 2,
+            "user_likes": false
+          },
+          {
+            "id": "169774269856763",
+            "from": {
+              "id": "10203512658358039",
+              "name": "Christian Shannon"
+            },
+            "message": "kan du ikke holde dig til at poste billeder og historier p\\u00e5 siden .. jeg syntes dette er en reklame",
+            "can_remove": false,
+            "created_time": "2013-05-29T08:33:46+0000",
+            "like_count": 2,
+            "user_likes": false
+          },
+          {
+            "id": "169774289856761",
+            "from": {
+              "id": "10203512658358039",
+              "name": "Christian Shannon"
+            },
+            "message": "men hej hvad ved jeg",
+            "can_remove": false,
+            "created_time": "2013-05-29T08:33:56+0000",
+            "like_count": 0,
+            "user_likes": false
+          },
+          {
+            "id": "169780419856148",
+            "from": {
+              "id": "10203289512699652",
+              "name": "Jan \\u00d8stergaard"
+            },
+            "message": "Super med relevante links. Tak ;-)",
+            "can_remove": false,
+            "created_time": "2013-05-29T09:05:57+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169781159856074",
+            "from": {
+              "id": "10203304568989943",
+              "name": "Henrik Juul S\\u00f8rensen"
+            },
+            "message": "Sp\\u00e6ndende :-)",
+            "can_remove": false,
+            "created_time": "2013-05-29T09:09:30+0000",
+            "like_count": 1,
+            "user_likes": false
+          },
+          {
+            "id": "169782496522607",
+            "from": {
+              "id": "10153199476902589",
+              "name": "Katinka Agger"
+            },
+            "message": "Synes det er super post og ikke spor reklame. Tv\\u00e6rtimod er det fedt at kigge med i din arbejdsproces, n\\u00e5r nu det handler om det gamle K\\u00f8benhavn.",
+            "can_remove": false,
+            "created_time": "2013-05-29T09:16:14+0000",
+            "like_count": 3,
+            "user_likes": false
+          },
+          {
+            "id": "169785646522292",
+            "from": {
+              "id": "955233587824115",
+              "name": "Nina Devald Beer"
+            },
+            "message": "Hvor er det dog sp\\u00e6ndende at l\\u00e6se om. Tak for det",
+            "can_remove": false,
+            "created_time": "2013-05-29T09:31:18+0000",
+            "like_count": 1,
+            "user_likes": false
+          }
+        ],
+        "paging": {
+          "cursors": {
+            "after": "WTI5dGJXVnVkRjlqZFhKemIzSTZNVFk1TnpnMU5qUTJOVEl5TWpreU9qRXpOams0TVRrNE56Zz0=",
+            "before": "WTI5dGJXVnVkRjlqZFhKemIzSTZNVFk1Tnpjek9UZzVPRFUyTnpreE9qRXpOams0TVRZek1EQT0="
+          }
+        }
+      }
+    }
+  ],
+  "paging": {
+    "previous": "https:\\/\\/graph.facebook.com\\/v2.1\\/109602915873899\\/feed?limit=1000&__paging_token=enc_Aezb9-OAGP6iBwH6NoFwbu053XpCAAA6DLBZtqlQ02syLn-pofjMMPsrs3crJamq_VY9NZsJqvI651tjmqd-YIZYRdzWyap8jDQ6Pf0mXzrM9w&access_token=CAACEdEose0cBAL9ATChVWB8gY0H7ZBDa7IrCtbBNTWx5dntukDqYyB3WWZBGl5pia1uI1ZBtM4ZAj9Wi0Hva94rImBwdy9rPrSLNM4TIIK2NdErG8fGpCK5ZAiARUcXfUVhrBaZCZAw8ktZAOnreDSlJJa0S7eEvLvAa6K3aeNi4ekV19i0Vs6J9wA7hy2T8c2WADxmmjIV7hQZDZD&since=1369820972&__previous=1",
+    "next": "https:\\/\\/graph.facebook.com\\/v2.1\\/109602915873899\\/feed?limit=1000&access_token=CAACEdEose0cBAL9ATChVWB8gY0H7ZBDa7IrCtbBNTWx5dntukDqYyB3WWZBGl5pia1uI1ZBtM4ZAj9Wi0Hva94rImBwdy9rPrSLNM4TIIK2NdErG8fGpCK5ZAiARUcXfUVhrBaZCZAw8ktZAOnreDSlJJa0S7eEvLvAa6K3aeNi4ekV19i0Vs6J9wA7hy2T8c2WADxmmjIV7hQZDZD&until=1369575929&__paging_token=enc_AeyYQ8R9GQ25YKU5UE4OpmxmIhQ-Fihq_ZnbehJTQAm-w9BVjPhedKeTrlhM8pXxjD5T9WIdR8AQeBSth-8E7KbYjYLltj8lkEfHhPFJNzf23Q"
+  }
+}
