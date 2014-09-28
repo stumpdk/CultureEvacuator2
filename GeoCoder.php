@@ -15,7 +15,7 @@ class GeoCoder {
     preg_match('/^(.*?)\s+(\d+)/', $address, $matches);
 
     $street = $matches[1];
-    $number = $matches[2];
+    $number = isset($matches[2]) ? $matches[2] : 1;
 
     // set endpoint url
     $url = 'http://kortforsyningen.kms.dk/';
@@ -49,7 +49,7 @@ class GeoCoder {
     $result = json_decode($server_output);
     $compare = (array) $result;
 
-    if (empty($compare) or $http_status != 200) {
+    if (empty($compare) or isset($result->error)) {
       return FALSE;
     }
     else {
