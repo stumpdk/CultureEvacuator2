@@ -5,6 +5,7 @@
 	include_once('./Config.php');
 	include_once('./DataSaver.php');
 	include_once('./Database.php');
+	include_once('./GeoCoder.php');
 	include_once('./JSONIterator.php');
 	include_once('./NamedEntityRecognizer.php');
     
