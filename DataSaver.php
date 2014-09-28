@@ -115,6 +115,52 @@
             }
 		}
 
+		function saveKeywords($keywords, $postId, $commentId){
+			foreach($keywords as $keyword){
+				$id = $this->getKeywordId($keyword);
+				$this->saveCommentKeyword($keywordId, $postId, $commentId);
+			}
+		}
+
+		function getKeywordId($keyword){
+			$result = Database::getInstance()->query("select id FROM ce_keywords WHERE keyword LIKE ?");
+			
+			if($result['id'])
+				return $result['id'];
+
+			Database::getInstance()->query("INSERT INTO ce_keywords (keyword) VALUES (" . $keyword . ")");
+
+			return Database::getInstance()->getInsertId();	
+		}
+
+		function saveCommentKeyword($keywordId, $commentId, $postId){
+			$stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_keywords_comments (keyword_id, comment_id, post_id) VALUES (?,?,?)");
+			if($stmt){
+				$stmt->bind_param('iii', $keywordId, $commentId, $postId);
+	            $stmt->execute();
+            }
+            else{
+            	die( 'Statement could not be prepared when saving addresses: ' . Database::getInstance()->getError() ); 
+            }
+		}
+
+		function saveCoordinates($coordinates, $postId){
+			foreach($coordinates as $coordinate){
+				$this->saveCoordinate($coordinate, "", $postId);
+			}
+		}
+
+		function saveCoordinate($coordinate, $address, $postId){
+			$stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_coordinates (post_id, address, lng, lat) VALUES (?,?,?)");
+			if($stmt){
+				$stmt->bind_param('sss', $postId, $address, $coordinate['lng'], $coordinate['lat']);
+	            $stmt->execute();
+            }
+            else{
+            	die( 'Statement could not be prepared when saving addresses: ' . Database::getInstance()->getError() ); 
+            }
+		}
+
 		//TODO: Count number of likes and comments pr. user
 		function getUserInformations(){
 
