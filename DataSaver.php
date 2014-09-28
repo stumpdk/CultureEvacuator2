@@ -20,6 +20,7 @@
                     $this->savePosts($val);
                 //}
 			}
+
             //var_dump($this->keywords);
             $coordinatesAndPosts = array();
             $geoCoder = new GeoCoder();
@@ -32,6 +33,9 @@
                 }
             }
             echo json_encode($coordinatesAndPosts);
+
+            //echo json_encode($this->keywords);
+
             //echo '<h1>Data saved. Maybe...</h1>';
 		}
 
