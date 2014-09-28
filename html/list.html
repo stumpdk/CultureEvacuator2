@@ -24,6 +24,10 @@
         margin-top: 20px;
       }
       
+      a {
+        color: white;
+      }
+      
       footer p {
         margin-top: 2em;
         padding: 2em 0;
@@ -75,7 +79,8 @@
           <div class="panel panel-danger">
           <div class="panel-heading">Ubehandlede Poster <span class="badge">42</span></div>
             <div class="panel-body">
-              
+              <div id="fblist"></div>
+
               <!-- Single post -->
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -368,6 +373,7 @@
       </div>
     </footer>
 
+    
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -378,6 +384,10 @@
         });
 
       });
+    </script>
+    <script src="glambook.js"></script>
+    <script type="text/javascript">
+      searchFacebook("http://kbhkilder.dk/hack4dk/api/public/1/?type=posts&callback=?");
     </script>
   </body>
 </html>
