@@ -6,7 +6,7 @@
 		public static $dbname = 'mysql';
 		public static $dbcharset = 'utf8';
 
-		public static $KMSuser = '';
-		public static $KMSpass = '';
+		public static $KMSuser = 'ratatosk';
+		public static $KMSpass = '8uCWATmqgUxAgbyok3Jz';
 	}
 ?>
