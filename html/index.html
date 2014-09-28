@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
     <style type="text/css">
+      /* tool bar*/
+      .toolbar {
+        background-color
+      }
+
       /* main column */
       .main .card {
         background-color: #f0f0f0;
@@ -84,6 +89,10 @@
           </div>
         </div>
         <div class="row">
+          <div class="col-md-12 toolbar">
+          </div>
+        </div>
+        <div class="row">
           <div class="col-md-6 main">
             <div class="card">
               <p>
@@ -114,16 +123,36 @@
             </div>
           </div>
           <div class="col-md-6 tool">
-            <p class="comment">
-              Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />
-              <button type="button" class="btn btn-success">&#x2713;</button>
-              <button type="button" class="btn btn-danger">&#x2717;</button>
-            </p>
-            <p class="comment">
-              Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />
-              <button type="button" class="btn btn-success">&#x2713;</button>
-              <button type="button" class="btn btn-danger">&#x2717;</button>
-            </p>
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="active"><a href="#comments" role="tab" data-toggle="tab">Kommentarer</a></li>
+              <li><a href="#images" role="#images" data-toggle="tab">Billeder</a></li>
+              <li><a href="#map" role="#map" data-toggle="tab">Kort</a></li>
+            </ul>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="comments">
+                <p class="comment">
+                  Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />
+                  <button type="button" class="btn btn-success">&#x2713;</button>
+                  <button type="button" class="btn btn-danger">&#x2717;</button>
+                </p>
+                <p class="comment">
+                  Maecenas mattis, nisi ut luctus elementum, risus nulla pretium nibh, ac sodales enim est quis sapien. Praesent vel vestibulum libero. Pellentesque a dui neque.<br />
+                  <button type="button" class="btn btn-success">&#x2713;</button>
+                  <button type="button" class="btn btn-danger">&#x2717;</button>
+                </p>
+              </div>
+              <div class="tab-pane" id="images">
+                <p>
+                  Billed-widget
+                </p>
+              </div>
+              <div class="tab-pane" id="map">
+                <p>
+                  Kort-widget
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
