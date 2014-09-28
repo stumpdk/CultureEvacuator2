@@ -30,7 +30,7 @@
             $coordinatesAndPosts = array();
             $geoCoder = new GeoCoder();
 
-$i = 0;
+            $i = 0;
             foreach($this->keywords as $keyword){
                 if(isset($keyword['keywords']['addresses'])){
                     foreach($keyword['keywords']['addresses'] as $address){
