@@ -1,8 +1,12 @@
 <?php
 
-	class DataSaver{ 
-		private $ner;  
+	class DataSaver{
+		private $ner;
 		private $keywords;
+        private $numOfPosts = 0;
+        private $numOfComments = 0;
+        private $numOfLikes = 0;
+        private $numOfCoordinates = 0;
 
 		public function loadAndParse(){
 			$myfile = fopen("./testdata.json", "r") or die("Unable to open file!");
@@ -20,18 +24,25 @@
                     $this->savePosts($val);
                 //}
 			}
+            echo 'Posts saved: ' . $this->numOfPosts;
 
             //var_dump($this->keywords);
             $coordinatesAndPosts = array();
             $geoCoder = new GeoCoder();
-            
+
+$i = 0;
             foreach($this->keywords as $keyword){
-                if(isset($keyword['addresses'])){
-                    foreach($keyword['addresses'] as $address){                        
-                        $coordinatesAndPosts[] = array($keyword['comment_id'], $geoCoder->geocode($address));
+                if(isset($keyword['keywords']['addresses'])){
+                    foreach($keyword['keywords']['addresses'] as $address){
+                        $coordinates = $geoCoder->geocode($address);
+                        if($coordinates){
+                            $coordinatesAndPosts[] = array($keyword['comment_id'], $coordinates);
+                            $i++;
+                        }
                     }
                 }
             }
+           // echo 'Number of coordinates: ' . $i;
             echo json_encode($coordinatesAndPosts);
 
             //echo json_encode($this->keywords);
@@ -64,9 +75,10 @@
                     $stmt->bind_param('ssss', $d['message'] , $d['picture'], $d['link'] , $d['created_time']);
 
                     $stmt->execute();
+                    $this->numOfPosts++;
                 }
                 else{
-                    die( 'Statement could not be prepared when saving posts: ' . Database::getInstance()->getError() ); 
+                    die( 'Statement could not be prepared when saving posts: ' . Database::getInstance()->getError() );
                 }
             }
 		}
@@ -92,9 +104,10 @@
 	            $stmt->bind_param('sssssss', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
 
 	            $stmt->execute();
+                $this->numOfComments++;
 	        }
 	        else{
-	        	die( 'Statement could not be prepared when saving comments: ' . Database::getInstance()->getError() ); 
+	        	die( 'Statement could not be prepared when saving comments: ' . Database::getInstance()->getError() );
 	        }
 		}
 
@@ -111,7 +124,7 @@
 	            $stmt->execute();
             }
             else{
-            	die( 'Statement could not be prepared when saving likes: ' . Database::getInstance()->getError() ); 
+            	die( 'Statement could not be prepared when saving likes: ' . Database::getInstance()->getError() );
             }
 		}
 
@@ -124,13 +137,13 @@
 
 		function getKeywordId($keyword){
 			$result = Database::getInstance()->query("select id FROM ce_keywords WHERE keyword LIKE ?");
-			
+
 			if($result['id'])
 				return $result['id'];
 
 			Database::getInstance()->query("INSERT INTO ce_keywords (keyword) VALUES (" . $keyword . ")");
 
-			return Database::getInstance()->getInsertId();	
+			return Database::getInstance()->getInsertId();
 		}
 
 		function saveCommentKeyword($keywordId, $commentId, $postId){
@@ -138,9 +151,10 @@
 			if($stmt){
 				$stmt->bind_param('iii', $keywordId, $commentId, $postId);
 	            $stmt->execute();
+                $this->numOfKeywords++;
             }
             else{
-            	die( 'Statement could not be prepared when saving addresses: ' . Database::getInstance()->getError() ); 
+            	die( 'Statement could not be prepared when saving addresses: ' . Database::getInstance()->getError() );
             }
 		}
 
@@ -155,9 +169,10 @@
 			if($stmt){
 				$stmt->bind_param('sss', $postId, $address, $coordinate['lng'], $coordinate['lat']);
 	            $stmt->execute();
+                $this->numOfCoordinates++;
             }
             else{
-            	die( 'Statement could not be prepared when saving addresses: ' . Database::getInstance()->getError() ); 
+            	die( 'Statement could not be prepared when saving addresses: ' . Database::getInstance()->getError() );
             }
 		}
 
