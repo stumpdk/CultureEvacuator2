@@ -49,20 +49,25 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="./">Cultural Evacuator</a>
+            <a class="navbar-brand" href="/">Cultural Evacuator</a>
           </div>
-          <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="/foo/">Foo</a></li>
-              <li><a href="/bar/">Bar</a></li>
-              <li><a href="/baz/">Baz</a></li>
-            </ul>
-          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/list.html">Status</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="institution">Vælg institution</span> <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Nationalmuseet</a></li>
+                <li><a href="#">Det Kgl. Bibliotek</a></li>
+                <li><a href="#">Væggen</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </nav>
     </header>
 
     <section>
+      <div class="container">
       <div class="row">
 
         <!-- LEFT COLUMN START -->
@@ -348,7 +353,7 @@
         <!-- RIGHT COLUNM END -->
 
       </div>
-
+      </div>
     </section>
 
     <footer>
@@ -365,5 +370,14 @@
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+
+        $('.dropdown-menu li a').click(function(){
+          $('li.dropdown a span.institution').text($(this).text());
+        });
+
+      });
+    </script>
   </body>
 </html>
