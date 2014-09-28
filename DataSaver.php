@@ -20,8 +20,19 @@
                     $this->savePosts($val);
                 //}
 			}
-            var_dump($this->keywords);
-            echo '<h1>Data saved. Maybe...</h1>';
+            //var_dump($this->keywords);
+            $coordinatesAndPosts = array();
+            $geoCoder = new GeoCoder();
+            
+            foreach($this->keywords as $keyword){
+                if(isset($keyword['addresses'])){
+                    foreach($keyword['addresses'] as $address){                        
+                        $coordinatesAndPosts[] = array($keyword['comment_id'], $geoCoder->geocode($address));
+                    }
+                }
+            }
+            echo json_encode($coordinatesAndPosts);
+            //echo '<h1>Data saved. Maybe...</h1>';
 		}
 
 		function savePosts($data){
