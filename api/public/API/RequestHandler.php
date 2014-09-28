@@ -137,6 +137,18 @@
                     $joins = '`ce_posts`';
                     break;
 
+                case 'coordinates':
+
+                    $conditions = array();
+
+                    $conditions[] = new FieldCondition('id', 'post_id', $this->getParameter('post_id', 'int'), '=', true);
+                    $conditions[] = new FieldCondition('lng', 'lng');
+                    $conditions[] = new FieldCondition('lat', 'lat');
+
+                    //$joins = 'av_stam_eksemplar LEFT JOIN av_stam on av_stam_eksemplar.av_stam_id = av_stam.id LEFT JOIN metadata_version LEFT JOIN av_stam.a_id = metadata_version.id';
+                    $joins = '`ce_coordinates`';
+                    break;                    
+
                 case 'comment_keywords':
 
                     $conditions = array();
