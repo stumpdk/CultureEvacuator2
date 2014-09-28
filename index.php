@@ -2,7 +2,7 @@
 
 	include_once('./Bootstrapper.php');
 
-    echo 'hej';
+    //echo 'hej';
 	//Test:
 	$saver = new DataSaver();
 	$saver->loadAndParse()

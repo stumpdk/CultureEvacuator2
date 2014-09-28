@@ -1,57 +1,86 @@
 <?php
 
 	class DataSaver{ 
+		private $ner;  
+		private $keywords;
 
 		public function loadAndParse(){
 			$myfile = fopen("./testdata.json", "r") or die("Unable to open file!");
 			$jsonArray = fread($myfile,filesize("./testdata.json"));
 			fclose($myfile);
 
-			$jsonIterator = JSONIterator::getIterator($jsonArray);
+			$this->ner = new NamedEntityRecognizer();
+			$this->keywords = array();
 
+			//$jsonIterator = JSONIterator::getIterator($jsonArray);
+            $arrayNow = json_decode($jsonArray, true);
 			//Get ready to put the data in the base!
-			foreach ($jsonIterator as $key => $val) {
-			    foreach($val as $curPost){
-                    $this->savePosts($curPost);
-                }
+			foreach ($arrayNow as $key => $val) {
+			    //foreach($val as $curPost){
+                    $this->savePosts($val);
+                //}
 			}
+            echo json_encode($this->keywords);
+            //echo '<h1>Data saved. Maybe...</h1>';
 		}
 
 		function savePosts($data){
 			foreach($data as $d){
-				$this->savePost($d);
-				$this->saveComments($d['comments']['data'], $d['id']);
-				$this->saveLikes($d['likes']['data'], $d['id']);
+                if(!isset($d['paging'])){
+                    $this->savePost($d);
+                    if(isset($d['comments'])){
+
+                    	$this->saveComments($d['comments']['data'], $d['id']);
+                    }
+                    if(isset($d['likes'])){
+                    	$this->saveLikes($d['likes']['data'], $d['id']);
+                    }
+                }
 			}
 		}
 
 		function savePost($d){
-			$sql = 'INSERT INTO posts (\'picture\',\'link\',\'created_time\', \'message\') VALUES (' 
-                    . $d['message'] . ', ' 
-                    . $d['picture'] . ', '
-                    . $d['link'] . ', ' 
-                    . $d['created_time'] . ')';
-			Database::getInstance()->executeQuery($sql);
+	        if(isset($d['message'])){
+                $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_posts (picture,link,created_time, message) VALUES (?,?,?,?)");
+
+                if($stmt){
+                    /* Bind our params */
+
+                    $stmt->bind_param('ssss', $d['message'] , $d['picture'], $d['link'] , $d['created_time']);
+
+                    $stmt->execute();
+                }
+                else{
+                    die( 'Statement could not be prepared when saving posts: ' . Database::getInstance()->getError() ); 
+                }
+            }
 		}
 
 		function saveComments($comments, $postId){
 			foreach($comments as $c){
-				$this->saveComment($c, $postId);
+				if(isset($c['message'])){
+					$keysAndId['comment_id'] = $c['id'];
+					$keysAndId['keywords'] = this->ner->parse($c['message']);
+					$this->keywords[] = $keysAndId;
+
+					$this->saveComment($c, $postId);
+				}
 			}
 		}
 
 		function saveComment($comment, $postId){
-			//$sql = "INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') VALUES ($comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name'])";
-			
-          //  $db->query($sql);	
-        /* Create the prepared statement */
-        $stmt = Database::getInstance()->prepare("INSERT INTO comments ('fb_id', 'post_id', 'message','created_time', 'like_count', 'user_id', 'user_name') "
-        . "VALUES (?,?,?,?,?,?,?)");
+	        /* Create the prepared statement */
+	        $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_comments (fb_id, post_id, message,created_time, like_count, user_id, user_name) "
+	        . "VALUES (?,?,?,?,?,?,?)");
+	        if($stmt){
+	            /* Bind our params */
+	            $stmt->bind_param('sssssss', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
 
-            /* Bind our params */
-            $stmt->bind_param('isssds', $comment['id'], $postId, $comment['message'], $comment['created_time'], $comment['like_count'], $comment['from']['id'], $comment['from']['name']);
-
-            $stmt->execute();
+	            $stmt->execute();
+	        }
+	        else{
+	        	die( 'Statement could not be prepared when saving comments: ' . Database::getInstance()->getError() ); 
+	        }
 		}
 
 		function saveLikes($likes, $postId){
@@ -61,9 +90,14 @@
 		}
 
 		function saveLike($like, $postId){
-			$stmt = $mysqli->prepare("INSERT INTO likes ('fb_id', 'post_id', 'user_id') VALUES (?,?,?)");
-			$stmt->bind_param('iii', $like['id'], $postId, $like['id']);
-            $db->query($sql);	
+			$stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_likes (fb_id, post_id, user_id) VALUES (?,?,?)");
+			if($stmt){
+				$stmt->bind_param('sss', $like['id'], $postId, $like['user_id']);
+	            $stmt->execute();
+            }
+            else{
+            	die( 'Statement could not be prepared when saving likes: ' . Database::getInstance()->getError() ); 
+            }
 		}
 
 		//TODO: Count number of likes and comments pr. user
