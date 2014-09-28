@@ -34,9 +34,9 @@
     class APIConfig{
         //Database informations
         public static $dbhost = 'localhost';
-        public static $dbuser = 'root';
-        public static $dbpass = 'd3v0p5';
-        public static $dbname = 'mysql';
+        public static $dbuser = 'kbharkiv';
+        public static $dbpass = '6nXSaEJBH7';
+        public static $dbname = 'kbharkiv';
         public static $dbCharSet = 'utf8';
 
         //Whether or not the statistics should be enabled
@@ -49,7 +49,7 @@
         public static $statisticsTableName = 'api_statistics';
 
         //Overall limit for queries. Overrides any user given input
-        public static $generalQueryLimit = 1000;
+        public static $generalQueryLimit = 10000;
 
         //Maximum number of requests of a given type in the counter time range
         public static $maxNumberOfRequests = 1000;
