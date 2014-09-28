@@ -1,182 +1,189 @@
--- phpMyAdmin SQL Dump
--- version 4.2.2
--- http://www.phpmyadmin.net
+CREATE DATABASE  IF NOT EXISTS `test` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `test`;
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
--- Host: localhost
--- Generation Time: Sep 28, 2014 at 12:55 PM
--- Server version: 5.6.17-65.0-587.wheezy
--- PHP Version: 5.4.4-14+deb7u10
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: 192.168.10.125    Database: test
+-- ------------------------------------------------------
+-- Server version	5.5.38-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
---
--- Database: `kbharkiv`
---
-
--- --------------------------------------------------------
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `ce_comments`
 --
 
-CREATE TABLE IF NOT EXISTS `ce_comments` (
-`id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ce_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ce_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` varchar(45) DEFAULT NULL,
   `fb_id` int(11) DEFAULT NULL,
-  `message` varchar(45) DEFAULT NULL,
+  `message` char(250) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   `like_count` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `user_name` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds comments to posts' AUTO_INCREMENT=65 ;
+  `user_name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds comments to posts';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `ce_comments`
+--
+
+LOCK TABLES `ce_comments` WRITE;
+/*!40000 ALTER TABLE `ce_comments` DISABLE KEYS */;
+INSERT INTO `ce_comments` VALUES (1,'109602915873899_169470446553812',2147483647,'Jeg synes de bannere ser for velforberedte ud til at det kan v\\u00e6re Befrielsen. P\\u00e5 selve dagen var det mere spontant.','2013-05-28 11:09:28',3,2147483647,'Peter Ravn Rasmussen'),(2,'109602915873899_169470446553812',2147483647,'Befrielsesdagen var vel en spontan fest, dette ligner mere noget planlagt, men ...','2013-05-28 11:09:47',2,2147483647,'Brita Lund'),(3,'109602915873899_169470446553812',2147483647,'Det er foran Wivex','2013-05-28 11:11:36',0,2147483647,'Brita Lund'),(4,'109602915873899_169470446553812',2147483647,'Hold da op, der var vi da vist fuldkommen p\\u00e5 b\\u00f8lgel\\u00e6ngde, hvad Brita?','2013-05-28 11:11:51',1,2147483647,'Peter Ravn Rasmussen'),(5,'109602915873899_169470446553812',2147483647,'Da mine for\\u00e6ldre og alle i familien der var \\u00e6ldre end mig er d\\u00f8de, har jeg desv\\u00e6rre ingen jeg kan sp\\u00f8rge og min far har ikke sat \\u00e5rstal eller tekst p\\u00e5. Kunne det v\\u00e6re den 5. maj - det spontane var vist 4. maj o','2013-05-28 11:13:24',1,2147483647,'Marianne Tejls Kabakci'),(6,'109602915873899_169470446553812',2147483647,'Det er bannerne, der er problemet -- jeg tror simpelthen ikke p\\u00e5 at det kan v\\u00e6re 5. maj, heller.','2013-05-28 11:15:00',2,2147483647,'Peter Ravn Rasmussen'),(7,'109602915873899_169470446553812',2147483647,'Faktisk synes jeg ikke det ser s\\u00e6rligt \"krigstidsagtigt\" ud, men som regel kommer der nogen, som lige ved hvad det er, det er noget af det sjove her :)','2013-05-28 11:17:26',1,2147483647,'Brita Lund'),(8,'109602915873899_169470446553812',2147483647,'Har det noget med sporvognene at g\\u00f8re? Det ser ud som om folk stimler omkring dem...','2013-05-28 11:18:11',1,2147483647,'Jan Olsen'),(9,'109602915873899_169470446553812',2147483647,'> Marianne : jo 4 maj var det spontant man brandte bl. a m\\u00f8rkl\\u00e6gningsgardiner og t\\u00e6ndte lys i vinduet','2013-05-28 11:18:25',0,2147483647,'Teddy Olsen'),(10,'109602915873899_169470446553812',2147483647,'Kan det v\\u00e6re modtagelsen af monty','2013-05-28 11:19:45',3,2147483647,'Teddy Olsen'),(11,'109602915873899_169470446553812',2147483647,'Det er i hvert fald et godt bud, Teddy. Jeg vil dog sige, med Brita, at det ser ud til at v\\u00e6re lidt efter krigen, det her. M\\u00e5ske 1947-48? Hvad skete der i de \\u00e5r, udover tronskiftet?','2013-05-28 11:21:45',2,2147483647,'Peter Ravn Rasmussen'),(12,'109602915873899_169470446553812',2147483647,'Kroning eller montgomery','2013-05-28 11:24:17',2,2147483647,'Mads Larsen'),(13,'109602915873899_169470446553812',2147483647,'Eller muligvis premieredag p\\u00e5 \"Kampen om den r\\u00f8de ko\"','2013-05-28 11:25:56',6,2147483647,'Mads Larsen'),(14,'109602915873899_169470446553812',2147483647,'Har lige sendt billedet til Frihedsmuseet, m\\u00e5ske ved de det :-)','2013-05-28 11:28:06',1,2147483647,'Marianne Tejls Kabakci'),(15,'109602915873899_169470446553812',2147483647,'Jeg stemmer p\\u00e5 Monty. Der er faner oppe. Hvis man kunne se farverne, skulle der v\\u00e6re bl\\u00e5 med for Monty.','2013-05-28 11:28:06',1,2147483647,'P\\u00e9tur Rasmussen'),(16,'109602915873899_169470446553812',2147483647,'Har de ikke lidt... travlt... for tiden?','2013-05-28 11:28:37',1,2147483647,'Peter Ravn Rasmussen'),(17,'109602915873899_169470446553812',2147483647,'Pga af branden, f\\u00e5r jeg nok ikke svar forel\\u00f8big - har en automatisk mailsvarer lige svaret mig ;-)','2013-05-28 11:29:02',1,2147483647,'Marianne Tejls Kabakci'),(18,'109602915873899_169470446553812',2147483647,'Har nu sendt billedet til Bymuseet :-)','2013-05-28 11:32:23',1,2147483647,'Marianne Tejls Kabakci'),(19,'109602915873899_169470446553812',2147483647,'http:\\/\\/www.befrielsen1945.dk\\/temaer\\/befrielsen\\/jubel\\/kilder\\/montytriumf35B6024011.jpg','2013-05-28 11:32:42',2,2147483647,'Brita Lund'),(20,'109602915873899_169470446553812',2147483647,'Bronzeholdet fra OL \'48?','2013-05-28 11:33:33',1,2147483647,'L.P. Simonsen'),(21,'109602915873899_169470446553812',2147483647,'- Vi er p\\u00e5 Axeltorv overfor Tivolis hovedindgang, som skjules bag de h\\u00e6ngende b\\u00e5nd til venstre. P\\u00e5 hj\\u00f8rnet ved siden af er det den gamle restaurant Wivex, og overfor den m\\u00e5 det v\\u00e6re panoptikonhj\\u00f8rnet (Arbejdern','2013-05-28 11:35:53',3,2147483647,'Troels Riis J\\u00f8rgensen'),(22,'109602915873899_169470446553812',2147483647,'Ok, men h v o r f o r er vi der...;-)','2013-05-28 11:37:12',1,2147483647,'L.P. Simonsen'),(23,'109602915873899_169470446553812',2147483647,'Tak! :)','2013-05-28 11:40:36',2,2147483647,'L.P. Simonsen'),(24,'109602915873899_169470446553812',2147483647,'- Ja, her er det den anden side af gaden, i farver .. - http:\\/\\/www.ukendtebilleder.dk\\/foto1700\\/01790\\/01790.htm','2013-05-28 11:40:48',6,2147483647,'Troels Riis J\\u00f8rgensen'),(25,'109602915873899_169470446553812',2147483647,'- Og i levende billeder - http:\\/\\/www.youtube.com\\/watch?v=eYvMJ0u4WE0&feature=youtu.be','2013-05-28 11:43:32',5,2147483647,'Troels Riis J\\u00f8rgensen'),(26,'109602915873899_169772956523561',2147483647,'Interessant blog du har.','2013-05-29 08:31:40',2,2147483647,'Kristina Leonhardt Musso'),(27,'109602915873899_169772956523561',2147483647,'kan du ikke holde dig til at poste billeder og historier p\\u00e5 siden .. jeg syntes dette er en reklame','2013-05-29 08:33:46',2,2147483647,'Christian Shannon'),(28,'109602915873899_169772956523561',2147483647,'men hej hvad ved jeg','2013-05-29 08:33:56',0,2147483647,'Christian Shannon'),(29,'109602915873899_169772956523561',2147483647,'Super med relevante links. Tak ;-)','2013-05-29 09:05:57',1,2147483647,'Jan \\u00d8stergaard'),(30,'109602915873899_169772956523561',2147483647,'Sp\\u00e6ndende :-)','2013-05-29 09:09:30',1,2147483647,'Henrik Juul S\\u00f8rensen'),(31,'109602915873899_169772956523561',2147483647,'Synes det er super post og ikke spor reklame. Tv\\u00e6rtimod er det fedt at kigge med i din arbejdsproces, n\\u00e5r nu det handler om det gamle K\\u00f8benhavn.','2013-05-29 09:16:14',3,2147483647,'Katinka Agger'),(32,'109602915873899_169772956523561',2147483647,'Hvor er det dog sp\\u00e6ndende at l\\u00e6se om. Tak for det','2013-05-29 09:31:18',1,2147483647,'Nina Devald Beer'),(33,'109602915873899_169470446553812',2147483647,'Jeg synes de bannere ser for velforberedte ud til at det kan v\\u00e6re Befrielsen. P\\u00e5 selve dagen var det mere spontant.','2013-05-28 11:09:28',3,2147483647,'Peter Ravn Rasmussen'),(34,'109602915873899_169470446553812',2147483647,'Befrielsesdagen var vel en spontan fest, dette ligner mere noget planlagt, men ...','2013-05-28 11:09:47',2,2147483647,'Brita Lund'),(35,'109602915873899_169470446553812',2147483647,'Det er foran Wivex','2013-05-28 11:11:36',0,2147483647,'Brita Lund'),(36,'109602915873899_169470446553812',2147483647,'Hold da op, der var vi da vist fuldkommen p\\u00e5 b\\u00f8lgel\\u00e6ngde, hvad Brita?','2013-05-28 11:11:51',1,2147483647,'Peter Ravn Rasmussen'),(37,'109602915873899_169470446553812',2147483647,'Da mine for\\u00e6ldre og alle i familien der var \\u00e6ldre end mig er d\\u00f8de, har jeg desv\\u00e6rre ingen jeg kan sp\\u00f8rge og min far har ikke sat \\u00e5rstal eller tekst p\\u00e5. Kunne det v\\u00e6re den 5. maj - det spontane var vist 4. maj o','2013-05-28 11:13:24',1,2147483647,'Marianne Tejls Kabakci'),(38,'109602915873899_169470446553812',2147483647,'Det er bannerne, der er problemet -- jeg tror simpelthen ikke p\\u00e5 at det kan v\\u00e6re 5. maj, heller.','2013-05-28 11:15:00',2,2147483647,'Peter Ravn Rasmussen'),(39,'109602915873899_169470446553812',2147483647,'Faktisk synes jeg ikke det ser s\\u00e6rligt \"krigstidsagtigt\" ud, men som regel kommer der nogen, som lige ved hvad det er, det er noget af det sjove her :)','2013-05-28 11:17:26',1,2147483647,'Brita Lund'),(40,'109602915873899_169470446553812',2147483647,'Har det noget med sporvognene at g\\u00f8re? Det ser ud som om folk stimler omkring dem...','2013-05-28 11:18:11',1,2147483647,'Jan Olsen'),(41,'109602915873899_169470446553812',2147483647,'> Marianne : jo 4 maj var det spontant man brandte bl. a m\\u00f8rkl\\u00e6gningsgardiner og t\\u00e6ndte lys i vinduet','2013-05-28 11:18:25',0,2147483647,'Teddy Olsen'),(42,'109602915873899_169470446553812',2147483647,'Kan det v\\u00e6re modtagelsen af monty','2013-05-28 11:19:45',3,2147483647,'Teddy Olsen'),(43,'109602915873899_169470446553812',2147483647,'Det er i hvert fald et godt bud, Teddy. Jeg vil dog sige, med Brita, at det ser ud til at v\\u00e6re lidt efter krigen, det her. M\\u00e5ske 1947-48? Hvad skete der i de \\u00e5r, udover tronskiftet?','2013-05-28 11:21:45',2,2147483647,'Peter Ravn Rasmussen'),(44,'109602915873899_169470446553812',2147483647,'Kroning eller montgomery','2013-05-28 11:24:17',2,2147483647,'Mads Larsen'),(45,'109602915873899_169470446553812',2147483647,'Eller muligvis premieredag p\\u00e5 \"Kampen om den r\\u00f8de ko\"','2013-05-28 11:25:56',6,2147483647,'Mads Larsen'),(46,'109602915873899_169470446553812',2147483647,'Har lige sendt billedet til Frihedsmuseet, m\\u00e5ske ved de det :-)','2013-05-28 11:28:06',1,2147483647,'Marianne Tejls Kabakci'),(47,'109602915873899_169470446553812',2147483647,'Jeg stemmer p\\u00e5 Monty. Der er faner oppe. Hvis man kunne se farverne, skulle der v\\u00e6re bl\\u00e5 med for Monty.','2013-05-28 11:28:06',1,2147483647,'P\\u00e9tur Rasmussen'),(48,'109602915873899_169470446553812',2147483647,'Har de ikke lidt... travlt... for tiden?','2013-05-28 11:28:37',1,2147483647,'Peter Ravn Rasmussen'),(49,'109602915873899_169470446553812',2147483647,'Pga af branden, f\\u00e5r jeg nok ikke svar forel\\u00f8big - har en automatisk mailsvarer lige svaret mig ;-)','2013-05-28 11:29:02',1,2147483647,'Marianne Tejls Kabakci'),(50,'109602915873899_169470446553812',2147483647,'Har nu sendt billedet til Bymuseet :-)','2013-05-28 11:32:23',1,2147483647,'Marianne Tejls Kabakci'),(51,'109602915873899_169470446553812',2147483647,'http:\\/\\/www.befrielsen1945.dk\\/temaer\\/befrielsen\\/jubel\\/kilder\\/montytriumf35B6024011.jpg','2013-05-28 11:32:42',2,2147483647,'Brita Lund'),(52,'109602915873899_169470446553812',2147483647,'Bronzeholdet fra OL \'48?','2013-05-28 11:33:33',1,2147483647,'L.P. Simonsen'),(53,'109602915873899_169470446553812',2147483647,'- Vi er p\\u00e5 Axeltorv overfor Tivolis hovedindgang, som skjules bag de h\\u00e6ngende b\\u00e5nd til venstre. P\\u00e5 hj\\u00f8rnet ved siden af er det den gamle restaurant Wivex, og overfor den m\\u00e5 det v\\u00e6re panoptikonhj\\u00f8rnet (Arbejdern','2013-05-28 11:35:53',3,2147483647,'Troels Riis J\\u00f8rgensen'),(54,'109602915873899_169470446553812',2147483647,'Ok, men h v o r f o r er vi der...;-)','2013-05-28 11:37:12',1,2147483647,'L.P. Simonsen'),(55,'109602915873899_169470446553812',2147483647,'Tak! :)','2013-05-28 11:40:36',2,2147483647,'L.P. Simonsen'),(56,'109602915873899_169470446553812',2147483647,'- Ja, her er det den anden side af gaden, i farver .. - http:\\/\\/www.ukendtebilleder.dk\\/foto1700\\/01790\\/01790.htm','2013-05-28 11:40:48',6,2147483647,'Troels Riis J\\u00f8rgensen'),(57,'109602915873899_169470446553812',2147483647,'- Og i levende billeder - http:\\/\\/www.youtube.com\\/watch?v=eYvMJ0u4WE0&feature=youtu.be','2013-05-28 11:43:32',5,2147483647,'Troels Riis J\\u00f8rgensen'),(58,'109602915873899_169772956523561',2147483647,'Interessant blog du har.','2013-05-29 08:31:40',2,2147483647,'Kristina Leonhardt Musso'),(59,'109602915873899_169772956523561',2147483647,'kan du ikke holde dig til at poste billeder og historier p\\u00e5 siden .. jeg syntes dette er en reklame','2013-05-29 08:33:46',2,2147483647,'Christian Shannon'),(60,'109602915873899_169772956523561',2147483647,'men hej hvad ved jeg','2013-05-29 08:33:56',0,2147483647,'Christian Shannon'),(61,'109602915873899_169772956523561',2147483647,'Super med relevante links. Tak ;-)','2013-05-29 09:05:57',1,2147483647,'Jan \\u00d8stergaard'),(62,'109602915873899_169772956523561',2147483647,'Sp\\u00e6ndende :-)','2013-05-29 09:09:30',1,2147483647,'Henrik Juul S\\u00f8rensen'),(63,'109602915873899_169772956523561',2147483647,'Synes det er super post og ikke spor reklame. Tv\\u00e6rtimod er det fedt at kigge med i din arbejdsproces, n\\u00e5r nu det handler om det gamle K\\u00f8benhavn.','2013-05-29 09:16:14',3,2147483647,'Katinka Agger'),(64,'109602915873899_169772956523561',2147483647,'Hvor er det dog sp\\u00e6ndende at l\\u00e6se om. Tak for det','2013-05-29 09:31:18',1,2147483647,'Nina Devald Beer'),(65,'109602915873899_169470446553812',2147483647,'Jeg synes de bannere ser for velforberedte ud til at det kan v\\u00e6re Befrielsen. P\\u00e5 selve dagen var det mere spontant.','2013-05-28 11:09:28',3,2147483647,'Peter Ravn Rasmussen'),(66,'109602915873899_169470446553812',2147483647,'Befrielsesdagen var vel en spontan fest, dette ligner mere noget planlagt, men ...','2013-05-28 11:09:47',2,2147483647,'Brita Lund'),(67,'109602915873899_169470446553812',2147483647,'Det er foran Wivex','2013-05-28 11:11:36',0,2147483647,'Brita Lund'),(68,'109602915873899_169470446553812',2147483647,'Hold da op, der var vi da vist fuldkommen p\\u00e5 b\\u00f8lgel\\u00e6ngde, hvad Brita?','2013-05-28 11:11:51',1,2147483647,'Peter Ravn Rasmussen'),(69,'109602915873899_169470446553812',2147483647,'Da mine for\\u00e6ldre og alle i familien der var \\u00e6ldre end mig er d\\u00f8de, har jeg desv\\u00e6rre ingen jeg kan sp\\u00f8rge og min far har ikke sat \\u00e5rstal eller tekst p\\u00e5. Kunne det v\\u00e6re den 5. maj - det spontane var vist 4. maj o','2013-05-28 11:13:24',1,2147483647,'Marianne Tejls Kabakci'),(70,'109602915873899_169470446553812',2147483647,'Det er bannerne, der er problemet -- jeg tror simpelthen ikke p\\u00e5 at det kan v\\u00e6re 5. maj, heller.','2013-05-28 11:15:00',2,2147483647,'Peter Ravn Rasmussen'),(71,'109602915873899_169470446553812',2147483647,'Faktisk synes jeg ikke det ser s\\u00e6rligt \"krigstidsagtigt\" ud, men som regel kommer der nogen, som lige ved hvad det er, det er noget af det sjove her :)','2013-05-28 11:17:26',1,2147483647,'Brita Lund'),(72,'109602915873899_169470446553812',2147483647,'Har det noget med sporvognene at g\\u00f8re? Det ser ud som om folk stimler omkring dem...','2013-05-28 11:18:11',1,2147483647,'Jan Olsen'),(73,'109602915873899_169470446553812',2147483647,'> Marianne : jo 4 maj var det spontant man brandte bl. a m\\u00f8rkl\\u00e6gningsgardiner og t\\u00e6ndte lys i vinduet','2013-05-28 11:18:25',0,2147483647,'Teddy Olsen'),(74,'109602915873899_169470446553812',2147483647,'Kan det v\\u00e6re modtagelsen af monty','2013-05-28 11:19:45',3,2147483647,'Teddy Olsen'),(75,'109602915873899_169470446553812',2147483647,'Det er i hvert fald et godt bud, Teddy. Jeg vil dog sige, med Brita, at det ser ud til at v\\u00e6re lidt efter krigen, det her. M\\u00e5ske 1947-48? Hvad skete der i de \\u00e5r, udover tronskiftet?','2013-05-28 11:21:45',2,2147483647,'Peter Ravn Rasmussen'),(76,'109602915873899_169470446553812',2147483647,'Kroning eller montgomery','2013-05-28 11:24:17',2,2147483647,'Mads Larsen'),(77,'109602915873899_169470446553812',2147483647,'Eller muligvis premieredag p\\u00e5 \"Kampen om den r\\u00f8de ko\"','2013-05-28 11:25:56',6,2147483647,'Mads Larsen'),(78,'109602915873899_169470446553812',2147483647,'Har lige sendt billedet til Frihedsmuseet, m\\u00e5ske ved de det :-)','2013-05-28 11:28:06',1,2147483647,'Marianne Tejls Kabakci'),(79,'109602915873899_169470446553812',2147483647,'Jeg stemmer p\\u00e5 Monty. Der er faner oppe. Hvis man kunne se farverne, skulle der v\\u00e6re bl\\u00e5 med for Monty.','2013-05-28 11:28:06',1,2147483647,'P\\u00e9tur Rasmussen'),(80,'109602915873899_169470446553812',2147483647,'Har de ikke lidt... travlt... for tiden?','2013-05-28 11:28:37',1,2147483647,'Peter Ravn Rasmussen'),(81,'109602915873899_169470446553812',2147483647,'Pga af branden, f\\u00e5r jeg nok ikke svar forel\\u00f8big - har en automatisk mailsvarer lige svaret mig ;-)','2013-05-28 11:29:02',1,2147483647,'Marianne Tejls Kabakci'),(82,'109602915873899_169470446553812',2147483647,'Har nu sendt billedet til Bymuseet :-)','2013-05-28 11:32:23',1,2147483647,'Marianne Tejls Kabakci'),(83,'109602915873899_169470446553812',2147483647,'http:\\/\\/www.befrielsen1945.dk\\/temaer\\/befrielsen\\/jubel\\/kilder\\/montytriumf35B6024011.jpg','2013-05-28 11:32:42',2,2147483647,'Brita Lund'),(84,'109602915873899_169470446553812',2147483647,'Bronzeholdet fra OL \'48?','2013-05-28 11:33:33',1,2147483647,'L.P. Simonsen'),(85,'109602915873899_169470446553812',2147483647,'- Vi er p\\u00e5 Axeltorv overfor Tivolis hovedindgang, som skjules bag de h\\u00e6ngende b\\u00e5nd til venstre. P\\u00e5 hj\\u00f8rnet ved siden af er det den gamle restaurant Wivex, og overfor den m\\u00e5 det v\\u00e6re panoptikonhj\\u00f8rnet (Arbejdern','2013-05-28 11:35:53',3,2147483647,'Troels Riis J\\u00f8rgensen'),(86,'109602915873899_169470446553812',2147483647,'Ok, men h v o r f o r er vi der...;-)','2013-05-28 11:37:12',1,2147483647,'L.P. Simonsen'),(87,'109602915873899_169470446553812',2147483647,'Tak! :)','2013-05-28 11:40:36',2,2147483647,'L.P. Simonsen'),(88,'109602915873899_169470446553812',2147483647,'- Ja, her er det den anden side af gaden, i farver .. - http:\\/\\/www.ukendtebilleder.dk\\/foto1700\\/01790\\/01790.htm','2013-05-28 11:40:48',6,2147483647,'Troels Riis J\\u00f8rgensen'),(89,'109602915873899_169470446553812',2147483647,'- Og i levende billeder - http:\\/\\/www.youtube.com\\/watch?v=eYvMJ0u4WE0&feature=youtu.be','2013-05-28 11:43:32',5,2147483647,'Troels Riis J\\u00f8rgensen'),(90,'109602915873899_169772956523561',2147483647,'Interessant blog du har.','2013-05-29 08:31:40',2,2147483647,'Kristina Leonhardt Musso'),(91,'109602915873899_169772956523561',2147483647,'kan du ikke holde dig til at poste billeder og historier p\\u00e5 siden .. jeg syntes dette er en reklame','2013-05-29 08:33:46',2,2147483647,'Christian Shannon'),(92,'109602915873899_169772956523561',2147483647,'men hej hvad ved jeg','2013-05-29 08:33:56',0,2147483647,'Christian Shannon'),(93,'109602915873899_169772956523561',2147483647,'Super med relevante links. Tak ;-)','2013-05-29 09:05:57',1,2147483647,'Jan \\u00d8stergaard'),(94,'109602915873899_169772956523561',2147483647,'Sp\\u00e6ndende :-)','2013-05-29 09:09:30',1,2147483647,'Henrik Juul S\\u00f8rensen'),(95,'109602915873899_169772956523561',2147483647,'Synes det er super post og ikke spor reklame. Tv\\u00e6rtimod er det fedt at kigge med i din arbejdsproces, n\\u00e5r nu det handler om det gamle K\\u00f8benhavn.','2013-05-29 09:16:14',3,2147483647,'Katinka Agger'),(96,'109602915873899_169772956523561',2147483647,'Hvor er det dog sp\\u00e6ndende at l\\u00e6se om. Tak for det','2013-05-29 09:31:18',1,2147483647,'Nina Devald Beer');
+/*!40000 ALTER TABLE `ce_comments` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ce_keywords`
 --
 
-CREATE TABLE IF NOT EXISTS `ce_keywords` (
-`id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ce_keywords`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ce_keywords` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `keyword` varchar(100) DEFAULT NULL,
-  `total_count` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds keywords for comments.' AUTO_INCREMENT=1 ;
+  `total_count` int(11) DEFAULT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds keywords for comments.';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `ce_keywords`
+--
+
+LOCK TABLES `ce_keywords` WRITE;
+/*!40000 ALTER TABLE `ce_keywords` DISABLE KEYS */;
+INSERT INTO `ce_keywords` VALUES (1,'Befrielsen P',NULL,'tags'),(2,'Befrielsesdagen',NULL,'tags'),(3,'Wivex',NULL,'tags'),(4,'Hold',NULL,'names'),(5,'Brita',NULL,'names'),(6,'Faktisk',NULL,'tags'),(7,'Marianne',NULL,'names'),(8,'Kan',NULL,'tags'),(9,'M',NULL,'tags'),(10,'Teddy',NULL,'names'),(11,'Brita',NULL,'names'),(12,'Kroning',NULL,'tags'),(13,'Kampen',NULL,'tags'),(14,'Frihedsmuseet',NULL,'tags'),(15,'Monty',NULL,'names'),(16,'Pga',NULL,'tags'),(17,'Bymuseet',NULL,'tags'),(18,'/montytriumf35B6024011',NULL,'tags'),(19,'Bronzeholdet',NULL,'tags'),(20,'OL 48',NULL,'tags'),(21,'Axeltorv',NULL,'addresses'),(22,'Tivolis',NULL,'tags'),(23,'P',NULL,'tags'),(24,'Wivex',NULL,'tags'),(25,'Arbejdernes Landsbank',NULL,'tags'),(26,'Frihedsst',NULL,'tags'),(27,'Ok',NULL,'names'),(28,'Tak',NULL,'names'),(29,'Ja',NULL,'names'),(30,'v=eYvMJ0u4WE0&feature=youtu',NULL,'tags'),(31,'Interessant',NULL,'tags'),(32,'Super',NULL,'tags'),(33,'Tak',NULL,'names'),(34,'Sp',NULL,'tags'),(35,'Synes',NULL,'tags'),(36,'Tv',NULL,'tags'),(37,'K',NULL,'tags'),(38,'Tak for',NULL,'names'),(39,'Befrielsen P',NULL,'tags'),(40,'Befrielsesdagen',NULL,'tags'),(41,'Wivex',NULL,'tags'),(42,'Hold',NULL,'names'),(43,'Brita',NULL,'names'),(44,'Faktisk',NULL,'tags'),(45,'Marianne',NULL,'names'),(46,'Kan',NULL,'tags'),(47,'M',NULL,'tags'),(48,'Teddy',NULL,'names'),(49,'Brita',NULL,'names'),(50,'Kroning',NULL,'tags'),(51,'Kampen',NULL,'tags'),(52,'Frihedsmuseet',NULL,'tags'),(53,'Monty',NULL,'names'),(54,'Pga',NULL,'tags'),(55,'Bymuseet',NULL,'tags'),(56,'/montytriumf35B6024011',NULL,'tags'),(57,'Bronzeholdet',NULL,'tags'),(58,'OL 48',NULL,'tags'),(59,'Axeltorv',NULL,'addresses'),(60,'Befrielsen P',NULL,'tags'),(61,'Befrielsesdagen',NULL,'tags'),(62,'Wivex',NULL,'tags'),(63,'Hold',NULL,'names'),(64,'Brita',NULL,'names'),(65,'Faktisk',NULL,'tags'),(66,'Marianne',NULL,'names'),(67,'Kan',NULL,'tags'),(68,'M',NULL,'tags'),(69,'Teddy',NULL,'names'),(70,'Brita',NULL,'names'),(71,'Kroning',NULL,'tags'),(72,'Kampen',NULL,'tags'),(73,'Frihedsmuseet',NULL,'tags'),(74,'Monty',NULL,'names'),(75,'Pga',NULL,'tags'),(76,'Bymuseet',NULL,'tags'),(77,'/montytriumf35B6024011',NULL,'tags'),(78,'Bronzeholdet',NULL,'tags'),(79,'OL 48',NULL,'tags'),(80,'Axeltorv',NULL,'addresses'),(81,'Tivolis',NULL,'tags'),(82,'P',NULL,'tags'),(83,'Wivex',NULL,'tags'),(84,'Arbejdernes Landsbank',NULL,'tags'),(85,'Frihedsst',NULL,'tags'),(86,'Ok',NULL,'names'),(87,'Tak',NULL,'names'),(88,'Ja',NULL,'names'),(89,'v=eYvMJ0u4WE0&feature=youtu',NULL,'tags'),(90,'Interessant',NULL,'tags'),(91,'Super',NULL,'tags'),(92,'Tak',NULL,'names'),(93,'Sp',NULL,'tags'),(94,'Synes',NULL,'tags'),(95,'Tv',NULL,'tags'),(96,'K',NULL,'tags'),(97,'Tak for',NULL,'names');
+/*!40000 ALTER TABLE `ce_keywords` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ce_keywords_comments`
 --
 
-CREATE TABLE IF NOT EXISTS `ce_keywords_comments` (
-`id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ce_keywords_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ce_keywords_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` char(100) NOT NULL,
   `keyword_id` int(11) DEFAULT NULL,
-  `comment_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds informations about keywords in comments.' AUTO_INCREMENT=77 ;
+  `comment_id` char(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds informations about keywords in comments.';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `ce_keywords_comments`
+--
+
+LOCK TABLES `ce_keywords_comments` WRITE;
+/*!40000 ALTER TABLE `ce_keywords_comments` DISABLE KEYS */;
+INSERT INTO `ce_keywords_comments` VALUES (1,'2147483647',1,'2147483647'),(2,'2147483647',2,'2147483647'),(3,'2147483647',3,'2147483647'),(4,'2147483647',4,'2147483647'),(5,'2147483647',5,'2147483647'),(6,'2147483647',6,'2147483647'),(7,'2147483647',7,'2147483647'),(8,'2147483647',8,'2147483647'),(9,'2147483647',9,'2147483647'),(10,'2147483647',10,'2147483647'),(11,'2147483647',11,'2147483647'),(12,'2147483647',12,'2147483647'),(13,'2147483647',13,'2147483647'),(14,'2147483647',14,'2147483647'),(15,'2147483647',15,'2147483647'),(16,'2147483647',16,'2147483647'),(17,'2147483647',17,'2147483647'),(18,'2147483647',18,'2147483647'),(19,'2147483647',19,'2147483647'),(20,'2147483647',20,'2147483647'),(21,'2147483647',21,'2147483647'),(22,'2147483647',22,'2147483647'),(23,'2147483647',23,'2147483647'),(24,'2147483647',24,'2147483647'),(25,'2147483647',25,'2147483647'),(26,'2147483647',26,'2147483647'),(27,'2147483647',27,'2147483647'),(28,'2147483647',28,'2147483647'),(29,'2147483647',29,'2147483647'),(30,'2147483647',30,'2147483647'),(31,'2147483647',31,'2147483647'),(32,'2147483647',32,'2147483647'),(33,'2147483647',33,'2147483647'),(34,'2147483647',34,'2147483647'),(35,'2147483647',35,'2147483647'),(36,'2147483647',36,'2147483647'),(37,'2147483647',37,'2147483647'),(38,'2147483647',38,'2147483647'),(39,'2147483647',39,'2147483647'),(40,'2147483647',40,'2147483647'),(41,'2147483647',41,'2147483647'),(42,'2147483647',42,'2147483647'),(43,'2147483647',43,'2147483647'),(44,'2147483647',44,'2147483647'),(45,'2147483647',45,'2147483647'),(46,'2147483647',46,'2147483647'),(47,'2147483647',47,'2147483647'),(48,'2147483647',48,'2147483647'),(49,'2147483647',49,'2147483647'),(50,'2147483647',50,'2147483647'),(51,'2147483647',51,'2147483647'),(52,'2147483647',52,'2147483647'),(53,'2147483647',53,'2147483647'),(54,'2147483647',54,'2147483647'),(55,'2147483647',55,'2147483647'),(56,'2147483647',56,'2147483647'),(57,'2147483647',57,'2147483647'),(58,'2147483647',58,'2147483647'),(59,'169471259887064',60,'109602915873899_169470446553812'),(60,'169471383220385',61,'109602915873899_169470446553812'),(61,'169471893220334',62,'109602915873899_169470446553812'),(62,'169471953220328',63,'109602915873899_169470446553812'),(63,'169471953220328',64,'109602915873899_169470446553812'),(64,'169473566553500',65,'109602915873899_169470446553812'),(65,'169474039886786',66,'109602915873899_169470446553812'),(66,'169474376553419',67,'109602915873899_169470446553812'),(67,'169474799886710',68,'109602915873899_169470446553812'),(68,'169474799886710',69,'109602915873899_169470446553812'),(69,'169474799886710',70,'109602915873899_169470446553812'),(70,'169475403219983',71,'109602915873899_169470446553812'),(71,'169475783219945',72,'109602915873899_169470446553812'),(72,'169476416553215',73,'109602915873899_169470446553812'),(73,'169476419886548',74,'109602915873899_169470446553812'),(74,'169476619886528',75,'109602915873899_169470446553812'),(75,'169479339886256',76,'109602915873899_169470446553812'),(76,'169479393219584',77,'109602915873899_169470446553812'),(77,'169479586552898',78,'109602915873899_169470446553812'),(78,'169479586552898',79,'109602915873899_169470446553812'),(79,'169480189886171',80,'109602915873899_169470446553812'),(80,'169480189886171',81,'109602915873899_169470446553812'),(81,'169480189886171',82,'109602915873899_169470446553812'),(82,'169480189886171',83,'109602915873899_169470446553812'),(83,'169480189886171',84,'109602915873899_169470446553812'),(84,'169480189886171',85,'109602915873899_169470446553812'),(85,'169480639886126',86,'109602915873899_169470446553812'),(86,'169481703219353',87,'109602915873899_169470446553812'),(87,'169481746552682',88,'109602915873899_169470446553812'),(88,'169482419885948',89,'109602915873899_169470446553812'),(89,'169773989856791',90,'109602915873899_169772956523561'),(90,'169780419856148',91,'109602915873899_169772956523561'),(91,'169780419856148',92,'109602915873899_169772956523561'),(92,'169781159856074',93,'109602915873899_169772956523561'),(93,'169782496522607',94,'109602915873899_169772956523561'),(94,'169782496522607',95,'109602915873899_169772956523561'),(95,'169782496522607',96,'109602915873899_169772956523561'),(96,'169785646522292',97,'109602915873899_169772956523561');
+/*!40000 ALTER TABLE `ce_keywords_comments` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ce_likes`
 --
 
-CREATE TABLE IF NOT EXISTS `ce_likes` (
-`id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ce_likes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ce_likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(100) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `fb_id` int(11) DEFAULT NULL,
-  `post_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds data about likes.' AUTO_INCREMENT=69 ;
+  `post_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds data about likes.';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `ce_likes`
+--
+
+LOCK TABLES `ce_likes` WRITE;
+/*!40000 ALTER TABLE `ce_likes` DISABLE KEYS */;
+INSERT INTO `ce_likes` VALUES (1,NULL,NULL,2147483647,2147483647),(2,NULL,NULL,2147483647,2147483647),(3,NULL,NULL,2147483647,2147483647),(4,NULL,NULL,2147483647,2147483647),(5,NULL,NULL,2147483647,2147483647),(6,NULL,NULL,2147483647,2147483647),(7,NULL,NULL,2147483647,2147483647),(8,NULL,NULL,2147483647,2147483647),(9,NULL,NULL,2147483647,2147483647),(10,NULL,NULL,2147483647,2147483647),(11,NULL,NULL,2147483647,2147483647),(12,NULL,NULL,2147483647,2147483647),(13,NULL,NULL,2147483647,2147483647),(14,NULL,NULL,2147483647,2147483647),(15,NULL,NULL,2147483647,2147483647),(16,NULL,NULL,2147483647,2147483647),(17,NULL,NULL,2147483647,2147483647),(18,NULL,NULL,2147483647,2147483647),(19,NULL,NULL,2147483647,2147483647),(20,NULL,NULL,2147483647,2147483647),(21,NULL,NULL,2147483647,2147483647),(22,NULL,NULL,2147483647,2147483647),(23,NULL,NULL,2147483647,2147483647),(24,NULL,NULL,2147483647,2147483647),(25,NULL,NULL,2147483647,2147483647),(26,NULL,NULL,2147483647,2147483647),(27,NULL,NULL,2147483647,2147483647),(28,NULL,NULL,2147483647,2147483647),(29,NULL,NULL,2147483647,2147483647),(30,NULL,NULL,707369197,2147483647),(31,NULL,NULL,2147483647,2147483647),(32,NULL,NULL,2147483647,2147483647),(33,NULL,NULL,2147483647,2147483647),(34,NULL,NULL,2147483647,2147483647),(35,NULL,NULL,2147483647,2147483647),(36,NULL,NULL,2147483647,2147483647),(37,NULL,NULL,2147483647,2147483647),(38,NULL,NULL,2147483647,2147483647),(39,NULL,NULL,2147483647,2147483647),(40,NULL,NULL,2147483647,2147483647),(41,NULL,NULL,2147483647,2147483647),(42,NULL,NULL,2147483647,2147483647),(43,NULL,NULL,2147483647,2147483647),(44,NULL,NULL,2147483647,2147483647),(45,NULL,NULL,2147483647,2147483647),(46,NULL,NULL,2147483647,2147483647),(47,NULL,NULL,2147483647,2147483647),(48,NULL,NULL,2147483647,2147483647),(49,NULL,NULL,2147483647,2147483647),(50,NULL,NULL,2147483647,2147483647),(51,NULL,NULL,2147483647,2147483647),(52,NULL,NULL,2147483647,2147483647),(53,NULL,NULL,2147483647,2147483647),(54,NULL,NULL,2147483647,2147483647),(55,NULL,NULL,2147483647,2147483647),(56,NULL,NULL,2147483647,2147483647),(57,NULL,NULL,2147483647,2147483647),(58,NULL,NULL,2147483647,2147483647),(59,NULL,NULL,2147483647,2147483647),(60,NULL,NULL,2147483647,2147483647),(61,NULL,NULL,2147483647,2147483647),(62,NULL,NULL,2147483647,2147483647),(63,NULL,NULL,2147483647,2147483647),(64,NULL,NULL,707369197,2147483647),(65,NULL,NULL,2147483647,2147483647),(66,NULL,NULL,2147483647,2147483647),(67,NULL,NULL,2147483647,2147483647),(68,NULL,NULL,2147483647,2147483647),(69,NULL,NULL,2147483647,2147483647),(70,NULL,NULL,2147483647,2147483647),(71,NULL,NULL,2147483647,2147483647),(72,NULL,NULL,2147483647,2147483647),(73,NULL,NULL,2147483647,2147483647),(74,NULL,NULL,2147483647,2147483647),(75,NULL,NULL,2147483647,2147483647),(76,NULL,NULL,2147483647,2147483647),(77,NULL,NULL,2147483647,2147483647),(78,NULL,NULL,2147483647,2147483647),(79,NULL,NULL,2147483647,2147483647),(80,NULL,NULL,2147483647,2147483647),(81,NULL,NULL,2147483647,2147483647),(82,NULL,NULL,2147483647,2147483647),(83,NULL,NULL,2147483647,2147483647),(84,NULL,NULL,2147483647,2147483647),(85,NULL,NULL,2147483647,2147483647),(86,NULL,NULL,2147483647,2147483647),(87,NULL,NULL,2147483647,2147483647),(88,NULL,NULL,2147483647,2147483647),(89,NULL,NULL,2147483647,2147483647),(90,NULL,NULL,2147483647,2147483647),(91,NULL,NULL,2147483647,2147483647),(92,NULL,NULL,2147483647,2147483647),(93,NULL,NULL,2147483647,2147483647),(94,NULL,NULL,2147483647,2147483647),(95,NULL,NULL,2147483647,2147483647),(96,NULL,NULL,2147483647,2147483647),(97,NULL,NULL,2147483647,2147483647),(98,NULL,NULL,707369197,2147483647),(99,NULL,NULL,2147483647,2147483647),(100,NULL,NULL,2147483647,2147483647),(101,NULL,NULL,2147483647,2147483647),(102,NULL,NULL,2147483647,2147483647);
+/*!40000 ALTER TABLE `ce_likes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ce_posts`
 --
 
-CREATE TABLE IF NOT EXISTS `ce_posts` (
-`id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ce_posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ce_posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `picture` char(250) DEFAULT NULL,
   `link` char(250) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
-  `message` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds posts from Facebook' AUTO_INCREMENT=7 ;
+  `message` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds posts from Facebook';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `ce_posts`
+--
+
+LOCK TABLES `ce_posts` WRITE;
+/*!40000 ALTER TABLE `ce_posts` DISABLE KEYS */;
+INSERT INTO `ce_posts` VALUES (1,'Freddy Hagen har tidligere lagt et billede op af Hovedbygningen ved den Nordiske....Udstilling i 1888 ligesom jeg har smidt et op af bygningen under konstruktionen. Her er et indefra bygningen.','https:\\/\\/scontent-b.xx.fbcdn.net\\/hphotos-xfa1\\/v\\/t1.0-9\\/s130x130\\/378117_10200782374016978_1714267879_n.jpg?oh=09d089da6ea892364631a3aea7c3c44f&oe=548F7BDD','0000-00-00 00:00:00','2013-05-29T09:49:32+0000'),(2,'Meget apropos Frihedsmuseets fremtid, er det her foto s\\u00e5 ikke fra Danmarks befrielse?','https:\\/\\/fbcdn-sphotos-g-a.akamaihd.net\\/hphotos-ak-xap1\\/v\\/t1.0-9\\/p118x90\\/179747_10200794837507469_1248012111_n.jpg?oh=aeb1d06bc5fca9d03a6fba2001bd8997&oe=54B9F11D&__gda__=1418309204_05f3acb2ad551d39a3c0c9fb2b55af35','0000-00-00 00:00:00','2013-05-28T11:06:04+0000'),(3,'Min n\\u00e6ste roman foreg\\u00e5r i K\\u00f8benhavn, efter\\u00e5ret 1944 og handler om tre kvindelige sabot\\u00f8rer. Jeg blogger om stort og sm\\u00e5t og interessante ting, jeg falder over i researchen. Her er indl\\u00e6g om hesteprust og fodtrin i K',NULL,NULL,'2013-05-29T08:26:32+0000'),(4,'Freddy Hagen har tidligere lagt et billede op af Hovedbygningen ved den Nordiske....Udstilling i 1888 ligesom jeg har smidt et op af bygningen under konstruktionen. Her er et indefra bygningen.','https:\\/\\/scontent-b.xx.fbcdn.net\\/hphotos-xfa1\\/v\\/t1.0-9\\/s130x130\\/378117_10200782374016978_1714267879_n.jpg?oh=09d089da6ea892364631a3aea7c3c44f&oe=548F7BDD','0000-00-00 00:00:00','2013-05-29T09:49:32+0000'),(5,'Meget apropos Frihedsmuseets fremtid, er det her foto s\\u00e5 ikke fra Danmarks befrielse?','https:\\/\\/fbcdn-sphotos-g-a.akamaihd.net\\/hphotos-ak-xap1\\/v\\/t1.0-9\\/p118x90\\/179747_10200794837507469_1248012111_n.jpg?oh=aeb1d06bc5fca9d03a6fba2001bd8997&oe=54B9F11D&__gda__=1418309204_05f3acb2ad551d39a3c0c9fb2b55af35','0000-00-00 00:00:00','2013-05-28T11:06:04+0000'),(6,'Min n\\u00e6ste roman foreg\\u00e5r i K\\u00f8benhavn, efter\\u00e5ret 1944 og handler om tre kvindelige sabot\\u00f8rer. Jeg blogger om stort og sm\\u00e5t og interessante ting, jeg falder over i researchen. Her er indl\\u00e6g om hesteprust og fodtrin i K',NULL,NULL,'2013-05-29T08:26:32+0000'),(7,'Freddy Hagen har tidligere lagt et billede op af Hovedbygningen ved den Nordiske....Udstilling i 1888 ligesom jeg har smidt et op af bygningen under konstruktionen. Her er et indefra bygningen.','https:\\/\\/scontent-b.xx.fbcdn.net\\/hphotos-xfa1\\/v\\/t1.0-9\\/s130x130\\/378117_10200782374016978_1714267879_n.jpg?oh=09d089da6ea892364631a3aea7c3c44f&oe=548F7BDD','0000-00-00 00:00:00','2013-05-29T09:49:32+0000'),(8,'Meget apropos Frihedsmuseets fremtid, er det her foto s\\u00e5 ikke fra Danmarks befrielse?','https:\\/\\/fbcdn-sphotos-g-a.akamaihd.net\\/hphotos-ak-xap1\\/v\\/t1.0-9\\/p118x90\\/179747_10200794837507469_1248012111_n.jpg?oh=aeb1d06bc5fca9d03a6fba2001bd8997&oe=54B9F11D&__gda__=1418309204_05f3acb2ad551d39a3c0c9fb2b55af35','0000-00-00 00:00:00','2013-05-28T11:06:04+0000'),(9,'Min n\\u00e6ste roman foreg\\u00e5r i K\\u00f8benhavn, efter\\u00e5ret 1944 og handler om tre kvindelige sabot\\u00f8rer. Jeg blogger om stort og sm\\u00e5t og interessante ting, jeg falder over i researchen. Her er indl\\u00e6g om hesteprust og fodtrin i K',NULL,NULL,'2013-05-29T08:26:32+0000');
+/*!40000 ALTER TABLE `ce_posts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ce_users`
 --
 
-CREATE TABLE IF NOT EXISTS `ce_users` (
-`id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ce_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ce_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fb_id` int(11) NOT NULL,
-  `level` int(11) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds informations about users' AUTO_INCREMENT=1 ;
+  `level` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='#Hack4DK. Holds informations about users';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `ce_users`
 --
 
---
--- Indexes for table `ce_comments`
---
-ALTER TABLE `ce_comments`
- ADD PRIMARY KEY (`id`);
+LOCK TABLES `ce_users` WRITE;
+/*!40000 ALTER TABLE `ce_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ce_users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indexes for table `ce_keywords`
---
-ALTER TABLE `ce_keywords`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ce_keywords_comments`
---
-ALTER TABLE `ce_keywords_comments`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ce_likes`
---
-ALTER TABLE `ce_likes`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ce_posts`
---
-ALTER TABLE `ce_posts`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ce_users`
---
-ALTER TABLE `ce_users`
- ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `ce_comments`
---
-ALTER TABLE `ce_comments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=65;
---
--- AUTO_INCREMENT for table `ce_keywords`
---
-ALTER TABLE `ce_keywords`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `ce_keywords_comments`
---
-ALTER TABLE `ce_keywords_comments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
---
--- AUTO_INCREMENT for table `ce_likes`
---
-ALTER TABLE `ce_likes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
---
--- AUTO_INCREMENT for table `ce_posts`
---
-ALTER TABLE `ce_posts`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `ce_users`
---
-ALTER TABLE `ce_users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-09-28 13:53:05
