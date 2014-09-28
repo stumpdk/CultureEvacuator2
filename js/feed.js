@@ -1,26 +1,31 @@
+
 function clean(text)  {
     return decodeURI(text.replace(/\\\//g, "/"));
 }
 
+function hack(x) {
+  var r = /\\u([\d\w]{4})/gi;
+  x = x.replace(r, function (match, grp) {
+      return String.fromCharCode(parseInt(grp, 16)); }  );
+  x = unescape(x);
+  return x;
+}
+
 function searchFacebook(url) {
-    // var url = "http://kbhkilder.dk/hack4dk/api/public/1/?type=posts&callback=?";
     $.getJSON(url, function (response) {
-        $.each(response.data, function (idx, obj) {
-            if (obj.picture && obj.message) {
-                var terms= obj.message.split(" ");
-                var q = terms[0];
-                var li= $("<li><table><tr><td>" +
-                     "<img  src=" + clean(obj.picture) + "></img></td></tr><tr><td>" +
-                clean(obj.message) + "</td></tr></li>");
-                $("#feed").append(li);
-                li.on('click', function (evt) {
-                    searchNatmus(q);
-                })
-            }
-       });
+        $.each(response, function (idx, obj) {
+          if (obj.picture && obj.link) {
+              var li;
+              if (obj.link) {
+                li = $('<li><table><tr><td><img src="'+ clean(obj.link) + '"></td></tr><tr><td>' + hack(obj.picture) + '</td></tr></table></li>');
+              } else  {
+                li = $('<li><table><tr><td>&nbsp;</td></tr><tr><td>' + hack(obj.picture) + '</td></tr></table></li>');
+              }
+            $("#feed").append(li);
+        }
+      });
     });
 };
-
 
 function searchNatmus(q) {
    $("#images").html("");
@@ -51,10 +56,9 @@ function searchNatmus(q) {
              });
           });
       });
-       });
+    });
 };
 
-searchFacebook("../testdata.json");
-
+searchFacebook("http://kbhkilder.dk/hack4dk/api/public/1/?type=posts&callback=?");
 //hack: startup a search to show that it works (unrelated)
-searchNatmus("Plakater");
+//searchNatmus("Plakater");
