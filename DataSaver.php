@@ -13,7 +13,7 @@
 			$jsonArray = json_decode(fread($myfile,filesize("./testdata_mini.json")));
 			fclose($myfile);
 */
-			$json_data = file_get_contents('./testdata_mini.json');
+			$json_data = file_get_contents('./testdata.json');
 			$arrayNow = json_decode($json_data, true);
 
 
@@ -51,15 +51,20 @@
                 	$this->saveKeywords($keyword['keywords']['names'], $keyword['post_id'],$keyword['comment_id'], 'names');
                 if(isset($keyword['keywords']['years']))
                 	$this->saveKeywords($keyword['keywords']['years'], $keyword['post_id'],$keyword['comment_id'], 'years');
-                
+
 
             }
            // echo 'Number of coordinates: ' . $i;
             //echo json_encode($coordinatesAndPosts);
 
-            
 
-            echo '<h1>Data saved. Maybe...</h1>';
+
+            echo '<h1>Data saved.</h1>';
+            echo '<p>Found:</p>';
+            echo '<p>' . $this->numOfPosts . ' poster</p>';
+            echo '<p>' . $this->numOfComments . '  kommentarer</p>';
+            echo '<p>' . $this->numOfLikes . ' likes</p>';
+            echo '<p>' . $i . ' koordinater</p>';
 		}
 
 		function savePosts($data){

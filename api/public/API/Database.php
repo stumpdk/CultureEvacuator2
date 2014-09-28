@@ -73,7 +73,9 @@ class Database {
     }
     
     public function executeQuery($query){
-        $this->mysqli->query($query);
+        if (!$this->mysqli->query($query)) {
+            printf("Query error: %s\n", $this->mysqli->error);
+        }
     }
     
     public function prepareStatement($statement){
