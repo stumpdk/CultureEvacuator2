@@ -36,7 +36,7 @@
             $i = 0;
             foreach($this->keywords as $keyword){
                 if(isset($keyword['keywords']['addresses'])){
-                    $this->saveKeywords($keyword['keywords']['addresses'], $keyword['post_id'],null);
+                    $this->saveKeywords($keyword['keywords']['addresses'], $keyword['post_id'], $keyword['comment_id'],'addresses');
                     foreach($keyword['keywords']['addresses'] as $address){
                         $coordinates = $geoCoder->geocode($address);
                         if($coordinates){
@@ -46,13 +46,11 @@
                     }
                 }
                 if(isset($keyword['keywords']['tags']))
-                	$this->saveKeywords($keyword['keywords']['tags'], $keyword['post_id'],$keyword['comment_id']);
+                	$this->saveKeywords($keyword['keywords']['tags'], $keyword['post_id'],$keyword['comment_id'], 'tags');
                 if(isset($keyword['keywords']['names']))
-                	$this->saveKeywords($keyword['keywords']['names'], $keyword['post_id'],$keyword['comment_id']);
-                if(isset($keyword['keywords']['addresses']))
-                	$this->saveKeywords($keyword['keywords']['addresses'], $keyword['post_id'],$keyword['comment_id']);
+                	$this->saveKeywords($keyword['keywords']['names'], $keyword['post_id'],$keyword['comment_id'], 'names');
                 if(isset($keyword['keywords']['years']))
-                	$this->saveKeywords($keyword['keywords']['years'], $keyword['post_id'],$keyword['comment_id']);
+                	$this->saveKeywords($keyword['keywords']['years'], $keyword['post_id'],$keyword['comment_id'], 'years');
                 
 
             }
@@ -143,22 +141,23 @@
             }
 		}
 
-		function saveKeywords($keywords, $postId, $commentId){
+		function saveKeywords($keywords, $postId, $commentId, $type){
 			if(isset($keywords)){
 				foreach($keywords as $keyword){
-					$id = $this->getKeywordId($keyword);
+					$id = $this->getKeywordId($keyword, $type);
 					$this->saveCommentKeyword($id, $postId, $commentId);
 				}
 			}
 		}
 
-		function getKeywordId($keyword){
-			$result = Database::getInstance()->executeQuery("select id FROM ce_keywords WHERE keyword LIKE \'" . $keyword . "\'");
+		function getKeywordId($keyword, $type){
+			$result = Database::getInstance()->executeQuery("select id FROM ce_keywords WHERE keyword LIKE '" . $keyword . "' AND type LIKE '" . $type . "'");
 
-			if($result['id'] !== 0)
+			if($result['id'] !== null)
 				return $result['id'];
+            $query = "INSERT INTO ce_keywords (keyword, type) VALUES ('" . $keyword . "', '" . $type . "')";
 
-			Database::getInstance()->executeQuery("INSERT INTO ce_keywords (keyword) VALUES (" . $keyword . ")");
+            Database::getInstance()->executeQuery($query);
 
 			return Database::getInstance()->getInsertId();
 		}
@@ -166,7 +165,7 @@
 		function saveCommentKeyword($keywordId, $commentId, $postId){
 			$stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_keywords_comments (keyword_id, comment_id, post_id) VALUES (?,?,?)");
 			if($stmt){
-				$stmt->bind_param('iii', $keywordId, $commentId, $postId);
+				$stmt->bind_param('sss', $keywordId, $commentId, $postId);
 	            $stmt->execute();
                 $this->numOfKeywords++;
             }
