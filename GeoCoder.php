@@ -5,16 +5,18 @@ class GeoCoder {
    * Uses Kortforsyningen to geocode an address. Hardcoded to only search
    * for positions in København and Frederiksberg (see the 'komkode' option).
    *
-   * @param string $streetname
-   *   The name of the street you are trying to geocode.
-   *
-   * @param string $streetname
-   *   The name of the street you are trying to geocode.
+   * @param string $address
+   *   The address you want to geocode.
    *
    * @return array
-   *   Returns a (lng, lat) array.
+   *   Returns a (lng, lat) array on success, FALSE otherwise.
    */
-  public function geocode($street, $number) {
+  public function geocode($address) {
+    preg_match('/^(.*?)\s+(\d+)/', $address, $matches);
+
+    $street = $matches[1];
+    $number = $matches[2];
+
     // set endpoint url
     $url = 'http://kortforsyningen.kms.dk/';
 
@@ -40,11 +42,18 @@ class GeoCoder {
 
     // perform request and close the connection
     $server_output = curl_exec($ch);
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
     curl_close ($ch);
 
-    // decode the response
     $result = json_decode($server_output);
+    $compare = (array) $result;
 
-    return $result->features[0]->geometry->coordinates;
+    if (empty($compare) or $http_status != 200) {
+      return FALSE;
+    }
+    else {
+      return $result->features[0]->geometry->coordinates;
+    }
   }
 }
