@@ -29,8 +29,8 @@ class GeoCoder {
     	'komkode' => '0101;0147',
     	'geometry' => 'true',
     	'georef' => 'EPSG:4326',
-      'login' => Config::KMSuser,
-      'password' => Config::KMSpass,
+      'login' => Config::$KMSuser,
+      'password' => Config::$KMSpass,
     );
 
     // init curl and set basic options

@@ -9,22 +9,25 @@
         private $numOfCoordinates = 0;
 
 		public function loadAndParse(){
-			$myfile = fopen("./testdata.json", "r") or die("Unable to open file!");
-			$jsonArray = fread($myfile,filesize("./testdata.json"));
+			/*$myfile = fopen("./testdata_mini.json", "r") or die("Unable to open file!");
+			$jsonArray = json_decode(fread($myfile,filesize("./testdata_mini.json")));
 			fclose($myfile);
+*/
+			$json_data = file_get_contents('./testdata_mini.json');
+			$arrayNow = json_decode($json_data, true);
+
 
 			$this->ner = new NamedEntityRecognizer();
 			$this->keywords = array();
 
 			//$jsonIterator = JSONIterator::getIterator($jsonArray);
-            $arrayNow = json_decode($jsonArray, true);
+            //$arrayNow = json_decode($jsonArray, true);
 			//Get ready to put the data in the base!
 			foreach ($arrayNow as $key => $val) {
 			    //foreach($val as $curPost){
                     $this->savePosts($val);
                 //}
 			}
-            echo 'Posts saved: ' . $this->numOfPosts;
 
             //var_dump($this->keywords);
             $coordinatesAndPosts = array();
@@ -33,6 +36,7 @@
             $i = 0;
             foreach($this->keywords as $keyword){
                 if(isset($keyword['keywords']['addresses'])){
+                    $this->saveKeywords($keyword['keywords']['addresses'], $keyword['post_id'],null);
                     foreach($keyword['keywords']['addresses'] as $address){
                         $coordinates = $geoCoder->geocode($address);
                         if($coordinates){
@@ -41,13 +45,23 @@
                         }
                     }
                 }
+                if(isset($keyword['keywords']['tags']))
+                	$this->saveKeywords($keyword['keywords']['tags'], $keyword['post_id'],$keyword['comment_id']);
+                if(isset($keyword['keywords']['names']))
+                	$this->saveKeywords($keyword['keywords']['names'], $keyword['post_id'],$keyword['comment_id']);
+                if(isset($keyword['keywords']['addresses']))
+                	$this->saveKeywords($keyword['keywords']['addresses'], $keyword['post_id'],$keyword['comment_id']);
+                if(isset($keyword['keywords']['years']))
+                	$this->saveKeywords($keyword['keywords']['years'], $keyword['post_id'],$keyword['comment_id']);
+                
+
             }
            // echo 'Number of coordinates: ' . $i;
-            echo json_encode($coordinatesAndPosts);
+            //echo json_encode($coordinatesAndPosts);
 
-            //echo json_encode($this->keywords);
+            
 
-            //echo '<h1>Data saved. Maybe...</h1>';
+            echo '<h1>Data saved. Maybe...</h1>';
 		}
 
 		function savePosts($data){
@@ -87,6 +101,7 @@
 			foreach($comments as $c){
 				if(isset($c['message'])){
 					$keysAndId['comment_id'] = $c['id'];
+					$keysAndId['post_id'] = $postId;
 					$keysAndId['keywords'] = $this->ner->parse($c['message']);
 					$this->keywords[] = $keysAndId;
 
@@ -129,19 +144,21 @@
 		}
 
 		function saveKeywords($keywords, $postId, $commentId){
-			foreach($keywords as $keyword){
-				$id = $this->getKeywordId($keyword);
-				$this->saveCommentKeyword($keywordId, $postId, $commentId);
+			if(isset($keywords)){
+				foreach($keywords as $keyword){
+					$id = $this->getKeywordId($keyword);
+					$this->saveCommentKeyword($id, $postId, $commentId);
+				}
 			}
 		}
 
 		function getKeywordId($keyword){
-			$result = Database::getInstance()->query("select id FROM ce_keywords WHERE keyword LIKE ?");
+			$result = Database::getInstance()->executeQuery("select id FROM ce_keywords WHERE keyword LIKE \'" . $keyword . "\'");
 
-			if($result['id'])
+			if($result['id'] !== 0)
 				return $result['id'];
 
-			Database::getInstance()->query("INSERT INTO ce_keywords (keyword) VALUES (" . $keyword . ")");
+			Database::getInstance()->executeQuery("INSERT INTO ce_keywords (keyword) VALUES (" . $keyword . ")");
 
 			return Database::getInstance()->getInsertId();
 		}
@@ -154,7 +171,7 @@
                 $this->numOfKeywords++;
             }
             else{
-            	die( 'Statement could not be prepared when saving addresses: ' . Database::getInstance()->getError() );
+            	die( 'Statement could not be prepared when saving keywords_comments: ' . Database::getInstance()->getError() );
             }
 		}
 
@@ -172,7 +189,7 @@
                 $this->numOfCoordinates++;
             }
             else{
-            	die( 'Statement could not be prepared when saving addresses: ' . Database::getInstance()->getError() );
+            	die( 'Statement could not be prepared when saving coordinates: ' . Database::getInstance()->getError() );
             }
 		}
 
