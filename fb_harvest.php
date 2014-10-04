@@ -47,7 +47,7 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 
 	
 	 $myfile = fopen($outputFileName, "w") or die("Unable to open file!");
-	 fwrite($myfile, json_encode($dataArr));
+	 fwrite($myfile, json_encode($obj->asArray()));
 	 fclose($myfile);
 	 echo $numberOfRecords." poster høstet fra gruppen ". $groupName . ", og gemt i filen '" . $outputFileName."'";
 	// TODO: Kald insert_into_mysql_database()
@@ -61,16 +61,28 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 			$content = 	$data->getProperty($i);
 			$comments = $content->getProperty("comments");
 			
-			$paging = $comments->getProperty("paging");
-			$next = $paging->getProperty("next");
+			if (method_exists($comments, "getProperty"))
+			{
+				$paging = $comments->getProperty("paging");
+				$next = $paging->getProperty("next");
+			
+			
+
 			
 			// Dette kan vi bruge til at hente flere kommentarer
 			if($next){
 				
-				// $morecomments = harvestOneMore( $next );	
+				$morecomments = harvestOneMore( $next );	
+				
+				echo print_r($morecomments->getProperty("data")->asArray());
+
+				$mycommentfile = fopen("comments_".$i."_".$outputFileName, "w") or die("Unable to open file!");
+	 			fwrite($mycommentfile, json_encode($morecomments->getProperty("data")->asArray()));
+	 			fclose($mycommentfile);
 				// Kald "flere kommentarer service"
 				
 			}
+		}
   	 	$i++;
   	}
 
@@ -115,12 +127,14 @@ $session = FacebookSession::newAppSession();
 *
 */
 function harvestOneMore( $url ) {
+	echo "OneMore";
 	$session = FacebookSession::newAppSession();
 
 	// Arghhh  - der skal skærlles de første 31 tegn af 
 	// Før det bliver brugbart for FacebookRequest
 	// http://.... v2.1/ (skrælles væk)
 	$nexturl = substr($url, 31);
+	echo $nexturl;
 	try {
   		$session->validate();
 
