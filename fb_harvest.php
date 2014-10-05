@@ -33,78 +33,57 @@ if($numberOfRecords == ""){
 	$numberOfRecords = 10;
 }
 
+
 // En app som Jacob Andresen har lavet og hentet id / secret til 
 FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3cc6976882989');
 
 	// Lav den initielle høstning
-	$obj = harvestFirst($numberOfRecords, $groupid);
+	$obj = harvestFeed($numberOfRecords, $groupid);
 	
 	// Lab array for at kunne måle størrelsen
 	$dataArr = $obj->getProperty("data")->asArray();
+	$objArr = $obj->asArray();
 	
 	// "data er ...... data :-)"
 	$data = $obj->getProperty("data");
 
-	
-	 $myfile = fopen($outputFileName, "w") or die("Unable to open file!");
-	 fwrite($myfile, json_encode($obj->asArray()));
-	 fclose($myfile);
-	 echo $numberOfRecords." poster høstet fra gruppen ". $groupName . ", og gemt i filen '" . $outputFileName."'";
+	// Save content in file	
+	saveAsFile(json_encode($dataArr), $outputFileName);
+	 
+	 echo $numberOfRecords." poster høstet fra gruppen ". $groupName . ", og gemt i filen '" . $outputFileName."'\n";
 	// TODO: Kald insert_into_mysql_database()
 
-	$arrSize = sizeof( $dataArr, 1);
+	 $i = 0;
+	foreach ($dataArr as $v1) {
+		$comments = harvestComments($v1->id);
+		$commentsArr = $comments->getProperty("data")->asArray();
+		saveAsFile(json_encode($commentsArr), 'comments_'.$i.'_'.$outputFileName);
+		$i++;
 
-  	// Iterer over posts, for at kunne finde kommentarer
-  	for ($i = 0; $i < $arrSize; $i++){
+	}
 
-  			// Hent "paging next" URL step-by-step
-			$content = 	$data->getProperty($i);
-			$comments = $content->getProperty("comments");
-			
-			if (method_exists($comments, "getProperty"))
-			{
-				$paging = $comments->getProperty("paging");
-				$next = $paging->getProperty("next");
-			
-			
-
-			
-			// Dette kan vi bruge til at hente flere kommentarer
-			if($next){
-				
-				$morecomments = harvestOneMore( $next );	
-				
-				echo print_r($morecomments->getProperty("data")->asArray());
-
-				$mycommentfile = fopen("comments_".$i."_".$outputFileName, "w") or die("Unable to open file!");
-	 			fwrite($mycommentfile, json_encode($morecomments->getProperty("data")->asArray()));
-	 			fclose($mycommentfile);
-				// Kald "flere kommentarer service"
-				
-			}
-		}
-  	 	$i++;
-  	}
-
-  
-  	
+	//Call next page
 
 
 
 /**
 *	Høster fra facebook og returnerer et FB.graphObject
+*    
+*	// Get Feed id and comments
+*   // feed?fields=id,message&limit=100
+*
 *	@param $limit antallet af poster der skal hentes fra FB 
 *	@param $groupid id (ikke navn), der skal hentes et eller andet sted fra
 *
 *
 */
-function harvestFirst( $limit , $groupid) {
+function harvestFeed( $limit , $groupid) {
 $session = FacebookSession::newAppSession();
 
 	try {
   		$session->validate();
 
-  		$request = new FacebookRequest($session, 'GET', '/'.$groupid.'/feed?limit='.$limit);
+  		$request = new FacebookRequest($session, 'GET', '/'.$groupid.'/feed?fields=id,message,link&limit='.$limit);
   		$response = $request->execute();
   		$graphObject = $response->getGraphObject();
   		return $graphObject;
@@ -122,23 +101,21 @@ $session = FacebookSession::newAppSession();
 
 
 /**
+**
 * Høst kommentarer
+*
+* // Get comments from given thread (Not limited to limit 25)
+* // comments?summary=true&limit=1000&order=ranked|chronological
+*
 * @param $url den url der hentes ud fra FB's paging parameter
 *
 */
-function harvestOneMore( $url ) {
-	echo "OneMore";
+function harvestComments( $commentId ) {
 	$session = FacebookSession::newAppSession();
-
-	// Arghhh  - der skal skærlles de første 31 tegn af 
-	// Før det bliver brugbart for FacebookRequest
-	// http://.... v2.1/ (skrælles væk)
-	$nexturl = substr($url, 31);
-	echo $nexturl;
 	try {
   		$session->validate();
 
-  		$request = new FacebookRequest($session, 'GET', $nexturl);
+  		$request = new FacebookRequest($session, 'GET', '/'.$commentId.'/comments?summary=true&limit=1000&order=ranked');
   		$response = $request->execute();
   		$graphObject = $response->getGraphObject();
   		return $graphObject;
@@ -151,6 +128,17 @@ function harvestOneMore( $url ) {
   		echo $ex->getMessage();
 	}
 
+}
+
+/**
+* Save a file to disc
+* Use this when not calling the API
+* 
+*/
+function saveAsFile( $fileContent, $fileName ){
+	$myfile = fopen($fileName, "w") or die("Unable to open file!");
+	fwrite($myfile, $fileContent);
+	fclose($myfile);
 }
 
 
