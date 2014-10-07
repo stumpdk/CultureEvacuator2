@@ -48,7 +48,7 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	$data = $obj->getProperty("data");
 
 	// Save content in file	
-	saveAsFile(json_encode($dataArr), $outputFileName);
+	saveAsFile(json_encode($dataArr,JSON_UNESCAPED_UNICODE), $outputFileName);
 	 
 	 echo $numberOfRecords." poster høstet fra gruppen ". $groupName . ", og gemt i filen '" . $outputFileName."'\n";
 	// TODO: Kald insert_into_mysql_database()
@@ -57,7 +57,7 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	foreach ($dataArr as $v1) {
 		$comments = harvestComments($v1->id);
 		$commentsArr = $comments->getProperty("data")->asArray();
-		saveAsFile(json_encode($commentsArr), 'comments_'.$i.'_'.$outputFileName);
+		saveAsFile(json_encode($commentsArr, JSON_UNESCAPED_UNICODE), 'comments_'.$i.'_'.$outputFileName);
 		$i++;
 
 	}
@@ -137,9 +137,16 @@ function harvestComments( $commentId ) {
 */
 function saveAsFile( $fileContent, $fileName ){
 	$myfile = fopen($fileName, "w") or die("Unable to open file!");
+	
 	fwrite($myfile, $fileContent);
 	fclose($myfile);
 }
 
+function unicodeString($str, $encoding=null) {
+    if (is_null($encoding)) $encoding = ini_get('mbstring.internal_encoding');
+    return preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/u', function($match) use ($encoding) {
+        return mb_convert_encoding(pack('H*', $match[1]), $encoding, 'UTF-8BE');
+    }, $str);
+}
 
 ?>
