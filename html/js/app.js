@@ -1,18 +1,32 @@
 //Instantiating app
-var app = angular.module("CultureEvacuator",[]);
+var app = angular.module("CultureEvacuator",['ngRoute']);
+
+app.config(function($routeProvider, $locationProvider) {
+  $routeProvider
+  .when('/show/:bookId', {
+    templateUrl: 'partials/partials-show.html',
+    controller: 'MainCtrl'
+  })
+  .otherwise({
+  	templateUrl: 'partials/partials-list.html',
+  	controller: 'MainCtrl'
+  });
+
+  $locationProvider.html5Mode(false);
+});
 
 //The main controller handles the primary window
-app.controller('MainCtrl', ['$scope', function($scope){
+app.controller('MainCtrl', ['$scope', '$location',function($scope, $location){
 	$scope.list = 'partials/status-list.html';
-	$scope.items = [];
-	$scope.items.push({
-		imageUrl : '',
+	$scope.posts = [];
+	$scope.posts.push({
+		imageUrl : 'test.jpg',
 		headline : 'Test headline',
 		id : 1
 	});
 
 	$scope.goToItem = function(id){
-
+		$location.url('/show/' + id);
 	};
 }]);
 

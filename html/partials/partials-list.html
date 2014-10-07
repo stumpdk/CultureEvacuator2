@@ -1,0 +1,112 @@
+    <section>
+      <div class="container">
+      <!-- START LEFT COLUMN -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-danger">
+          <div class="panel-heading">Ubehandlede poster <span class="badge">{{posts.length}}</span></div>
+            <div class="panel-body">
+              <div id="fblist"></div>
+
+              <!-- Single post -->
+              <div ng-repeat="item in posts">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <img ng-src="{{item.imageUrl}}" style="margin-right:50px; width:100px; display:inline" class="img-responsive" alt="Responsive image">
+                      <span>{{item.headline}}</span>
+                    <button type="button" class="btn btn-success pull-right" ng-click="goToItem(item.id)">Vælg</button>
+                  </div>
+                </div>
+              </div>
+              <!-- single post end -->
+
+            </div>
+          </div>
+        </div>
+       <!-- END LEFT COLUMN -->
+
+      <!-- RIGHT COLUMN START -->
+        <div class="col-md-6">
+          <div class="panel panel-success">
+          <div class="panel-heading">Færdigbehandlede poster <span class="badge">3</span></div>
+            <div class="panel-body">
+
+              <!-- Single post -->
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <img src="dummy.jpg" style="margin-right:50px; width:100px; display:inline" class="img-responsive" alt="Responsive image">
+
+                  <!-- Årstal -->
+                  <span class="label label-default">1932</span>
+                  <span class="label label-default">1964</span>
+
+                  <!-- Navne -->
+                  <span class="label label-success">Peter Jensen</span>
+
+                  <!-- Emneord -->
+
+                  <span class="label label-warning">Højhus</span>
+                  <span class="label label-warning">Lorem</span>
+                  <span class="label label-warning">Ipsum</span>
+
+                  <span style="float:right;;" class="glyphicon glyphicon-ok"></span>
+                </div>
+              </div>
+              <!-- single post end -->
+
+              <!-- Single post -->
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <img src="dummy.jpg" style="margin-right:50px; width:100px; display:inline" class="img-responsive" alt="Responsive image">
+
+                  <!-- Årstal -->
+                  <span class="label label-default">1932</span>
+                  <span class="label label-default">1964</span>
+                  <span class="label label-default">1965</span>
+                  <span class="label label-default">1966</span>
+                  <span class="label label-default">1967</span>
+
+                  <!-- Navne -->
+                  <span class="label label-success">Peter Jensen</span>
+
+                  <!-- Emneord -->
+                  <span class="label label-warning">BP</span>
+
+
+                  <span style="float:right;;" class="glyphicon glyphicon-ok"></span>
+                </div>
+              </div>
+              <!-- single post end -->
+
+              <!-- Single post -->
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <img src="dummy.jpg" style="margin-right:50px; width:100px; display:inline" class="img-responsive" alt="Responsive image">
+
+                  <!-- Årstal -->
+                  <span class="label label-default">1932</span>
+                  <span class="label label-default">1964</span>
+
+                  <!-- Navne -->
+                  <span class="label label-success">Århus</span>
+                  <span class="label label-success">Lyngbyvej</span>
+                  <span class="label label-success">Vesterbrogade 10</span>
+
+                  <!-- Emneord -->
+                  <span class="label label-warning">BP</span>
+                  <span class="label label-warning">Højhus</span>
+
+                  <span style="float:right;;" class="glyphicon glyphicon-ok"></span>
+                </div>
+              </div>
+              <!-- single post end -->
+
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT COLUNM END -->
+
+      </div>
+      </div>
+    </section>
+
