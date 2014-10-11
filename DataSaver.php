@@ -7,13 +7,14 @@
         private $numOfComments = 0;
         private $numOfLikes = 0;
         private $numOfCoordinates = 0;
+        private $numOfKeywords = 0;
 
 		public function loadAndParse(){
 			/*$myfile = fopen("./testdata_mini.json", "r") or die("Unable to open file!");
 			$jsonArray = json_decode(fread($myfile,filesize("./testdata_mini.json")));
 			fclose($myfile);
 */
-			$json_data = file_get_contents('./testdata.json');
+			$json_data = file_get_contents('./testdata_mini.json');
 			$arrayNow = json_decode($json_data, true);
 
 
@@ -67,9 +68,9 @@
             echo '<p>' . $i . ' koordinater</p>';
 		}
 
-		function savePosts($data){
+		public function savePosts($data){
 			foreach($data as $d){
-                if(!isset($d['paging'])){
+                // if(!isset($d['paging'])){
                     $this->savePost($d);
                     if(isset($d['comments'])){
 
@@ -78,7 +79,7 @@
                     if(isset($d['likes'])){
                     	$this->saveLikes($d['likes']['data'], $d['id']);
                     }
-                }
+                // }
 			}
 		}
 

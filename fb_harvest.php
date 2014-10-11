@@ -10,6 +10,7 @@
 
 header('Content-Type: application/json');
 include_once('./autoload.php');
+include_once('./Bootstrapper.php');
 
 
 use Facebook\FacebookSession;
@@ -33,6 +34,7 @@ if($numberOfRecords == ""){
 	$numberOfRecords = 10;
 }
 
+$saver = new DataSaver();
 
 // En app som Jacob Andresen har lavet og hentet id / secret til 
 FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3cc6976882989');
@@ -48,7 +50,10 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	$data = $obj->getProperty("data");
 
 	// Save content in file	
-	saveAsFile(json_encode($dataArr,JSON_UNESCAPED_UNICODE), $outputFileName);
+	//saveAsFile(json_encode($dataArr,JSON_UNESCAPED_UNICODE), $outputFileName);
+
+	$saver->savePosts($data);
+
 	 
 	 echo $numberOfRecords." poster høstet fra gruppen ". $groupName . ", og gemt i filen '" . $outputFileName."'\n";
 	// TODO: Kald insert_into_mysql_database()
@@ -57,7 +62,7 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	foreach ($dataArr as $v1) {
 		$comments = harvestComments($v1->id);
 		$commentsArr = $comments->getProperty("data")->asArray();
-		saveAsFile(json_encode($commentsArr, JSON_UNESCAPED_UNICODE), 'comments_'.$i.'_'.$outputFileName);
+		//saveAsFile(json_encode($commentsArr, JSON_UNESCAPED_UNICODE), 'comments_'.$i.'_'.$outputFileName);
 		$i++;
 
 	}
