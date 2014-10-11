@@ -14,8 +14,8 @@
 			$jsonArray = json_decode(fread($myfile,filesize("./testdata_mini.json")));
 			fclose($myfile);
 */
-			$json_data = file_get_contents('./testdata_mini.json');
-			$arrayNow = json_decode($json_data, true);
+			// $json_data = file_get_contents('./testdata_mini.json');
+			// $arrayNow = json_decode($json_data, true);
 
 
 			$this->ner = new NamedEntityRecognizer();
@@ -26,14 +26,14 @@
 			//Get ready to put the data in the base!
 			foreach ($arrayNow as $key => $val) {
 			    //foreach($val as $curPost){
-                    $this->savePosts($val);
+             //       $this->savePosts($val);
                 //}
 			}
 
             //var_dump($this->keywords);
-            $coordinatesAndPosts = array();
-            $geoCoder = new GeoCoder();
-
+            //$coordinatesAndPosts = array();
+            //$geoCoder = new GeoCoder();
+			/*
             $i = 0;
             foreach($this->keywords as $keyword){
                 if(isset($keyword['keywords']['addresses'])){
@@ -54,43 +54,45 @@
                 	$this->saveKeywords($keyword['keywords']['years'], $keyword['post_id'],$keyword['comment_id'], 'years');
 
 
-            }
+            }*/
            // echo 'Number of coordinates: ' . $i;
             //echo json_encode($coordinatesAndPosts);
 
-
+/*
 
             echo '<h1>Data saved.</h1>';
             echo '<p>Found:</p>';
             echo '<p>' . $this->numOfPosts . ' poster</p>';
             echo '<p>' . $this->numOfComments . '  kommentarer</p>';
             echo '<p>' . $this->numOfLikes . ' likes</p>';
-            echo '<p>' . $i . ' koordinater</p>';
+            echo '<p>' . $i . ' koordinater</p>';*/	
 		}
 
+
+/******* JAC *********/
+
+		/**
+		* Iterates over posts and call savePost
+		* 
+		*/
 		public function savePosts($data){
 			foreach($data as $d){
-                // if(!isset($d['paging'])){
                     $this->savePost($d);
-                    if(isset($d['comments'])){
-
-                    	$this->saveComments($d['comments']['data'], $d['id']);
-                    }
-                    if(isset($d['likes'])){
-                    	$this->saveLikes($d['likes']['data'], $d['id']);
-                    }
-                // }
 			}
 		}
 
+		/**
+		* Parse single FB post and puts int in DB
+		* 
+		*/
 		function savePost($d){
-	        if(isset($d['message'])){
-                $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_posts (picture,link,created_time, message) VALUES (?,?,?,?)");
+	        if(isset($d->message)){
+                $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_posts (post_id,picture,link,created_time, updated_time ,message) VALUES (?,?,?,?,?,?)");
 
                 if($stmt){
                     /* Bind our params */
 
-                    $stmt->bind_param('ssss', $d['message'] , $d['picture'], $d['link'] , $d['created_time']);
+                    $stmt->bind_param('ssssss', $d->id, $d->picture , $d->link, $d->created_time, $d->updated_time, $d->message);
 
                     $stmt->execute();
                     $this->numOfPosts++;
@@ -100,6 +102,8 @@
                 }
             }
 		}
+
+/************* END JAC ************/		
 
 		function saveComments($comments, $postId){
 			foreach($comments as $c){

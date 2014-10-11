@@ -52,7 +52,7 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	// Save content in file	
 	//saveAsFile(json_encode($dataArr,JSON_UNESCAPED_UNICODE), $outputFileName);
 
-	$saver->savePosts($data);
+	$saver->savePosts($dataArr);
 
 	 
 	 echo $numberOfRecords." poster høstet fra gruppen ". $groupName . ", og gemt i filen '" . $outputFileName."'\n";
@@ -88,7 +88,7 @@ $session = FacebookSession::newAppSession();
 	try {
   		$session->validate();
 
-  		$request = new FacebookRequest($session, 'GET', '/'.$groupid.'/feed?fields=id,message,link&limit='.$limit);
+  		$request = new FacebookRequest($session, 'GET', '/'.$groupid.'/feed?fields=id,message,link,created_time,picture&limit='.$limit);
   		$response = $request->execute();
   		$graphObject = $response->getGraphObject();
   		return $graphObject;
@@ -147,11 +147,5 @@ function saveAsFile( $fileContent, $fileName ){
 	fclose($myfile);
 }
 
-function unicodeString($str, $encoding=null) {
-    if (is_null($encoding)) $encoding = ini_get('mbstring.internal_encoding');
-    return preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/u', function($match) use ($encoding) {
-        return mb_convert_encoding(pack('H*', $match[1]), $encoding, 'UTF-8BE');
-    }, $str);
-}
 
 ?>
