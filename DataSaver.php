@@ -12,68 +12,6 @@
 			$this->ner = new NamedEntityRecognizer();        	
         }
 
-		public function loadAndParse(){
-			/*$myfile = fopen("./testdata_mini.json", "r") or die("Unable to open file!");
-			$jsonArray = json_decode(fread($myfile,filesize("./testdata_mini.json")));
-			fclose($myfile);
-*/
-			// $json_data = file_get_contents('./testdata_mini.json');
-			// $arrayNow = json_decode($json_data, true);
-
-
-			$this->ner = new NamedEntityRecognizer();
-			$this->keywords = array();
-
-			//$jsonIterator = JSONIterator::getIterator($jsonArray);
-            //$arrayNow = json_decode($jsonArray, true);
-			//Get ready to put the data in the base!
-			foreach ($arrayNow as $key => $val) {
-			    //foreach($val as $curPost){
-             //       $this->savePosts($val);
-                //}
-			}
-
-            //var_dump($this->keywords);
-            //$coordinatesAndPosts = array();
-            //$geoCoder = new GeoCoder();
-			/*
-            $i = 0;
-            foreach($this->keywords as $keyword){
-                if(isset($keyword['keywords']['addresses'])){
-                    $this->saveKeywords($keyword['keywords']['addresses'], $keyword['post_id'], $keyword['comment_id'],'addresses');
-                    foreach($keyword['keywords']['addresses'] as $address){
-                        $coordinates = $geoCoder->geocode($address);
-                        if($coordinates){
-                            $coordinatesAndPosts[] = array($keyword['comment_id'], $coordinates);
-                            $i++;
-                        }
-                    }
-                }
-                if(isset($keyword['keywords']['tags']))
-                	$this->saveKeywords($keyword['keywords']['tags'], $keyword['post_id'],$keyword['comment_id'], 'tags');
-                if(isset($keyword['keywords']['names']))
-                	$this->saveKeywords($keyword['keywords']['names'], $keyword['post_id'],$keyword['comment_id'], 'names');
-                if(isset($keyword['keywords']['years']))
-                	$this->saveKeywords($keyword['keywords']['years'], $keyword['post_id'],$keyword['comment_id'], 'years');
-
-
-            }*/
-           // echo 'Number of coordinates: ' . $i;
-            //echo json_encode($coordinatesAndPosts);
-
-/*
-
-            echo '<h1>Data saved.</h1>';
-            echo '<p>Found:</p>';
-            echo '<p>' . $this->numOfPosts . ' poster</p>';
-            echo '<p>' . $this->numOfComments . '  kommentarer</p>';
-            echo '<p>' . $this->numOfLikes . ' likes</p>';
-            echo '<p>' . $i . ' koordinater</p>';*/	
-		}
-
-
-/******* JAC *********/
-
 		/**
 		* Iterates over posts and call savePost
 		*/
@@ -197,18 +135,7 @@
 		}
 
 
-		/************* END JAC ************/	
-
-
-
-		
-
-		
-
-
-
-
-
+/************TODO : Get coordinates to work ********************/
 
 		function saveCoordinates($coordinates, $postId){
 			foreach($coordinates as $coordinate){
