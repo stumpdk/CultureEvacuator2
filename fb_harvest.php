@@ -35,6 +35,7 @@ if($numberOfRecords == ""){
 }
 
 $saver = new DataSaver();
+$saver->init();
 
 // En app som Jacob Andresen har lavet og hentet id / secret til 
 FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3cc6976882989');
@@ -42,32 +43,16 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	// Lav den initielle høstning
 	$obj = harvestFeed($numberOfRecords, $groupid);
 	
-	// Lab array for at kunne måle størrelsen
-	$dataArr = $obj->getProperty("data")->asArray();
-	$objArr = $obj->asArray();
-	
-	// "data er ...... data :-)"
-	$data = $obj->getProperty("data");
-
-	// Save content in file	
-	//saveAsFile(json_encode($dataArr,JSON_UNESCAPED_UNICODE), $outputFileName);
-
+	$dataArr = $obj->getProperty("data")->asArray();	
 	$saver->savePosts($dataArr);
 
-	 
-	 echo $numberOfRecords." poster høstet fra gruppen ". $groupName . ", og gemt i filen '" . $outputFileName."'\n";
-	// TODO: Kald insert_into_mysql_database()
-
-	 $i = 0;
-	foreach ($dataArr as $v1) {
-		$comments = harvestComments($v1->id);
-		$commentsArr = $comments->getProperty("data")->asArray();
-		//saveAsFile(json_encode($commentsArr, JSON_UNESCAPED_UNICODE), 'comments_'.$i.'_'.$outputFileName);
-		$i++;
-
+	foreach ($dataArr as $d) {
+		if(isset($d->picture)){ // Only get commets for posts with pictures
+			$comments = harvestComments($d->id);
+			$commentsArr = $comments->getProperty("data")->asArray();
+			$saver->saveComments($commentsArr, $d->id);
+		}
 	}
-
-	//Call next page
 
 
 
