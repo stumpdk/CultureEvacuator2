@@ -14,8 +14,15 @@ class GeoCoder {
   public function geocode($address) {
     preg_match('/^(.*?)\s+(\d+)/', $address, $matches);
 
-    $street = $matches[1];
-    $number = isset($matches[2]) ? $matches[2] : 1;
+    $street = "";
+    $number = "";
+    if(isset($matches[1])){
+      $street = $matches[1];  
+      $number = isset($matches[2]) ? $matches[2] : 1;  
+    } else {
+      return null;
+    }
+    
 
     // set endpoint url
     $url = 'http://kortforsyningen.kms.dk/';
