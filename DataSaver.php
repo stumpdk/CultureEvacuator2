@@ -2,6 +2,7 @@
 
 	class DataSaver{
 		private $ner;
+		private $geoCoder;
 		private $keywords;
         private $numOfPosts = 0;
         private $numOfLikes = 0;
@@ -10,6 +11,16 @@
 
         public function init(){
 			$this->ner = new NamedEntityRecognizer();        	
+			$this->geoCoder = new geoCoder();
+        }
+
+        public function testGeo(){
+        	$addr = $this->geoCoder->geocode("Lyngbyvej 67");
+			if($addr != null ){
+				echo print_r($addr);	
+			} else {
+				echo "ingen geokoordinater";
+			}
         }
 
 		/**
@@ -36,8 +47,7 @@
                 if($stmt){
                     /* Bind our params */
                     $stmt->bind_param('ssssss', $d->id, $d->picture , $d->link, $d->created_time, $d->updated_time, $d->message);
-                    $stmt->execute();
-                    $this->numOfPosts++;  // TODO Why???
+                    $stmt->execute();                    
                 }
                 else{
                     die( 'Statement could not be prepared when saving posts: ' . Database::getInstance()->getError() );
@@ -79,7 +89,7 @@
 			$ners = $this->ner->parse($message);
 			
 			if(isset($ners['tags'] )){
-				$this->saveKeywords($ners['tags'], $postId, $commentId, 'tags');
+				// $this->saveKeywords($ners['tags'], $postId, $commentId, 'tags');
 			}
 			if(isset($ners['addresses'] )){
 				$this->saveKeywords($ners['addresses'], $postId, $commentId, 'addresses');
@@ -98,13 +108,27 @@
 
 
 		/**
-		* Iterate over type of Named Enities and calls getKeywordId and saveCommentKeyword
+		* Iterate over a type of Named Enities and calls getKeywordId and saveCommentKeyword
 		*
 		*/
 		function saveKeywords($keywords, $postId, $commentId, $type){
 			foreach ($keywords as $keys => $val) {
 				$id = $this->getKeywordId($val, $type);
 				$this->saveCommentKeyword($id, $commentId, $postId);
+				if($type === "addresses"){
+					/* Dette er slået fra, da den nærmest aldring rammer noget
+					   og tager lang tid....
+					   Og i øvrigt ikke er implmenteret i DB
+						TODO: Brug Google geocoder
+					$addr = $this->geoCoder->geocode($val);	
+					if($addr != null ){
+						saveCoordinate($addr, $val, $postId);	
+						echo "gemmer (ikke) geocoordinat for ".$val."\n";
+					} else {
+						echo "ingen geokoordinater til ".$val."\n";
+					}
+					*/					
+				}
 			}
 		}
 
@@ -135,14 +159,27 @@
 		}
 
 
-/************TODO : Get coordinates to work ********************/
-
-		function saveCoordinates($coordinates, $postId){
-			foreach($coordinates as $coordinate){
-				$this->saveCoordinate($coordinate, "", $postId);
-			}
+		public function getStatistic(){
+			$posts = Database::getInstance()->runQueryGetAssoc("select count(*) as count FROM ce_posts");
+			$comments = Database::getInstance()->runQueryGetAssoc("select count(*) as count FROM ce_comments");
+			$keywords = Database::getInstance()->runQueryGetAssoc("select count(*) as count FROM ce_keywords");
+			$keywords_comments = Database::getInstance()->runQueryGetAssoc("select count(*) as count FROM ce_keywords_comments");
+			
+			// $res = new Array();
+			$res['posts'] = $posts['count'];
+			$res['comments'] = $comments['count'];
+			$res['keywords'] = $keywords['count'];
+			$res['keywords_comments'] = $keywords_comments['count'];
+			return $res;
 		}
 
+		/**
+		*
+		* VIRKER IKKE ENDNU 
+		* Tabel ikke implementeret
+		*
+		*
+		*/
 		function saveCoordinate($coordinate, $address, $postId){
 			$stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_coordinates (post_id, address, lng, lat) VALUES (?,?,?)");
 			if($stmt){
@@ -155,9 +192,6 @@
             }
 		}
 
-		//TODO: Count number of likes and comments pr. user
-		function getUserInformations(){
-
-		}
+		
 	}
 ?>

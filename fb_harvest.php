@@ -54,6 +54,12 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 		}
 	}
 
+	$res = $saver->getStatistic();
+
+	echo "posts: ".$res['posts']."\n";
+	echo "comments: ".$res['comments']."\n";
+	echo "keywords: ".$res['keywords']."\n";
+	echo "keywords_comments: ".$res['keywords_comments']."\n";
 
 
 /**

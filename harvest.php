@@ -5,5 +5,7 @@
     //echo 'hej';
 	//Test:
 	$saver = new DataSaver();
-	$saver->loadAndParse();
+	$saver->init();
+	$saver->testGeo();
+
 ?>
