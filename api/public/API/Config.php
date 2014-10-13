@@ -34,9 +34,9 @@
     class APIConfig{
         //Database informations
         public static $dbhost = 'localhost';
-        public static $dbuser = 'kbharkiv';
-        public static $dbpass = '6nXSaEJBH7';
-        public static $dbname = 'kbharkiv';
+        public static $dbuser = 'root';
+        public static $dbpass = 'root';
+        public static $dbname = 'hack4dk2014';
         public static $dbCharSet = 'utf8';
 
         //Whether or not the statistics should be enabled
