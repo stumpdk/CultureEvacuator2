@@ -31,7 +31,7 @@
 				if(isset($d->picture)){
 					$this->getKeyWords($d->message, $d->id);	
                     $this->savePost($d);
-                    echo "Post med id ".$d->id." gemt i databasen \n";
+                    return $d->id;                    
                 }
 			}
 		}
