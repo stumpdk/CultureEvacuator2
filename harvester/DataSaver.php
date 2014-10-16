@@ -25,6 +25,7 @@
 
 		/**
 		* Iterates over posts and call savePost
+		* DEPRECATED
 		*/
 		public function savePosts($data){
 			foreach($data as $d){

@@ -7,14 +7,16 @@
 *   1 = Gamle København
 *   2 = Vesterbro Billeder 
 */
-
+$time_start = microtime(true);
 header('Content-Type: text/html');
 include_once('./autoload.php');
 include_once('./Bootstrapper.php');
-
-
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
+
+
+$saver = new DataSaver();
+$saver->init();
 
 
 	include_once('./includes/header.php');
@@ -25,8 +27,8 @@ use Facebook\FacebookRequest;
       <div class="container">
         <div class="row">
         <form> 
-        <h3>Vælg hvad der skal høstes</h3>
-        <p>Vi høster kun poster med et billed tilknyttet, samt kommentarer til disse.</p>
+        <h4>Vælg hvad der skal høstes</h4>
+        <p>Vi høster poster med et billed tilknyttet, samt kommentarer til disse.</p>
           <div class="col-md-4">
           	<h5>Vælg gruppe:</h5>
           	   <div class="radio">
@@ -106,8 +108,6 @@ if($numberOfRecords == ""){
 	$numberOfRecords = 10;
 }
 
-$saver = new DataSaver();
-$saver->init();
 
 // En app som Jacob Andresen har lavet og hentet id / secret til 
 FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3cc6976882989');
@@ -116,24 +116,53 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	$obj = harvestFeed($numberOfRecords, $groupid);
 	
 	$dataArr = $obj->getProperty("data")->asArray();	
-	$saver->savePosts($dataArr);
-
-	foreach ($dataArr as $d) {
-		if(isset($d->picture)){ // Only get commets for posts with pictures
-			$comments = harvestComments($d->id);
+	
+	// $saver->savePosts($dataArr);
+	foreach($dataArr as $d){
+		if(isset($d->picture)){
+			$saver->getKeyWords($d->message, $d->id);	
+            $saver->savePost($d);
+            $comments = harvestComments($d->id);
 			$commentsArr = $comments->getProperty("data")->asArray();
 			$saver->saveComments($commentsArr, $d->id);
-		}
+        }
 	}
+	
+?>
+	<section>
+		<div class="container">
+        	<div class="row">
+        		<div class="col-md-12">	
+<?php
 
+// Display Script End time
+$time_end = microtime(true);
+
+//dividing with 60 will give the execution time in minutes other wise seconds
+$execution_time = ($time_end - $time_start);
+
+//execution time of the script
+echo '<h5 style="color:red">Høsttid '.$execution_time.' Sekunder</h5>';
+
+?>
+
+
+
+				</div>
+    		</div>
+    	</div>
+	</section>
+<?php
+}
 	$res = $saver->getStatistic();
 
 ?>
+<hr/>
 	<section>
     	<div class="container">
         	<div class="row">
         		<div class="col-md-6">	
-        		<h5>Der er nu høstet, her er lidt statistik fra basen:</h5>
+        		<h4>Statistik fra  basen:</h4>
   					<table class="table table-striped">
   					<tbody>	
   					
@@ -153,11 +182,7 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 			</div>
 		</div>
 	</section>
-
-<?php
-} // End if-else
-?>
-
+	<hr/>
 	<section>
 		<div class="container">
         	<div class="row">
@@ -168,12 +193,18 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
         			<a target="_blank" href="../api/public/1/?type=posts&callback=?">../api/public/1/?type=posts&callback=?</a><br/>
         			<br/>
 
-					<strong>Hent alle post med id 109602915873899_370938319740356 (internt fb id):</strong><br/>
-        			<a target="_blank" href="../api/public/1/?type=posts&post_id=109602915873899_370938319740356&callback=?">../api/public/1/?type=posts&post_id=109602915873899_370938319740356&callback=?</a><br/>
+					<strong>Hent alle post med id 109602915873899_372211049613083 (internt fb id):</strong><br/>
+        			<a target="_blank" href="../api/public/1/?type=posts&post_id=109602915873899_372211049613083&callback=?">../api/public/1/?type=posts&post_id=...&callback=?</a><br/>
         			<br/>
 
-        			<strong>Hent alle kommentarer til post med id 109602915873899_370938319740356 (internt fb id):</strong><br/>
-        			<a target="_blank" href="../api/public/1/?type=comments&post_id=109602915873899_370938319740356&callback=?">../api/public/1/?type=comments&post_id=109602915873899_370938319740356&callback=?</a><br/>
+        			<strong>Hent alle kommentarer til post med id 109602915873899_372211049613083 (internt fb id):</strong><br/>
+        			<a target="_blank" href="../api/public/1/?type=comments&post_id=109602915873899_372211049613083&callback=?">../api/public/1/?type=comments&post_id=...&callback=?</a><br/>
+        			<br/>
+
+        			<strong>Hent alle NER's til post med id 109602915873899_372211049613083 (internt fb id):</strong><br/>
+        			<a target="_blank" href="../api/public/1/?type=comment_keywords&post_id=109602915873899_372211049613083&callback=?">../api/public/1/?type=comment_keywords&post_id=...&callback=?</a><br/>
+        			<br/>
+
         		</p>
         		</div>
     		</div>
@@ -181,6 +212,7 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	</section>
 
 <?php
+
 include_once('./includes/footer.php');
 
 /**
