@@ -8,7 +8,7 @@
 *   2 = Vesterbro Billeder 
 */
 
-header('Content-Type: application/json');
+header('Content-Type: text/html');
 include_once('./autoload.php');
 include_once('./Bootstrapper.php');
 
@@ -16,10 +16,82 @@ include_once('./Bootstrapper.php');
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 
+
+	include_once('./includes/header.php');
+	
+	?>
+
+	<section>
+      <div class="container">
+        <div class="row">
+        <form> 
+        <h3>Vælg hvad der skal høstes</h3>
+        <p>Vi høster kun poster med et billed tilknyttet, samt kommentarer til disse.</p>
+          <div class="col-md-4">
+          	<h5>Vælg gruppe:</h5>
+          	   <div class="radio">
+  					<label>
+    					<input type="radio" name="group" id="group" value="1" checked>
+    					Gamle København
+  					</label>
+				</div>
+				<div class="radio disabled">
+  					<label>
+    					<input type="radio" name="group" id="group" value="2">
+    					Gruppe 2
+  					</label>
+				</div>
+				<div class="radio disabled">
+  					<label>
+    					<input type="radio" name="group" id="group" value="2">
+    					Gruppe 3
+  					</label>
+				</div>				
+          </div>
+
+          <div class="col-md-4">
+          <h5>Vælg antal posts:</h5>
+          	<select name="nor" class="form-control">
+  				<option>1</option>
+  				<option>5</option>
+  				<option>10</option>
+  				<option>50</option>
+		  	</select>
+		 </div>
+
+		 <div class="col-md-4">
+		 <h5>Go:</h5>
+		 	 <button type="submit" class="btn btn-default">Høst</button>
+
+		 </div>
+
+		 </form>
+        </div>
+      </div>
+	<section>	
+
+
+	
+
+
+<?php
+
+
+	
+	
+	
+	if( isset($_GET["group"]) && isset($_GET["nor"]) ){
+
+
+
+
 // Gamle København - default group
 $groupid = "109602915873899";	
 $groupName = "Gamle København";
 $group = $_GET["group"];
+
+
+
 if($group == "2" ){
 	// Set to another group id
 	$groupid = "109602915873899";	// TODO: change
@@ -56,11 +128,60 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 
 	$res = $saver->getStatistic();
 
-	echo "posts: ".$res['posts']."\n";
-	echo "comments: ".$res['comments']."\n";
-	echo "keywords: ".$res['keywords']."\n";
-	echo "keywords_comments: ".$res['keywords_comments']."\n";
+?>
+	<section>
+    	<div class="container">
+        	<div class="row">
+        		<div class="col-md-6">	
+        		<h5>Der er nu høstet, her er lidt statistik fra basen:</h5>
+  					<table class="table table-striped">
+  					<tbody>	
+  					
+  						
+  					
+<?php
+	echo "<tr><td>Antal Poster: </td><td>".$res['posts']."</td></tr>";
+	echo "<tr><td>Antal Kommentarer: </td><td>".$res['comments']."</td></tr>";
+	echo "<tr><td>Antal Unikke NER's: </td><td>".$res['keywords']."</td></tr>";
+	echo "<tr><td>Antal NER's tilknyttet poster eller kommentarer: </td><td>".$res['keywords_comments']."</td></tr>";
 
+?>
+					</tr>
+  					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<?php
+} // End if-else
+?>
+
+	<section>
+		<div class="container">
+        	<div class="row">
+        		<div class="col-md-12">	
+        		<h4>Brug json API'et</h4>
+        		<p>
+        			<strong>Hent alle poster:</strong><br/>
+        			<a target="_blank" href="../api/public/1/?type=posts&callback=?">../api/public/1/?type=posts&callback=?</a><br/>
+        			<br/>
+
+					<strong>Hent alle post med id 109602915873899_370938319740356 (internt fb id):</strong><br/>
+        			<a target="_blank" href="../api/public/1/?type=posts&post_id=109602915873899_370938319740356&callback=?">../api/public/1/?type=posts&post_id=109602915873899_370938319740356&callback=?</a><br/>
+        			<br/>
+
+        			<strong>Hent alle kommentarer til post med id 109602915873899_370938319740356 (internt fb id):</strong><br/>
+        			<a target="_blank" href="../api/public/1/?type=comments&post_id=109602915873899_370938319740356&callback=?">../api/public/1/?type=comments&post_id=109602915873899_370938319740356&callback=?</a><br/>
+        		</p>
+        		</div>
+    		</div>
+    	</div>
+	</section>
+
+<?php
+include_once('./includes/footer.php');
 
 /**
 *	Høster fra facebook og returnerer et FB.graphObject
