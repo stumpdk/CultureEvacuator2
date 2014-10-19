@@ -162,6 +162,7 @@
 
                     $conditions[] = new FieldCondition('post_id', 'post_id', $this->getParameter('post_id','string'), '=', true);
                     $conditions[] = new FieldCondition('keyword', 'keyword', $this->getParameter('keyword','string'), 'LIKE', true);
+                    $conditions[] = new FieldCondition('comment_id', 'comment_id');
                     $conditions[] = new FieldCondition('type', 'type');
                     //$joins = 'av_stam_eksemplar LEFT JOIN av_stam on av_stam_eksemplar.av_stam_id = av_stam.id LEFT JOIN metadata_version LEFT JOIN av_stam.a_id = metadata_version.id';
                     //$joins = 'ce_keywords left join ce_keywords_comments on ce_keywords.id = ce_keywords_comments.keyword_id LEFT JOIN ce_comments on ce_keywords_comments.comment_id = ce_comments.id';
