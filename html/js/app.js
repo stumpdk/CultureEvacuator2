@@ -63,10 +63,10 @@ app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', f
 
     $scope.init();
 }]);
-
-angular.module('CultureEvacuator.services').factory('Comment', function($resource) {
+/*
+angular.module('services').factory('Comment', function($resource) {
     return $resource('/api?type=comments&post=:userId'); // Note the full endpoint address
-});
+});*/
 
 //Service that handle posts
 var services = angular.module('services',[]);
@@ -96,13 +96,16 @@ services.service('Post', function ($http, $q) {
 
     exp.getPosts = function () {
         var def= $q.defer();
-        $http.jsonp("http://jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=posts").success( function(data, status, headers, config) {
-            def.resolve({posts: data});
+        $http.jsonp("http://www.jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=posts&callback=JSON_CALLBACK").success( function(data) {
+            def.resolve(data);
             console.log("data:%o", data);
+        })
+        .error(function(data, status, headers, config){
+            def.resolve(false);
         });
         return def.promise;
 
-    }
+    };
     return exp;
 });
 
