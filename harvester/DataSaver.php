@@ -13,7 +13,7 @@
 			$this->ner = new NamedEntityRecognizer();        	
 			# naïve way of matching variant spellings – we should look into using
 			# a stemmer instead
-			$ner->synonyms(array(
+			$this->ner->synonyms(array(
 				'Nationalmuseets' => 'Nationalmuseet',
 				'Kongelige Biblioteks' => 'Kongelige Bibliotek',
 			));
