@@ -1,8 +1,19 @@
 <?php
 
 class NamedEntityRecognizer {
+  private $synonyms = array();
+
+  private $from_year = 1700;
+  private $to_year = 2015;
+
   /**
    * Tries to extract named entities from a piece of text.
+   *
+   * Please be aware of the following limits:
+   *   - Only years between 1700 and 2015 (inclusive) are tagged as years
+   *   - Any entity like "Photo:", "By:", etc. is tagges as a byline
+   *   - Any eniity ending in -gade, -vej, -pladsen, or -torv is tagged as an
+   *     address
    *
    * @param string $text
    *   The string you want to analyse.
@@ -53,32 +64,41 @@ class NamedEntityRecognizer {
           }
         }
 
+        $full_token = implode(' ', $entity);
+        if ($this->synonyms[$full_token]) {
+          $full_token = $this->synonyms[$full_token];
+        }
+
         if (preg_match('/^\d{4}$/', $entity[0])) {
-          // the entity is a year (well, any 4-digit number at the moment)
-          array_push($result['years'], $entity[0]);
+          if ($entity[0] > $this->from_year && $entity[0] < $this->to_year) {
+            // the entity is a year (well, any 4-digit number at the moment)
+            array_push($result['years'], $entity[0]);
+          }
         }
         elseif (preg_match('/^\w+:/', $entity[0])) {
           // the entity looks like a byline, e.g. "Foto: Ole Larsen"
-          array_push($result['bylines'], implode(' ', $entity));
-        }
-        elseif (preg_match('/[a-z]\s+\d+$/', implode(' ', $entity))) {
-          // the entity looks like an address, e.g. "Hovedvejen 42"
-          array_push($result['addresses'], implode(' ', $entity));
-        }
-        elseif (preg_match('/gade$|vej$|pladsen$|torv$/', implode(' ', $entity))) {
-          // the entity looks like a street name, e.g. ends with "-gade"
-          array_push($result['addresses'], implode(' ', $entity));
+          array_push($result['bylines'], $full_token);
         }
         elseif (in_array($entity[0], $names)) {
           // the first part of the entity is a legal name
-          array_push($result['names'], implode(' ', $entity));
-        }
-        elseif (in_array(mb_strtolower(implode(' ', $entity), 'UTF-8'), $institutions)) {
-          // the entity matches the name of an institution
-          array_push($result['institutions'], implode(' ', $entity));
+          array_push($result['names'], $full_token);
         }
         else {
-          array_push($result['tags'], implode(' ', $entity));
+          if (preg_match('/[a-z]\s+\d+$/', $full_token)) {
+            // the entity looks like an address, e.g. "Hovedvejen 42"
+            array_push($result['addresses'], $full_token);
+          }
+          elseif (preg_match('/gade$|vej$|pladsen$|torv$/', $full_token)) {
+            // the entity looks like a street name, e.g. ends with "-gade"
+            array_push($result['addresses'], $full_token);
+          }
+          elseif (in_array(mb_strtolower($full_token, 'UTF-8'), $institutions)) {
+            // the entity matches the name of an institution
+            array_push($result['institutions'], $full_token);
+          }
+          else {
+            array_push($result['tags'], $full_token);
+          }
         }
       }
     }
@@ -94,7 +114,19 @@ class NamedEntityRecognizer {
     return $result;
   }
 
-  function get_institutions() {
+  public function synonyms($synonyms) {
+    $this->synonyms = $synonyms;
+  }
+
+  public function from_year($year) {
+    $this->from_year = $year;
+  }
+
+  public function to_year($year) {
+    $this->to_year = $year;
+  }
+
+  private function get_institutions() {
     return array(
       'nationalmuseet',
       'kgl bibliotek',
@@ -107,7 +139,7 @@ class NamedEntityRecognizer {
     );
   }
 
-  function get_stopwords() {
+  private function get_stopwords() {
     return array(
       'ad',
       'af',
@@ -207,7 +239,7 @@ class NamedEntityRecognizer {
     );
   }
 
-  function get_initwords() {
+  private function get_initwords() {
     return array(
       'bin',
       'de',
@@ -222,7 +254,7 @@ class NamedEntityRecognizer {
     );
   }
 
-  function get_names() {
+  private function get_names() {
     return array(
       'Aabish',
       'Aabjørn',
