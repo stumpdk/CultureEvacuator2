@@ -43,9 +43,9 @@ app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', f
 	$scope.goToItem = function(id){
         $scope.currentPost = $scope.Post.getPostById($scope.posts, id);
         $scope.Comment.getComments($scope.currentPost);
-        console.log($scope.currentPost);
-        //$scope.Keyword.getKeywords($scope.currentPost);
-	    $location.url('/show/' + id);
+        $scope.Keyword.getKeywords($scope.currentPost);
+	    console.log($scope.currentPost);
+        $location.url('/show/' + id);
         $scope.list = 'partials/partials-show.html';
 	};
 
@@ -107,11 +107,46 @@ services.service('Post', function ($http, $q) {
     return exp;
 });
 
-services.service('Keyword', function(){
+services.service('Keyword', function($http){
     var exp = {};
 
-    exp.rateKeyword = function(keyword, rate){
-        keyword += rate;
+    exp.rate = function(keyword, rate){
+        if(rate === undefined)
+            rate = true;
+        keyword.rate = rate;
+        console.log('rated');
+    };
+    exp.getKeywords = function (post) {
+        $http.jsonp("http://www.jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=comment_keywords&post_id=" + post.post_id + "callback=JSON_CALLBACK").success( function(data) {
+            post.keywords = data;
+        })
+        .error(function(data, status, headers, config){
+            post.keywords = [
+{
+post_id: "109602915873899_374313669402821",
+keyword: "Vesterbrogade",
+comment_id: "Post level keyword",
+type: "addresses"
+},
+{
+post_id: "109602915873899_374313669402821",
+keyword: "Saxogade 48",
+comment_id: "374334512734070",
+type: "addresses"
+},
+{
+post_id: "109602915873899_374313669402821",
+keyword: "Ditte",
+comment_id: "374338089400379",
+type: "names"
+},
+{
+post_id: "109602915873899_374313669402821",
+keyword: "Regitze",
+comment_id: "374350369399151",
+type: "names"
+}];
+        });
     };
 
     return exp;
@@ -128,11 +163,11 @@ services.service('Comment', function ($q, $http){
     };
 
     exp.getComments = function (post) {
-        $http.jsonp("http://www.jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=comments&callback=JSON_CALLBACK").success( function(data) {
+        $http.jsonp("http://www.jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=comments&post_id=" + post.post_id + "&callback=JSON_CALLBACK").success( function(data) {
             post.comments = data;
         })
         .error(function(data, status, headers, config){
-            alert("oh noez");
+            alert("oh noez, cant load comments!");
         });
     };
 
