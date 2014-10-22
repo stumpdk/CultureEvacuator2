@@ -33,9 +33,18 @@ class NamedEntityRecognizer {
     $institutions = $this->get_institutions();
     $names = $this->get_names();
 
-    // tokenize input and remove empty tokens
-    $tokens = preg_split("/[\s\?\.,\"'«»\!\!\(\)\\\]/", $text);
-    $tokens = array_values(array_filter($tokens));
+    // tokenize input
+
+    $tokens = preg_split('/(\W+)/', utf8_decode($text), -1, PREG_SPLIT_DELIM_CAPTURE);
+
+    $sentences = $sentence = array();
+    for ($i = 0; $i < count($tokens); $i++) {
+      array_push($sentence, utf8_encode($tokens[$i]));
+      if (preg_match('/^\s*[\.\!\?\(\)]/', $tokens[$i]) and !preg_match('/^[A-Z]$/', $tokens[$i - 1])) {
+        array_push($sentences, $sentence);
+        $sentence = array();
+      }
+    }
 
     $result = array(
       'addresses' => array(),
@@ -45,59 +54,62 @@ class NamedEntityRecognizer {
       'tags' => array(),
       'years' => array(),
     );
-    for ($i = 0; $i < count($tokens); $i++) {
-      $entity = array();
-      $token = $tokens[$i];
+    foreach ($sentences as $sentence) {
+      for ($i = 0; $i < count($sentence); $i += 2) {
+        $entity = array();
+        $token = $sentence[$i];
 
-      if ((mb_strtolower($token, 'UTF-8') !== $token || preg_match('/^\d{4}$/', $token)) && !in_array(mb_strtolower($token, 'UTF-8'), $stopwords) && !in_array(mb_strtolower($token, 'UTF-8'), $initwords)) {
-        array_push($entity, $token);
+        if ((mb_strtolower($token, 'UTF-8') !== $token || preg_match('/^\d{4}$/', $token)) && !in_array(mb_strtolower($token, 'UTF-8'), $stopwords) && !in_array(mb_strtolower($token, 'UTF-8'), $initwords)) {
+          array_push($entity, $token);
 
-        if (isset($tokens[$i + 1])) {
-          $token = $tokens[$i + 1];
-          while ((mb_strtolower($token, 'UTF-8') !== $token || in_array(mb_strtolower($token, 'UTF-8'), $initwords) || preg_match('/^\d{1,3}$/', $token)) && !in_array(mb_strtolower($token, 'UTF-8'), $stopwords)) {
-            $i++;
-            array_push($entity, $token);
-            if (!isset($tokens[$i + 1])) {
-              break;
+          if (isset($sentence[$i + 2])) {
+            $token = $sentence[$i + 2];
+            while ((mb_strtolower($token, 'UTF-8') !== $token || in_array(mb_strtolower($token, 'UTF-8'), $initwords) || preg_match('/^\d{1,3}$/', $token)) && !in_array(mb_strtolower($token, 'UTF-8'), $stopwords)) {
+              $i += 2;
+              array_push($entity, $token);
+              if (!isset($sentence[$i + 2])) {
+                break;
+              }
+              $token = $sentence[$i + 2];
             }
-            $token = $tokens[$i + 1];
           }
-        }
 
-        $full_token = implode(' ', $entity);
-        if (isset($this->synonyms[$full_token])) {
-          $full_token = $this->synonyms[$full_token];
-        }
+          $full_token = implode(' ', $entity);
+          print ">>$full_token<<\n";
+          if (isset($this->synonyms[$full_token])) {
+            $full_token = $this->synonyms[$full_token];
+          }
 
-        if (preg_match('/^\d{4}$/', $entity[0])) {
-          if ($entity[0] > $this->from_year && $entity[0] < $this->to_year) {
-            // the entity is a year (well, any 4-digit number at the moment)
-            array_push($result['years'], $entity[0]);
+          if (preg_match('/^\d{4}$/', $entity[0])) {
+            if ($entity[0] > $this->from_year && $entity[0] < $this->to_year) {
+              // the entity is a year (well, any 4-digit number at the moment)
+              array_push($result['years'], $entity[0]);
+            }
           }
-        }
-        elseif (preg_match('/^\w+:/', $entity[0])) {
-          // the entity looks like a byline, e.g. "Foto: Ole Larsen"
-          array_push($result['bylines'], $full_token);
-        }
-        elseif (in_array($entity[0], $names)) {
-          // the first part of the entity is a legal name
-          array_push($result['names'], $full_token);
-        }
-        else {
-          if (preg_match('/[a-z]\s+\d+$/', $full_token)) {
-            // the entity looks like an address, e.g. "Hovedvejen 42"
-            array_push($result['addresses'], $full_token);
+          elseif (preg_match('/^\w+:/', $entity[0])) {
+            // the entity looks like a byline, e.g. "Foto: Ole Larsen"
+            array_push($result['bylines'], $full_token);
           }
-          elseif (preg_match('/gade$|vej$|pladsen$|torv$/', $full_token)) {
-            // the entity looks like a street name, e.g. ends with "-gade"
-            array_push($result['addresses'], $full_token);
-          }
-          elseif (in_array(mb_strtolower($full_token, 'UTF-8'), $institutions)) {
-            // the entity matches the name of an institution
-            array_push($result['institutions'], $full_token);
+          elseif (in_array($entity[0], $names)) {
+            // the first part of the entity is a legal name
+            array_push($result['names'], $full_token);
           }
           else {
-            array_push($result['tags'], $full_token);
+            if (preg_match('/[a-z]\s+\d+$/', $full_token)) {
+              // the entity looks like an address, e.g. "Hovedvejen 42"
+              array_push($result['addresses'], $full_token);
+            }
+            elseif (preg_match('/gade$|vej$|pladsen$|torv$/', $full_token)) {
+              // the entity looks like a street name, e.g. ends with "-gade"
+              array_push($result['addresses'], $full_token);
+            }
+            elseif (in_array(mb_strtolower($full_token, 'UTF-8'), $institutions)) {
+              // the entity matches the name of an institution
+              array_push($result['institutions'], $full_token);
+            }
+            else {
+              array_push($result['tags'], $full_token);
+            }
           }
         }
       }
