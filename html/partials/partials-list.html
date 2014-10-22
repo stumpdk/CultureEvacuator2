@@ -12,9 +12,9 @@
               <div ng-repeat="item in posts">
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    <img ng-src="{{item.imageUrl}}" style="margin-right:50px; width:100px; display:inline" class="img-responsive" alt="Responsive image">
-                      <span>{{item.headline}}</span>
-                    <button type="button" class="btn btn-success pull-right" ng-click="goToItem(item.id)">Vælg</button>
+                    <img ng-src="{{item.picture}}" style="margin-right:50px; width:100px; display:inline" class="img-responsive" alt="Responsive image">
+                      <span>{{item.message}}</span>
+                    <button type="button" class="btn btn-success pull-right" ng-click="goToItem(item.post_id)">Vælg</button>
                   </div>
                 </div>
               </div>
