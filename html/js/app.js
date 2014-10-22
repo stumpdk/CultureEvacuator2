@@ -128,14 +128,12 @@ services.service('Comment', function ($q, $http){
     };
 
     exp.getComments = function (post) {
-        var def= $q.defer();
         $http.jsonp("http://www.jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=comments&callback=JSON_CALLBACK").success( function(data) {
             post.comments = data;
         })
         .error(function(data, status, headers, config){
             alert("oh noez");
         });
-        return def.promise;
     };
 
 
