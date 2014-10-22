@@ -19,7 +19,7 @@ app.config(function($routeProvider, $locationProvider) {
 app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', function($scope, $location, Post, Comment, Keyword){
 	$scope.list = 'partials/partials-list.html';
     $scope.currentPost = {};
-	$scope.posts = [];
+/*	$scope.posts = [];
 	$scope.posts.push({
 		imageUrl : 'test.jpg',
 		headline : 'Test headline',
@@ -34,7 +34,7 @@ app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', f
             {id:"2", rate:true, text:"Ogs"},
             {id:"3", rate:false, text:"Ogs"},
         ]
-	});
+	});*/
 
     $scope.Comment = Comment;
     $scope.Keyword = Keyword;
@@ -42,11 +42,10 @@ app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', f
 
 	$scope.goToItem = function(id){
         $scope.currentPost = $scope.Post.getPostById($scope.posts, id);
-        //$scope.Comment.getComments($scope.currentPost);
-        //$scope.Keyword.getKeywords($scope.currentPost);
-
+        $scope.Comment.getComments($scope.currentPost);
         console.log($scope.currentPost);
-		$location.url('/show/' + id);
+        //$scope.Keyword.getKeywords($scope.currentPost);
+	    $location.url('/show/' + id);
         $scope.list = 'partials/partials-show.html';
 	};
 
@@ -83,7 +82,7 @@ services.service('Post', function ($http, $q) {
 
     exp.getPostById = function(posts,id){
         for(var i = 0; i < posts.length; i++){
-            if(posts[i].id == id)
+            if(posts[i].post_id == id)
                 return posts[i];
         }
 
@@ -93,19 +92,18 @@ services.service('Post', function ($http, $q) {
     exp.approvePost = function(post, approved){
         post.approved = approved;
     };
-
     exp.getPosts = function () {
         var def= $q.defer();
         $http.jsonp("http://www.jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=posts&callback=JSON_CALLBACK").success( function(data) {
             def.resolve(data);
-            console.log("data:%o", data);
         })
         .error(function(data, status, headers, config){
             def.resolve(false);
         });
         return def.promise;
-
     };
+
+
     return exp;
 });
 
@@ -119,7 +117,7 @@ services.service('Keyword', function(){
     return exp;
 });
 
-services.service('Comment', function(){
+services.service('Comment', function ($q, $http){
     var exp = {};
 
     exp.rate = function(comment, rate){
@@ -128,6 +126,18 @@ services.service('Comment', function(){
         comment.rate = rate;
         console.log('rated');
     };
+
+    exp.getComments = function (post) {
+        var def= $q.defer();
+        $http.jsonp("http://www.jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=comments&callback=JSON_CALLBACK").success( function(data) {
+            post.comments = data;
+        })
+        .error(function(data, status, headers, config){
+            alert("oh noez");
+        });
+        return def.promise;
+    };
+
 
     return exp;
 });
