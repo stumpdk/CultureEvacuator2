@@ -34,7 +34,7 @@
           <div class="col-md-6 main">
             <div class="card">
               <p>
-                <img ng-src="{{currentPost.pictureLarge}}" class="img-responsive" />
+                <img ng-src="{{currentPost.picture_large}}" class="img-responsive" />
               </p>
               <div class="meta">
                 <p>
@@ -61,7 +61,7 @@
                   <div ng-click="Comment.rate(currentPost.comments[$index], !currentPost.comments[$index].rate)">
                   <!--  -->
                     <p ng-class="{true:'comment', false:'comment bad', undefined:'comment'}[comment.rate]" ng-animate="'comment'">
-                      {{comment.text}}
+                      {{comment.message}}
                     </p><div ng-show="comment.rate" ng-click="Comment.rate(currentPost.comments[$index], false)">God</div><div ng-show="!comment.rate" ng-click="Comment.rate(currentPost.comments[$index], true)">Dårlig</div>
                   </div>
                 </div>
