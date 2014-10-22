@@ -28,6 +28,14 @@
         background-color: #f0f0f0;
       }
 
+      .bad {
+        margin-right: 0px;
+        margin-left: 40px;
+        opacity: 0.4;
+        border: none;
+
+      }
+
       .description {
         margin-top: 20px;
       }
@@ -41,6 +49,7 @@
         padding: 2em 0;
         border-top: 1px solid #f0f0f0;
       }
+
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -96,18 +105,9 @@
                 <div class="panel-body">
                   <img src="dummy.jpg" style="margin-right:50px; width:100px; display:inline" class="img-responsive" alt="Responsive image">
 
-                  <!-- Årstal -->
-                  <span class="label label-default">1932</span>
-                  <span class="label label-default">1964</span>
-
-                  <!-- Navne -->
-                  <span class="label label-success">Peter Jensen</span>
-
-                  <!-- Emneord -->
-
-                  <span class="label label-warning">Højhus</span>
-                  <span class="label label-warning">Lorem</span>
-                  <span class="label label-warning">Ipsum</span>
+                  <div ng-repeat="keyword in currentPost.keywords">
+                    <span class="label label-default">{{keyword.text}}</span>
+                  </div>
 
                   <span style="float:right;;" class="glyphicon glyphicon-ok"></span>
                 </div>
