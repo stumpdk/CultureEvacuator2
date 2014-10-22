@@ -131,6 +131,7 @@
 
                     $conditions[] = new FieldCondition('post_id', 'post_id', $this->getParameter('post_id','string'), '=', true);
                     $conditions[] = new FieldCondition('picture', 'picture');
+                    $conditions[] = new FieldCondition('picture_large', 'picture_large');
                     $conditions[] = new FieldCondition('link', 'link');
                     $conditions[] = new FieldCondition('created_time', 'created_time');
                     $conditions[] = new FieldCondition('message', 'message');
