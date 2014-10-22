@@ -42,8 +42,8 @@ app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', f
 
 	$scope.goToItem = function(id){
         $scope.currentPost = $scope.Post.getPostById($scope.posts, id);
-        $scope.Comment.getComments($scope.currentPost);
-        $scope.Keyword.getKeywords($scope.currentPost);
+        //$scope.Comment.getComments($scope.currentPost);
+        //$scope.Keyword.getKeywords($scope.currentPost);
 
         console.log($scope.currentPost);
 		$location.url('/show/' + id);
@@ -64,11 +64,9 @@ app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', f
     $scope.init();
 }]);
 
-/**
 angular.module('CultureEvacuator.services').factory('Comment', function($resource) {
-  return $resource('/api?type=comments&post=:userId'); // Note the full endpoint address
+    return $resource('/api?type=comments&post=:userId'); // Note the full endpoint address
 });
-**/
 
 //Service that handle posts
 var services = angular.module('services',[]);
@@ -80,7 +78,7 @@ services.service('test', function($resource){
 	 });
 });
 
-services.service('Post', function(){
+services.service('Post', function ($http, $q) {
     var exp = {};
 
     exp.getPostById = function(posts,id){
@@ -96,6 +94,15 @@ services.service('Post', function(){
         post.approved = approved;
     };
 
+    exp.getPosts = function () {
+        var def= $q.defer();
+        $http.jsonp("http://jacoblarsen.net/hack4dk/2014/api/public/1/index.php?type=posts").success( function(data, status, headers, config) {
+            def.resolve({posts: data});
+            console.log("data:%o", data);
+        });
+        return def.promise;
+
+    }
     return exp;
 });
 
