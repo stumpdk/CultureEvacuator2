@@ -3,6 +3,9 @@
 class NamedEntityRecognizer {
   private $synonyms = array();
 
+  private $from_year = 1700;
+  private $to_year = 2015;
+
   /**
    * Tries to extract named entities from a piece of text.
    *
@@ -66,9 +69,11 @@ class NamedEntityRecognizer {
           $full_token = $this->synonyms[$full_token];
         }
 
-        if (preg_match('/^\d{4}$/', $entity[0]) && ($entity[0] > 1700 && $entity[0] < 2015)) {
-          // the entity is a year (well, any 4-digit number at the moment)
-          array_push($result['years'], $entity[0]);
+        if (preg_match('/^\d{4}$/', $entity[0])) {
+          if ($entity[0] > $this->from_year && $entity[0] < $this->to_year) {
+            // the entity is a year (well, any 4-digit number at the moment)
+            array_push($result['years'], $entity[0]);
+          }
         }
         elseif (preg_match('/^\w+:/', $entity[0])) {
           // the entity looks like a byline, e.g. "Foto: Ole Larsen"
@@ -111,6 +116,14 @@ class NamedEntityRecognizer {
 
   public function synonyms($synonyms) {
     $this->synonyms = $synonyms;
+  }
+
+  public function from_year($year) {
+    $this->from_year = $year;
+  }
+
+  public function to_year($year) {
+    $this->to_year = $year;
   }
 
   private function get_institutions() {
