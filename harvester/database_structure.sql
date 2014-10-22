@@ -81,6 +81,7 @@ CREATE TABLE `ce_posts` (
 `id` int(11) NOT NULL,
   `post_id` varchar(50) NOT NULL COMMENT 'facebook internal post id',
   `picture` char(250) DEFAULT NULL COMMENT 'Link til billede (Hvis de er noget på posten)',
+  `picture_large` char(250) DEFAULT NULL,
   `link` char(250) DEFAULT NULL COMMENT 'Link til posten på facebook',
   `created_time` datetime DEFAULT NULL,
   `updated_time` datetime DEFAULT NULL,

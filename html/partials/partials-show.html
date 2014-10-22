@@ -34,14 +34,14 @@
           <div class="col-md-6 main">
             <div class="card">
               <p>
-                <img src="img/natmus1.jpg" class="img-responsive" />
+                <img ng-src="{{currentPost.pictureLarge}}" class="img-responsive" />
               </p>
               <div class="meta">
                 <p>
                   <span ng-repeat="keyword in currentPost.keywords" class="label label-default">{{keyword.text}}</span>
                 </p>
                 <p>
-                  {{currentPost.text}}
+                  {{currentPost.message}}
                 </p>
               </div>
             </div>

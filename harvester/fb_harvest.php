@@ -121,11 +121,19 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	foreach($dataArr as $d){
 		if(isset($d->picture)){
 			$saver->getKeyWords($d->message, $d->id);	
-            $saver->savePost($d);
-            $comments = harvestComments($d->id);
-			$commentsArr = $comments->getProperty("data")->asArray();
+
+      $images = harvestImages($d->object_id);
+      
+      $imageArr = $images->asArray();
+      
+      $largeImage =  $imageArr['images'][0]->source;
+
+      $saver->savePost($d,$largeImage);
+      $comments = harvestComments($d->id);
+      $commentsArr = $comments->getProperty("data")->asArray();
 			$saver->saveComments($commentsArr, $d->id);
-        }
+
+    }
 	}
 	
 ?>
@@ -232,7 +240,7 @@ $session = FacebookSession::newAppSession();
 	try {
   		$session->validate();
 
-  		$request = new FacebookRequest($session, 'GET', '/'.$groupid.'/feed?fields=id,message,link,created_time,picture&limit='.$limit);
+  		$request = new FacebookRequest($session, 'GET', '/'.$groupid.'/feed?fields=id,message,link,created_time,picture,object_id&limit='.$limit);
   		$response = $request->execute();
   		$graphObject = $response->getGraphObject();
   		return $graphObject;
@@ -278,6 +286,38 @@ function harvestComments( $commentId ) {
 	}
 
 }
+
+/**
+* Høst Billeder i relevante størrelser
+*
+* // Get images from given 
+* // comments?summary=true&limit=1000&order=ranked|chronological
+*
+* @param $url den url der hentes ud fra FB's paging parameter
+*
+*/
+
+function harvestImages( $imageId ) {
+  $session = FacebookSession::newAppSession();
+  try {
+      $session->validate();
+
+      $request = new FacebookRequest($session, 'GET', '/'.$imageId);
+      $response = $request->execute();
+      $graphObject = $response->getGraphObject();
+      return $graphObject;
+
+  } catch (FacebookRequestException $ex) {
+      // Session not valid, Graph API returned an exception with the reason.
+      echo $ex->getMessage();
+  } catch (\Exception $ex) {
+      // Graph API returned info, but it may mismatch the current app or have expired.
+      echo $ex->getMessage();
+  }
+
+}
+
+
 
 /**
 * Save a file to disc

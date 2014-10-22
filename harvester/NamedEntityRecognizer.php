@@ -65,7 +65,7 @@ class NamedEntityRecognizer {
         }
 
         $full_token = implode(' ', $entity);
-        if ($this->synonyms[$full_token]) {
+        if (isset($this->synonyms[$full_token])) {
           $full_token = $this->synonyms[$full_token];
         }
 

@@ -13,7 +13,7 @@
 			$this->ner = new NamedEntityRecognizer();        	
 			# naïve way of matching variant spellings – we should look into using
 			# a stemmer instead
-			$ner->synonyms(array(
+			$this->ner->synonyms(array(
 				'Nationalmuseets' => 'Nationalmuseet',
 				'Kongelige Biblioteks' => 'Kongelige Bibliotek',
 			));
@@ -47,13 +47,13 @@
 		* Parse single FB post and puts int in DB
 		* Unique constraint on post_id ensures no dobbles
 		*/
-		function savePost($d){
+		function savePost($d,$largeImage = "no-large-image-found"){
 	        if(isset($d->picture)){ // only save posts with pictures 
-                $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_posts (post_id,picture,link,created_time, updated_time ,message) VALUES (?,?,?,?,?,?)");
+                $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_posts (post_id,picture,picture_large,link,created_time, updated_time ,message) VALUES (?,?,?,?,?,?,?)");
 
                 if($stmt){
                     /* Bind our params */
-                    $stmt->bind_param('ssssss', $d->id, $d->picture , $d->link, $d->created_time, $d->updated_time, $d->message);
+                    $stmt->bind_param('sssssss', $d->id, $d->picture ,$largeImage, $d->link, $d->created_time, $d->updated_time, $d->message);
                     $stmt->execute();                    
                 }
                 else{
