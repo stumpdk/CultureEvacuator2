@@ -55,28 +55,31 @@
             </ul>
 
             <div class="tab-content">
+            <!-- COMMENTS -->
               <div class="tab-pane active" id="comments">
                 <p></p>
                 <div ng-repeat="comment in currentPost.comments">
                   <div ng-click="Comment.rate(currentPost.comments[$index], !currentPost.comments[$index].rate)">
                   <!--  -->
-                    <p ng-class="{true:'comment', false:'comment bad', undefined:'comment'}[comment.rate]" ng-animate="'comment'">
+                    <p ng-class="{true:'comment good', false:'comment bad', undefined:'comment unrated'}[comment.rate]">
                       {{comment.message}}
                     </p><div ng-show="comment.rate" ng-click="Comment.rate(currentPost.comments[$index], false)">God</div><div ng-show="!comment.rate" ng-click="Comment.rate(currentPost.comments[$index], true)">Dårlig</div>
                   </div>
                 </div>
               </div>
-                <div class="tab-pane active" id="keywords">
+              <!--  KEYWORDS-->
+                <div class="tab-pane" id="keywords">
                   <p></p>
                   <div ng-repeat="keyword in currentPost.keywords">
-                    <div ng-click="Comment.rate(currentPost.comments[$index], !currentPost.comments[$index].rate)">
+                    <div ng-click="Keyword.rate(currentPost.comments[$index], !currentPost.comments[$index].rate)">
                     <!--  -->
-                      <p ng-class="{true:'comment', false:'comment bad', undefined:'comment'}[comment.rate]" ng-animate="'comment'">
-                        {{comment.text}}
-                      </p><div ng-show="comment.rate" ng-click="Comment.rate(currentPost.comments[$index], false)">God</div><div ng-show="!comment.rate" ng-click="Comment.rate(currentPost.comments[$index], true)">Dårlig</div>
+                      <p ng-class="{true:'comment good', false:'comment bad', undefined:'comment unrated'}[keyword.rate]">
+                        {{keyword.keyword}}
+                      </p><div ng-show="keyword.rate" ng-click="Keyword.rate(currentPost.keywords[$index], false)">God</div><div ng-show="!keyword.rate" ng-click="Keyword.rate(currentPost.keywords[$index], true)">Dårlig</div>
                     </div>
                   </div>
                 </div>
+                <!-- IMAGES -->
               <div class="tab-pane" id="images">
                 <p>
                   <div class="row" style="text-align:center; margin-bottom: 20px;"> <!-- TOP images -->
