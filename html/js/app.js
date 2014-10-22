@@ -42,6 +42,9 @@ app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', f
 
 	$scope.goToItem = function(id){
         $scope.currentPost = $scope.Post.getPostById($scope.posts, id);
+        $scope.Comment.getComments($scope.currentPost);
+        $scope.Keyword.getKeywords($scope.currentPost);
+
         console.log($scope.currentPost);
 		$location.url('/show/' + id);
         $scope.list = 'partials/partials-show.html';
@@ -51,6 +54,14 @@ app.controller('MainCtrl', ['$scope', '$location', 'Post','Comment','Keyword', f
         $location.url('/list');
         $scope.list = 'partials/partials-list.html';
     };
+
+    $scope.init = function(){
+        $scope.Post.getPosts().then(function(data){
+            $scope.posts = data;
+        });
+    };
+
+    $scope.init();
 }]);
 
 /**
