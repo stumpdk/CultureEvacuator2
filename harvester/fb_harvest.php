@@ -120,8 +120,9 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	// $saver->savePosts($dataArr);
 	foreach($dataArr as $d){
 		if(isset($d->picture)){
-			$saver->getKeyWords($d->message, $d->id);	
-
+			if(isset($d->message) && isset($d->id)){
+				$saver->getKeyWords($d->message, $d->id);	
+			}
       $images = harvestImages($d->object_id);
       
       $imageArr = $images->asArray();
@@ -130,8 +131,12 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 
       $saver->savePost($d,$largeImage);
       $comments = harvestComments($d->id);
+      if(is_object($comments)){
       $commentsArr = $comments->getProperty("data")->asArray();
-			$saver->saveComments($commentsArr, $d->id);
+			$saver->saveComments($commentsArr, $d->id);	
+      }
+      
+      
 
     }
 	}
@@ -272,7 +277,7 @@ function harvestComments( $commentId ) {
 	try {
   		$session->validate();
 
-  		$request = new FacebookRequest($session, 'GET', '/'.$commentId.'/comments?summary=true&limit=1000&order=ranked');
+  		$request = new FacebookRequest($session, 'GET', '/'.$commentId.'/comments?summary=true&limit=1000&order=chronological');
   		$response = $request->execute();
   		$graphObject = $response->getGraphObject();
   		return $graphObject;

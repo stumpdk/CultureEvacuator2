@@ -139,6 +139,22 @@
                     //$joins = 'av_stam_eksemplar LEFT JOIN av_stam on av_stam_eksemplar.av_stam_id = av_stam.id LEFT JOIN metadata_version LEFT JOIN av_stam.a_id = metadata_version.id';
                     $joins = '`ce_posts`';
                     break;
+                    
+                case 'searchposts':
+
+                    $conditions = array();
+
+                    
+                    $conditions[] = new FieldCondition('picture', 'picture');
+                    $conditions[] = new FieldCondition('picture_large', 'picture_large');
+                    $conditions[] = new FieldCondition('link', 'link');
+                    $conditions[] = new FieldCondition('p.created_time', 'created_time');
+                    $conditions[] = new FieldCondition('message', 'message');
+                    $conditions[] = new FieldCondition('keyword', 'keyword', $this->getParameter('q','string'), '%LIKE%', true);
+
+                    //$joins = 'av_stam_eksemplar LEFT JOIN av_stam on av_stam_eksemplar.av_stam_id = av_stam.id LEFT JOIN metadata_version LEFT JOIN av_stam.a_id = metadata_version.id';
+                    $joins = 'ce_keywords k left join ce_keywords_comments kc on k.id = kc.keyword_id left join ce_posts p on kc.post_id = p.post_id';
+                    break;                    
 /*
                 case 'coordinates':
 
