@@ -73,10 +73,10 @@
         private function outputData(){
             if (isset($_REQUEST["callback"])) {
                 header('Content-type: text/javascript');
-                print str_replace('{', '', $_REQUEST["callback"]) .'('.json_encode($this->output,JSON_UNESCAPED_UNICODE).')';
+                print str_replace('{', '', $_REQUEST["callback"]) .'('.json_encode($this->output).')';
             } else {
                 header('Content-type: application/json');
-                print json_encode($this->output,JSON_UNESCAPED_UNICODE);
+                print json_encode($this->output);
             }        
         }        
     }
