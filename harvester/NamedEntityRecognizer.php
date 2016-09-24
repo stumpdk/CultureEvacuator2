@@ -6,7 +6,7 @@ class NamedEntityRecognizer {
   private $synonyms = array();
 
   private $from_year = 1700;
-  private $to_year = 2015;
+  private $to_year = 2020;
 
   /**
    * Tries to extract named entities from a piece of text.
