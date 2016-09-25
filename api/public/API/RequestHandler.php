@@ -38,13 +38,15 @@
             //Setting the limit
             $this->limit = 0;
             $this->limit = $this->getParameter('limit', 'int');
+            $this->offset = 0;
+            $this->offset = $this->getParameter('offset', 'int');
 
             $this->createQueryByRequest();
 
             if(!APIConfig::$debug)
                 $this->getAndOutputData();
 
-            $this->executionTime = microtime(true) - $timeStart;
+            $this->executionTime = microtime(true) - $time;
 
             if(APIConfig::$enableStatistics)
                 $this->addStatistics();
@@ -132,6 +134,8 @@
                     $conditions[] = new FieldCondition('post_id', 'post_id', $this->getParameter('post_id','string'), '=', true);
                     $conditions[] = new FieldCondition('picture', 'picture');
                     $conditions[] = new FieldCondition('picture_large', 'picture_large');
+                    $conditions[] = new FieldCondition('picture_large_height', 'picture_large_height');
+                    $conditions[] = new FieldCondition('picture_large_width', 'picture_large_width');
                     $conditions[] = new FieldCondition('link', 'link');
                     $conditions[] = new FieldCondition('created_time', 'created_time');
                     $conditions[] = new FieldCondition('message', 'message');
@@ -139,7 +143,57 @@
                     //$joins = 'av_stam_eksemplar LEFT JOIN av_stam on av_stam_eksemplar.av_stam_id = av_stam.id LEFT JOIN metadata_version LEFT JOIN av_stam.a_id = metadata_version.id';
                     $joins = '`ce_posts`';
                     break;
+                
+                case 'postsmetadata':
                     
+                    $db = Database::getInstance();
+                    $postsQuery = 'select * from ce_posts order by created_time';
+                    
+               //     $postsQuery = ($this->limit>0) ? $postsQuery . ' limit ' . $this->limit : $postsQuery;
+                    
+                    if($this->offset>0){
+                        $postsQuery = $postsQuery . ' limit ' . $this->offset;
+                    }
+                    
+                    if($this->limit>0)
+                    {
+                        if($this->offset>0){
+                            $postsQuery = $postsQuery . ',' . $this->limit;
+                        }
+                        else{
+                            $postsQuery = $postsQuery . ' limit ' . $this->limit;
+                        }
+                    }
+                    
+                    
+                    $posts = $db->runQueryGetAssocList($postsQuery);
+                    
+                    
+                    $result = [];
+                    foreach($posts as $post){
+                        $metadataQuery = 'select * from ce_keywords left join ce_keywords_comments ON ce_keywords.id = ce_keywords_comments.keyword_id WHERE ce_keywords_comments.post_id = \'' . $post['post_id'] . '\'';
+                        $post['metadata'] = $db->runQueryGetAssocList($metadataQuery);
+                        
+                        $commentsQuery = 'select * from ce_comments where post_id = \'' . $post['post_id'] . '\'';
+                        $post['comments'] = $db->runQueryGetAssocList($commentsQuery);
+                        
+                        
+                        $result[] = $post;
+                    }
+                    
+                    if (isset($_REQUEST["callback"])) {
+                        header('Content-type: text/javascript');
+                        print str_replace('{', '', $_REQUEST["callback"]) .'('.json_encode($result).')';
+                    } else {
+                        header('Content-type: application/json');
+                        print json_encode($result);
+                    }  
+                    
+                    die();
+
+                    
+                    break;
+                
                 case 'searchposts':
 
                     $conditions = array();

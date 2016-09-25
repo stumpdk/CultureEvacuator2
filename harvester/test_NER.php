@@ -3,6 +3,9 @@
 include 'NamedEntityRecognizer.php';
 
 $ner = new NamedEntityRecognizer();
+
+$data = file_get_contents($argv[1]);
+
 var_dump(
-    json_encode($ner->parse('dette er en teststring lavet af Bo Henriksen i september 2016'))
+    json_encode($ner->parse($data))
     );

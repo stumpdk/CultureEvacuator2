@@ -99,6 +99,8 @@ CREATE TABLE IF NOT EXISTS `ce_posts` (
   `post_id` varchar(50) NOT NULL COMMENT 'facebook internal post id',
   `picture` text COMMENT 'Link til billede (Hvis de er noget på posten)',
   `picture_large` text COMMENT 'Linkt til stort billede (med laaaange URLer)',
+  `picture_large_height` INT(11) DEFAULT NULL,
+  `picture_large_width` INT(11) DEFAULT NULL,
   `link` char(250) DEFAULT NULL COMMENT 'Link til posten på facebook',
   `created_time` datetime DEFAULT NULL,
   `updated_time` datetime DEFAULT NULL,

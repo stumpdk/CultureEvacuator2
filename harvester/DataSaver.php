@@ -36,9 +36,10 @@
 		public function savePosts($data){
 			foreach($data as $d){
 				if(isset($d->picture)){
-					$this->getKeyWords($d->message, $d->id);	
-                    $this->savePost($d);
-                    return $d->id;                    
+					if($this->savePost($d)){
+						$this->getKeyWords($d->message, $d->id);	
+                    	return $d->id;          
+					}
                 }
 			}
 		}
@@ -47,14 +48,14 @@
 		* Parse single FB post and puts int in DB
 		* Unique constraint on post_id ensures no dobbles
 		*/
-		function savePost($d,$largeImage = "no-large-image-found"){
+		function savePost($d,$largeImage = "no-large-image-found", $imgHeight = null, $imgWidth = null){
 	        if(isset($d->picture)){ // only save posts with pictures 
-                $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_posts (post_id,picture,picture_large,link,created_time, updated_time ,message) VALUES (?,?,?,?,?,?,?)");
+                $stmt = Database::getInstance()->prepareStatement("INSERT INTO ce_posts (post_id,picture,picture_large, picture_large_height, picture_large_width,link,created_time, updated_time ,message) VALUES (?,?,?,?,?,?,?,?,?)");
 
                 if($stmt){
                     /* Bind our params */
-                    $stmt->bind_param('sssssss', $d->id, $d->picture ,$largeImage, $d->link, $d->created_time, $d->updated_time, $d->message);
-                    $stmt->execute();                    
+                    $stmt->bind_param('sssssssss', $d->id, $d->picture ,$largeImage, $imgHeight, $imgWidth, $d->link, $d->created_time, $d->updated_time, $d->message);
+                    return $stmt->execute();                    
                 }
                 else{
                     die( 'Statement could not be prepared when saving posts: ' . Database::getInstance()->getError() );

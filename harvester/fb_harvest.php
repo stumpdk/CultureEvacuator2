@@ -40,7 +40,7 @@ $saver->init();
 				<div class="radio disabled">
   					<label>
     					<input type="radio" name="group" id="group" value="2">
-    					Gruppe 2
+    					Gamle billeder fra Oslo
   					</label>
 				</div>
 				<div class="radio disabled">
@@ -96,8 +96,8 @@ $group = $_GET["group"];
 
 if($group == "2" ){
 	// Set to another group id
-	$groupid = "109602915873899";	// TODO: change
-	$groupName = "Vesterbro Billeder";
+	$groupid = "27310119378";
+	$groupName = "Oslo Billeder";
 }
 
 
@@ -120,25 +120,30 @@ FacebookSession::setDefaultApplication('294028730792515', 'ea0876ce78b6f88d33d3c
 	// $saver->savePosts($dataArr);
 	foreach($dataArr as $d){
 		if(isset($d->picture)){
-			if(isset($d->message) && isset($d->id)){
-				$saver->getKeyWords($d->message, $d->id);	
-			}
       $images = harvestImages($d->object_id);
       
       $imageArr = $images->asArray();
-      
+
       $largeImage =  $imageArr['images'][0]->source;
+			$largeImageHeight = $imageArr['images'][0]->height;
+			$largeImageWidth = $imageArr['images'][0]->width;
 
-      $saver->savePost($d,$largeImage);
-      $comments = harvestComments($d->id);
-      if(is_object($comments)){
-      $commentsArr = $comments->getProperty("data")->asArray();
-			$saver->saveComments($commentsArr, $d->id);	
+      if($saver->savePost($d,$largeImage, $imageArr['images'][0]->height, $imageArr['images'][0]->width)){
+			
+				if(isset($d->message) && isset($d->id)){
+					$saver->getKeyWords($d->message, $d->id);	
+				}
+	      
+	      $comments = harvestComments($d->id);
+	      if(is_object($comments)){
+	      $commentsArr = $comments->getProperty("data")->asArray();
+				$saver->saveComments($commentsArr, $d->id);	
       }
+    }
       
       
 
-    }
+  }
 	}
 	
 ?>

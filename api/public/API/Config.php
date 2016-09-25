@@ -34,9 +34,9 @@
     class APIConfig{
         //Database informations
         public static $dbhost = 'localhost';
-        public static $dbuser = 'root';
-        public static $dbpass = 'root';
-        public static $dbname = 'hack4dk2014';
+        public static $dbuser = 'stumpdk';
+        public static $dbpass = '';
+        public static $dbname = 'c9';
         public static $dbCharSet = 'utf8';
 
         //Whether or not the statistics should be enabled
@@ -61,7 +61,7 @@
         public static $requestCounterTimeRange = 86400;
 
         //Error reporting level
-        public static $errorReportLevel = E_ALL;
+        public static $errorReportLevel = E_ERROR;
     }
 
 ?>
